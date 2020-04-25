@@ -16,4 +16,11 @@ This is the official iOS SDK for Sensors Analytics.
 See our [full manual](http://www.sensorsdata.cn/manual/ios_sdk.html)
 
 ## 感谢
-[mixpane
+[mixpanel-iphone](https://github.com/mixpanel/mixpanel-iphone) 
+
+## License
+
+Copyright 2015－2017 Sensors Data Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance w

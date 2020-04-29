@@ -31,4 +31,11 @@
 #endif
     [[SensorsAnalyticsSDK sharedInstance] setMaxCacheSize:20000];
     
-    [[SensorsAnalyticsSDK sharedInstance] setFlushNetworkPoli
+    [[SensorsAnalyticsSDK sharedInstance] setFlushNetworkPolicy:SensorsAnalyticsNetworkTypeWIFI];
+
+    [[SensorsAnalyticsSDK sharedInstance] addWebViewUserAgentSensorsDataFlag];
+    return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    // Sent when the application is a

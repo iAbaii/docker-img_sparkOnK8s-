@@ -25,4 +25,10 @@
     [[SensorsAnalyticsSDK sharedInstance] enableAutoTrack:SensorsAnalyticsEventTypeAppStart |
      SensorsAnalyticsEventTypeAppEnd |
      SensorsAnalyticsEventTypeAppViewScreen |
-     SensorsAn
+     SensorsAnalyticsEventTypeAppClick];
+#ifdef DEBUG
+    [[SensorsAnalyticsSDK sharedInstance] enableEditingVTrack];
+#endif
+    [[SensorsAnalyticsSDK sharedInstance] setMaxCacheSize:20000];
+    
+    [[SensorsAnalyticsSDK sharedInstance] setFlushNetworkPoli

@@ -7,4 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#impo
+#import "SensorsAnalyticsSDK.h"
+
+@interface AutoTrackViewController : UIViewController<SAUIViewAutoTrackDelegate>
+- (IBAction)onButton1Click:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *myButton1;
+@property (weak, nonat

@@ -19,4 +19,8 @@
     // Do any additional setup after loading the view.
     
     _myLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer al
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelTouchUpInside:)];
+    
+    [_myLabel addGestureRecognizer:labelTapGestureRecognizer];
+    
+    [_myUISwitch addTarget:self action:@selector(picSwitchClick:) forC

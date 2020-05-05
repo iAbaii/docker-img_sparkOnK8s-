@@ -23,4 +23,14 @@
     
     [_myLabel addGestureRecognizer:labelTapGestureRecognizer];
     
-    [_myUISwitch addTarget:self action:@selector(picSwitchClick:) forC
+    [_myUISwitch addTarget:self action:@selector(picSwitchClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _myButton1.sensorsAnalyticsDelegate = self;
+}
+
+-(void)picSwitchClick:(UISwitch *)sender {
+
+}
+
+-(void) labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
+    UILabel *label=(

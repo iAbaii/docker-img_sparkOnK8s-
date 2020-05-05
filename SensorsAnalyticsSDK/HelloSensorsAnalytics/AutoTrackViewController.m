@@ -14,4 +14,9 @@
 
 @implementation AutoTrackViewController
 
-- (void)viewDidL
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    _myLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer al

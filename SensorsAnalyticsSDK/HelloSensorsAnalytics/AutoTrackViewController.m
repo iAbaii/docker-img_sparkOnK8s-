@@ -33,4 +33,14 @@
 }
 
 -(void) labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
-    UILabel *label=(
+    UILabel *label=(UILabel*)recognizer.view;
+    NSLog(@"%@被点击了",label.text);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Na

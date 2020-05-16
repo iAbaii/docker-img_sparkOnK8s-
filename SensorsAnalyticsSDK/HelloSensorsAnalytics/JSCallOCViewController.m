@@ -16,4 +16,10 @@
     UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.title = @"UIWebView";
 
-    NSString *path = [[[NSBundl
+    NSString *path = [[[NSBundle mainBundle] bundlePath]  stringByAppendingPathComponent:@"JSCallOC.html"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]];
+    [webView loadRequest:request];
+
+    webView.delegate = self;
+
+    [se

@@ -9,4 +9,11 @@
 #import "JSCallOCViewController.h"
 #import "SensorsAnalyticsSDK.h"
 
-@implementation JSCallOCVie
+@implementation JSCallOCViewController
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.title = @"UIWebView";
+
+    NSString *path = [[[NSBundl

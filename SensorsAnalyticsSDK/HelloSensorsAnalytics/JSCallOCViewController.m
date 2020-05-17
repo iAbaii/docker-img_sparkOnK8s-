@@ -40,4 +40,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    //[[SensorsAnalyticsSDK sharedInstance] showUpWebVi
+    //[[SensorsAnalyticsSDK sharedInstance] showUpWebView:webView];
+}
+
+@end

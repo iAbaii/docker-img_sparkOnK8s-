@@ -33,4 +33,11 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([[SensorsA
+    if ([[SensorsAnalyticsSDK sharedInstance] showUpWebView:webView WithRequest:request]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //[[SensorsAnalyticsSDK sharedInstance] showUpWebVi

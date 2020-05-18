@@ -13,4 +13,11 @@
 @interface JSCallOCViewController2 ()<WKNavigationDelegate, WKUIDelegate>
 @property WKWebView *webView;
 @end
-@implementation JSCallOCViewContr
+@implementation JSCallOCViewController2
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    self.title = @"WKWebView";
+
+    NSString *path = [[[NSBundle mainBundle] bundlePath

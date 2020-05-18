@@ -20,4 +20,7 @@
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
     self.title = @"WKWebView";
 
-    NSString *path = [[[NSBundle mainBundle] bundlePath
+    NSString *path = [[[NSBundle mainBundle] bundlePath]  stringByAppendingPathComponent:@"JSCallOC.html"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]];
+
+    [_webView addObserver:self forKeyPath:@"loading" optio

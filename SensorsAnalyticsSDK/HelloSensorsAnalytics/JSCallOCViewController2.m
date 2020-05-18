@@ -6,4 +6,11 @@
 //  Copyright © 2016年 SensorsData. All rights reserved.
 //
 
-#import "JSCallOCV
+#import "JSCallOCViewController2.h"
+#import "SensorsAnalyticsSDK.h"
+@import WebKit;
+
+@interface JSCallOCViewController2 ()<WKNavigationDelegate, WKUIDelegate>
+@property WKWebView *webView;
+@end
+@implementation JSCallOCViewContr

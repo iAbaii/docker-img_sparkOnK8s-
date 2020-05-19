@@ -23,4 +23,11 @@
     NSString *path = [[[NSBundle mainBundle] bundlePath]  stringByAppendingPathComponent:@"JSCallOC.html"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]];
 
-    [_webView addObserver:self forKeyPath:@"loading" optio
+    [_webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
+    _webView.UIDelegate = self;
+    _webView.navigationDelegate = self;
+
+    [self.view addSubview:_webView];
+
+    //网址
+//    NSString *httpStr=@"https://www.sensorsdata

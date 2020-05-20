@@ -46,4 +46,5 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (v
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if ([[SensorsAnalyti

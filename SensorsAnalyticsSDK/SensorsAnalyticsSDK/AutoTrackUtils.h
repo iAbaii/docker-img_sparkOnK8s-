@@ -12,4 +12,8 @@
 
 + (void)trackAppClickWithUITableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
-+ (void)trackAppClickWithUICollectionView:(UICollectionView 
++ (void)trackAppClickWithUICollectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
++ (NSString *)contentFromView:(UIView *)rootView;
+
+@end

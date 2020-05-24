@@ -6,4 +6,10 @@
 //  Copyright © 2017年 SensorsData. All rights reserved.
 //
 
-#import <UIKit/UIKit.
+#import <UIKit/UIKit.h>
+
+@interface AutoTrackUtils : NSObject
+
++ (void)trackAppClickWithUITableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
++ (void)trackAppClickWithUICollectionView:(UICollectionView 

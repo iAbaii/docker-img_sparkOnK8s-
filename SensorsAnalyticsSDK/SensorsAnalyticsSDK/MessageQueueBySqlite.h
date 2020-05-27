@@ -21,4 +21,18 @@
  *
  *  @param filePath 传入的数据文件路径
  *
- *  @
+ *  @return 初始化的结果
+ */
+- (id)initWithFilePath:(NSString*)filePath;
+
+/**
+ *  @abstract
+ *  向队列中添加一个对象
+ *
+ *  @param obj 添加的对象
+ */
+- (void)addObejct:(id)obj withType:(NSString *)type;
+
+/**
+ *  @abstract
+ *  从队列最前端，获取指定数

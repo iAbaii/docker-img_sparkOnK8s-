@@ -35,4 +35,16 @@
 
 /**
  *  @abstract
- *  从队列最前端，获取指定数
+ *  从队列最前端，获取指定数目的记录，获取的记录以json字符串的形式存放在数组中
+ *
+ *  @param recordSize 要获取的记录的条目数
+ *
+ *  @return 获取的记录所在的数组
+ */
+- (NSArray *) getFirstRecords:(NSUInteger)recordSize withType:(NSString *)type ;
+
+
+/**
+ *  @abstract
+ *  从队列最前端，删除指定数量的记录
+ 

@@ -47,4 +47,17 @@
 /**
  *  @abstract
  *  从队列最前端，删除指定数量的记录
- 
+ *
+ *  @param recordSize 要删除的记录的数量
+ *
+ *  @return 删除是否成功
+ */
+- (BOOL) removeFirstRecords:(NSUInteger)recordSize withType:(NSString *)type ;
+
+/**
+ *  @abstract
+ *  获取当前记录的数量
+ *
+ *  @return 当前记录的数量
+ */
+- (NSUInteger) count

@@ -123,3 +123,74 @@
                 }
 
                 [contentArray addObject:[[NSString alloc] initWithData:[_jsonUtil JSONSerializeObject:eventDict] encoding:NSUTF8StringEncoding]];
+            } @catch (NSException *exception) {
+                SAError(@"Found NON UTF8 String, ignore");
+            }
+        }
+        sqlite3_finalize(stmt);
+    }
+    else {
+        SAError(@"Failed to prepare statement with rc:%d, error:%s", rc, sqlite3_errmsg(_database));
+        return nil;
+    }
+    return [NSArray arrayWithArray:contentArray];
+}
+
+- (BOOL) removeFirstRecords:(NSUInteger)recordSize withType:(NSString *)type {
+    NSUInteger removeSize = MIN(recordSize, _messageCount);
+    NSString* query = [NSString stringWithFormat:@"DELETE FROM dataCache WHERE id IN (SELECT id FROM dataCache WHERE type = '%@' ORDER BY id ASC LIMIT %lu);", type, (unsigned long)removeSize];
+    char* errMsg;
+    @try {
+        if (sqlite3_exec(_database, [query UTF8String], NULL, NULL, &errMsg) != SQLITE_OK) {
+            SAError(@"Failed to delete record msg=%s", errMsg);
+            return NO;
+        }
+    } @catch (NSException *exception) {
+        SAError(@"Failed to delete record exception=%@",exception);
+        return NO;
+    }
+    _messageCount = [self sqliteCount];
+    return YES;
+}
+
+- (NSUInteger) count {
+    return _messageCount;
+}
+
+- (NSInteger) sqliteCount {
+    NSString* query = @"select count(*) from dataCache";
+    sqlite3_stmt* statement = NULL;
+    NSInteger count = -1;
+    int rc = sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, NULL);
+    if(rc == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            count = sqlite3_column_int(statement, 0);
+        }
+        sqlite3_finalize(statement);
+    }
+    else {
+        SAError(@"Failed to prepare statement, rc is %d", rc);
+    }
+    return count;
+}
+
+- (BOOL) vacuum {
+#ifdef SENSORS_ANALYTICS_ENABLE_VACUUM
+    @try {
+        NSString* query = @"VACUUM";
+        char* errMsg;
+        if (sqlite3_exec(_database, [query UTF8String], NULL, NULL, &errMsg) != SQLITE_OK) {
+            SAError(@"Failed to delete record msg=%s", errMsg);
+            return NO;
+        }
+        return YES;
+    } @catch (NSException *exception) {
+        return NO;
+    }
+#else
+    return YES;
+#endif
+}
+
+
+@end

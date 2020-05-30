@@ -60,4 +60,15 @@
  *
  *  @return 当前记录的数量
  */
-- (NSUInteger) count
+- (NSUInteger) count;
+
+/**
+ *  @abstract
+ *  缩减表格文件空洞数据的空间
+ *
+ *  @return 是否成功
+ */
+- (BOOL) vacuum;
+
+
+@end

@@ -14,4 +14,10 @@
 
 #import <Foundation/Foundation.h>
 
-void *SA_NewBas
+void *SA_NewBase64Decode(
+                         const char *inputBuffer,
+                         size_t length,
+                         size_t *outputLength);
+
+char *SA_NewBase64Encode(
+                         const void *inputBuff

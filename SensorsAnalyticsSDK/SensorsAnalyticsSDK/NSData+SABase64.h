@@ -20,4 +20,11 @@ void *SA_NewBase64Decode(
                          size_t *outputLength);
 
 char *SA_NewBase64Encode(
-                         const void *inputBuff
+                         const void *inputBuffer,
+                         size_t length,
+                         bool separateLines,
+                         size_t *outputLength);
+
+@interface NSData (SA_Base64)
+
++ (NSData *)sa_dataFromBas

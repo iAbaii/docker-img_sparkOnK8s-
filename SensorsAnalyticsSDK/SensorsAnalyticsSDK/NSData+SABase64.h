@@ -27,4 +27,7 @@ char *SA_NewBase64Encode(
 
 @interface NSData (SA_Base64)
 
-+ (NSData *)sa_dataFromBas
++ (NSData *)sa_dataFromBase64String:(NSString *)aString;
+- (NSString *)sa_base64EncodedString;
+
+@end

@@ -150,3 +150,134 @@ char *SA_NewBase64Encode(
     // Byte accurate calculation of final buffer size
     //
     size_t outputBufferSize =
+    ((length / BINARY_UNIT_SIZE)
+     + ((length % BINARY_UNIT_SIZE) ? 1 : 0))
+    * BASE64_UNIT_SIZE;
+    if (separateLines) {
+        outputBufferSize +=
+        (outputBufferSize / OUTPUT_LINE_LENGTH) * CR_LF_SIZE;
+    }
+    
+    //
+    // Include space for a terminating zero
+    //
+    outputBufferSize += 1;
+    
+    //
+    // Allocate the output buffer
+    //
+    char *outputBuffer = (char *)malloc(outputBufferSize);
+    if (!outputBuffer) {
+        return NULL;
+    }
+    
+    size_t i = 0;
+    size_t j = 0;
+    const size_t lineLength = separateLines ? INPUT_LINE_LENGTH : length;
+    size_t lineEnd = lineLength;
+    
+    while (true) {
+        if (lineEnd > length) {
+            lineEnd = length;
+        }
+        
+        for (; i + BINARY_UNIT_SIZE - 1 < lineEnd; i += BINARY_UNIT_SIZE) {
+            //
+            // Inner loop: turn 48 bytes into 64 base64 characters
+            //
+            outputBuffer[j++] = (char)base64EncodeLookup[(inputBuffer[i] & 0xFC) >> 2];
+            outputBuffer[j++] = (char)base64EncodeLookup[((inputBuffer[i] & 0x03) << 4)
+                                                         | ((inputBuffer[i + 1] & 0xF0) >> 4)];
+            outputBuffer[j++] = (char)base64EncodeLookup[((inputBuffer[i + 1] & 0x0F) << 2)
+                                                         | ((inputBuffer[i + 2] & 0xC0) >> 6)];
+            outputBuffer[j++] = (char)base64EncodeLookup[inputBuffer[i + 2] & 0x3F];
+        }
+        
+        if (lineEnd == length) {
+            break;
+        }
+        
+        //
+        // Add the newline
+        //
+        outputBuffer[j++] = '\r';
+        outputBuffer[j++] = '\n';
+        lineEnd += lineLength;
+    }
+    
+    if (i + 1 < length) {
+        //
+        // Handle the single '=' case
+        //
+        outputBuffer[j++] = (char)base64EncodeLookup[(inputBuffer[i] & 0xFC) >> 2];
+        outputBuffer[j++] = (char)base64EncodeLookup[((inputBuffer[i] & 0x03) << 4)
+                                                     | ((inputBuffer[i + 1] & 0xF0) >> 4)];
+        outputBuffer[j++] = (char)base64EncodeLookup[(inputBuffer[i + 1] & 0x0F) << 2];
+        outputBuffer[j++] =	'=';
+    }
+    else if (i < length) {
+        //
+        // Handle the double '=' case
+        //
+        outputBuffer[j++] = (char)base64EncodeLookup[(inputBuffer[i] & 0xFC) >> 2];
+        outputBuffer[j++] = (char)base64EncodeLookup[(inputBuffer[i] & 0x03) << 4];
+        outputBuffer[j++] = '=';
+        outputBuffer[j++] = '=';
+    }
+    outputBuffer[j] = 0;
+    
+    //
+    // Set the output length and return the buffer
+    //
+    if (outputLength) {
+        *outputLength = j;
+    }
+    return outputBuffer;
+}
+
+@implementation NSData (SA_Base64)
+
+//
+// dataFromBase64String:
+//
+// Creates an NSData object containing the base64 decoded representation of
+// the base64 string 'aString'
+//
+// Parameters:
+//    aString - the base64 string to decode
+//
+// returns the autoreleased NSData representation of the base64 string
+//
++ (NSData *)sa_dataFromBase64String:(NSString *)aString {
+    NSData *data = [aString dataUsingEncoding:NSASCIIStringEncoding];
+    size_t outputLength;
+    void *outputBuffer = SA_NewBase64Decode([data bytes], [data length], &outputLength);
+    NSData *result = [NSData dataWithBytes:outputBuffer length:outputLength];
+    free(outputBuffer);
+    return result;
+}
+
+//
+// base64EncodedString
+//
+// Creates an NSString object that contains the base 64 encoding of the
+// receiver's data. Lines are broken at 64 characters long.
+//
+// returns an autoreleased NSString being the base 64 representation of the
+//	receiver.
+//
+- (NSString *)sa_base64EncodedString {
+    size_t outputLength = 0;
+    char *outputBuffer =
+    SA_NewBase64Encode([self bytes], [self length], false, &outputLength);
+    
+    NSString *result =
+    [[NSString alloc]
+     initWithBytes:outputBuffer
+     length:outputLength
+     encoding:NSASCIIStringEncoding];
+    free(outputBuffer);
+    return result;
+}
+
+@end

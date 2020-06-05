@@ -9,4 +9,11 @@
 
 typedef union {
     char                    _chr;
-    unsigned char        
+    unsigned char           _uchr;
+    short                   _sht;
+    unsigned short          _usht;
+    int                     _int;
+    unsigned int            _uint;
+    long                    _lng;
+    unsigned long           _ulng;
+    lon

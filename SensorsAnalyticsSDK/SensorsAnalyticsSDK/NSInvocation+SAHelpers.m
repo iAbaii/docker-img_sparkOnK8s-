@@ -16,4 +16,11 @@ typedef union {
     unsigned int            _uint;
     long                    _lng;
     unsigned long           _ulng;
-    lon
+    long long               _lng_lng;
+    unsigned long long      _ulng_lng;
+    float                   _flt;
+    double                  _dbl;
+    _Bool                   _bool;
+} MPObjCNumericTypes;
+
+static voi

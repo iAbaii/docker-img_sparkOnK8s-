@@ -35,4 +35,11 @@ static void *SAAllocBufferForObjCType(const char *objCType)
     void *buffer = NULL;
 
     NSUInteger size, alignment;
-    NSGetSizeAndAlignment(objCType, &size, &alignment
+    NSGetSizeAndAlignment(objCType, &size, &alignment);
+
+    int result = posix_memalign(&buffer, MAX(sizeof(void *), alignment), size);
+    if (result != 0) {
+        SAError(@"Error allocating aligned memory: %s", strerror(result));
+    }
+
+    if (buffer

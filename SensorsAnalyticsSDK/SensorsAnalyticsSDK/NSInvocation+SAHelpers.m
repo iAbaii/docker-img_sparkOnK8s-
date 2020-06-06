@@ -42,4 +42,15 @@ static void *SAAllocBufferForObjCType(const char *objCType)
         SAError(@"Error allocating aligned memory: %s", strerror(result));
     }
 
-    if (buffer
+    if (buffer) {
+        memset(buffer, 0, size);
+    }
+
+    return buffer;
+}
+
+@implementation NSInvocation (SAHelpers)
+
+- (void)sa_setArgument:(id)argumentValue atIndex:(NSUInteger)index
+{
+    const char *

@@ -23,4 +23,16 @@ typedef union {
     _Bool                   _bool;
 } MPObjCNumericTypes;
 
-static voi
+static void SAFree(void *p)
+{
+    if (p) {
+        free(p);
+    }
+}
+
+static void *SAAllocBufferForObjCType(const char *objCType)
+{
+    void *buffer = NULL;
+
+    NSUInteger size, alignment;
+    NSGetSizeAndAlignment(objCType, &size, &alignment

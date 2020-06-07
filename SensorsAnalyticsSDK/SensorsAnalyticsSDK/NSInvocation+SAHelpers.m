@@ -53,4 +53,8 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 
 - (void)sa_setArgument:(id)argumentValue atIndex:(NSUInteger)index
 {
-    const char *
+    const char *argumentType = [self.methodSignature getArgumentTypeAtIndex:index];
+
+    if ([argumentValue isKindOfClass:[NSNumber class]] && strlen(argumentType) == 1) {
+        // Deal with NSNumber instances (converting to primitive numbers)
+     

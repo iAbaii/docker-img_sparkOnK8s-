@@ -65,4 +65,6 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_CHR:      arg._chr      = [numberArgument charValue];                break;
             case _C_UCHR:     arg._uchr     = [numberArgument unsignedCharValue];        break;
             case _C_SHT:      arg._sht      = [numberArgument shortValue];               break;
-            ca
+            case _C_USHT:     arg._usht     = [numberArgument unsignedShortValue];       break;
+            case _C_INT:      arg._int      = [numberArgument intValue];                 break;
+            case _C_UINT:     arg._uint     = [num

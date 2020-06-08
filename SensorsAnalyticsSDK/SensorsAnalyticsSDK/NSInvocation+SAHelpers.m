@@ -62,4 +62,7 @@ static void *SAAllocBufferForObjCType(const char *objCType)
         MPObjCNumericTypes arg;
         switch (argumentType[0])
         {
-            case _C_CHR:      arg._chr      = [numberArgument charValue];            
+            case _C_CHR:      arg._chr      = [numberArgument charValue];                break;
+            case _C_UCHR:     arg._uchr     = [numberArgument unsignedCharValue];        break;
+            case _C_SHT:      arg._sht      = [numberArgument shortValue];               break;
+            ca

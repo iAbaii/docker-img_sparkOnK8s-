@@ -57,4 +57,9 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 
     if ([argumentValue isKindOfClass:[NSNumber class]] && strlen(argumentType) == 1) {
         // Deal with NSNumber instances (converting to primitive numbers)
-     
+        NSNumber *numberArgument = argumentValue;
+
+        MPObjCNumericTypes arg;
+        switch (argumentType[0])
+        {
+            case _C_CHR:      arg._chr      = [numberArgument charValue];            

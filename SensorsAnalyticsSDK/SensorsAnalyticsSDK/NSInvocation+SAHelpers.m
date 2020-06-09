@@ -71,4 +71,7 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_LNG:      arg._lng      = [numberArgument longValue];                break;
             case _C_ULNG:     arg._ulng     = [numberArgument unsignedLongValue];        break;
             case _C_LNG_LNG:  arg._lng_lng  = [numberArgument longLongValue];            break;
-            case _C_ULNG_LNG: arg._ulng_lng = [numberArgument unsignedLongLongValue];    bre
+            case _C_ULNG_LNG: arg._ulng_lng = [numberArgument unsignedLongLongValue];    break;
+            case _C_FLT:      arg._flt      = [numberArgument floatValue];               break;
+            case _C_DBL:      arg._dbl      = [numberArgument doubleValue];              break;
+            case _C_

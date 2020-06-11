@@ -74,4 +74,9 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_ULNG_LNG: arg._ulng_lng = [numberArgument unsignedLongLongValue];    break;
             case _C_FLT:      arg._flt      = [numberArgument floatValue];               break;
             case _C_DBL:      arg._dbl      = [numberArgument doubleValue];              break;
-            case _C_
+            case _C_BOOL:     arg._bool     = [numberArgument boolValue];                break;
+            default:
+                NSAssert(NO, @"Currently unsupported argument type!");
+        }
+
+        [self setA

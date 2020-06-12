@@ -79,4 +79,10 @@ static void *SAAllocBufferForObjCType(const char *objCType)
                 NSAssert(NO, @"Currently unsupported argument type!");
         }
 
-        [self setA
+        [self setArgument:&arg atIndex:(NSInteger)index];
+    }
+    else if ([argumentValue isKindOfClass:[NSValue class]])
+    {
+        NSValue *valueArgument = argumentValue;
+
+        NSAssert2(strcmp([valueArgumen

@@ -89,4 +89,13 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 
         void *buffer = SAAllocBufferForObjCType([valueArgument objCType]);
 
-        [valueArgument getValu
+        [valueArgument getValue:buffer];
+
+        [self setArgument:&buffer atIndex:(NSInteger)index];
+
+        SAFree(buffer);
+    } else {
+        switch (argumentType[0])
+        {
+            case _C_ID:
+     

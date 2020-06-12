@@ -85,4 +85,8 @@ static void *SAAllocBufferForObjCType(const char *objCType)
     {
         NSValue *valueArgument = argumentValue;
 
-        NSAssert2(strcmp([valueArgumen
+        NSAssert2(strcmp([valueArgument objCType], argumentType) == 0, @"Objective-C type mismatch (%s != %s)!", [valueArgument objCType], argumentType);
+
+        void *buffer = SAAllocBufferForObjCType([valueArgument objCType]);
+
+        [valueArgument getValu

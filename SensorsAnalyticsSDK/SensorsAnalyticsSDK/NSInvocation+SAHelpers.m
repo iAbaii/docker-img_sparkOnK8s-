@@ -105,4 +105,8 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_SEL:
             {
                 SEL sel = NSSelectorFromString(argumentValue);
-       
+                [self setArgument:&sel atIndex:(NSInteger)index];
+                break;
+            }
+            default:
+                NSAssert(NO, @"Currently unsupported argument t

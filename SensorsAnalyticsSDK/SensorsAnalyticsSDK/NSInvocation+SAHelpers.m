@@ -98,4 +98,11 @@ static void *SAAllocBufferForObjCType(const char *objCType)
         switch (argumentType[0])
         {
             case _C_ID:
-     
+            {
+                [self setArgument:&argumentValue atIndex:(NSInteger)index];
+                break;
+            }
+            case _C_SEL:
+            {
+                SEL sel = NSSelectorFromString(argumentValue);
+       

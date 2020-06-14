@@ -109,4 +109,13 @@ static void *SAAllocBufferForObjCType(const char *objCType)
                 break;
             }
             default:
-                NSAssert(NO, @"Currently unsupported argument t
+                NSAssert(NO, @"Currently unsupported argument type!");
+        }
+    }
+}
+
+- (void)sa_setArgumentsFromArray:(NSArray *)argumentArray
+{
+    NSParameterAssert([argumentArray count] == ([self.methodSignature numberOfArguments] - 2));
+
+    for (NSUInteger i = 0; i < [a

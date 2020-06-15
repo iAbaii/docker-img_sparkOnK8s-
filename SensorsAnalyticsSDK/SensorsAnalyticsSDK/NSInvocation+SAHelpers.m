@@ -118,4 +118,12 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 {
     NSParameterAssert([argumentArray count] == ([self.methodSignature numberOfArguments] - 2));
 
-    for (NSUInteger i = 0; i < [a
+    for (NSUInteger i = 0; i < [argumentArray count]; ++i) {
+        NSUInteger argumentIndex = 2 + i;
+        [self sa_setArgument:argumentArray[i] atIndex:argumentIndex];
+    }
+}
+
+- (id)sa_returnValue
+{
+    __strong id returnValue = 

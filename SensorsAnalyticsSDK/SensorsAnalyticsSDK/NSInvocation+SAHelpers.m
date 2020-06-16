@@ -135,4 +135,8 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 
     [self getReturnValue:buffer];
 
- 
+    if (strlen(objCType) == 1) {
+        switch (objCType[0])
+        {
+            case _C_CHR:      returnValue = @(*((char *)buffer));                   break;
+            case _C_UCHR:     returnValue = @(*((unsigned char *)buffer));        

@@ -126,4 +126,13 @@ static void *SAAllocBufferForObjCType(const char *objCType)
 
 - (id)sa_returnValue
 {
-    __strong id returnValue = 
+    __strong id returnValue = nil;
+
+    NSMethodSignature *methodSignature = self.methodSignature;
+
+    const char *objCType = [methodSignature methodReturnType];
+    void *buffer = SAAllocBufferForObjCType(objCType);
+
+    [self getReturnValue:buffer];
+
+ 

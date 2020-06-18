@@ -144,4 +144,6 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_USHT:     returnValue = @(*((unsigned short *)buffer));         break;
             case _C_INT:      returnValue = @(*((int *)buffer));                    break;
             case _C_UINT:     returnValue = @(*((unsigned int *)buffer));           break;
-           
+            case _C_LNG:      returnValue = @(*((long *)buffer));                   break;
+            case _C_ULNG:     returnValue = @(*((unsigned long*)buffer));           break;
+            case _C

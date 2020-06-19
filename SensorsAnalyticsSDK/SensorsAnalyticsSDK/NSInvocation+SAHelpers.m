@@ -154,4 +154,13 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_ID:       returnValue = *((__unsafe_unretained id *)buffer);    break;
             case _C_SEL:      returnValue = NSStringFromSelector(*((SEL *)buffer)); break;
             default:
-                NSAssert1(NO, @"Unhandled return type: %
+                NSAssert1(NO, @"Unhandled return type: %s", objCType);
+                break;
+        }
+    } else {
+        switch (objCType[0])
+        {
+            case _C_STRUCT_B: returnValue = [NSValue valueWithBytes:buffer objCType:objCType]; break;
+            case _C_PTR:
+            {
+    

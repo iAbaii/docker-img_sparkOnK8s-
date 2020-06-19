@@ -151,4 +151,7 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_FLT:      returnValue = @(*((float *)buffer));                  break;
             case _C_DBL:      returnValue = @(*((double *)buffer));                 break;
             case _C_BOOL:     returnValue = @(*((_Bool *)buffer));                  break;
-            ca
+            case _C_ID:       returnValue = *((__unsafe_unretained id *)buffer);    break;
+            case _C_SEL:      returnValue = NSStringFromSelector(*((SEL *)buffer)); break;
+            default:
+                NSAssert1(NO, @"Unhandled return type: %

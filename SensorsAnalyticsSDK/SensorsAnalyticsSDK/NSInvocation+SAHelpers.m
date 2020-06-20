@@ -163,4 +163,6 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             case _C_STRUCT_B: returnValue = [NSValue valueWithBytes:buffer objCType:objCType]; break;
             case _C_PTR:
             {
-    
+                CFTypeRef cfTypeRef = *(CFTypeRef *)buffer;
+                if ((strcmp(objCType, @encode(CGImageRef)) == 0 && CFGetTypeID(cfTypeRef) == CGImageGetTypeID()) ||
+                    (str

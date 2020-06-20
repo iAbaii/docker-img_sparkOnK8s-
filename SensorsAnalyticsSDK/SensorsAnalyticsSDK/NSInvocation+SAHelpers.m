@@ -165,4 +165,8 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             {
                 CFTypeRef cfTypeRef = *(CFTypeRef *)buffer;
                 if ((strcmp(objCType, @encode(CGImageRef)) == 0 && CFGetTypeID(cfTypeRef) == CGImageGetTypeID()) ||
-                    (str
+                    (strcmp(objCType, @encode(CGColorRef)) == 0 && CFGetTypeID(cfTypeRef) == CGColorGetTypeID()))
+                {
+                    returnValue = (__bridge id)cfTypeRef;
+                } else {
+                    NS

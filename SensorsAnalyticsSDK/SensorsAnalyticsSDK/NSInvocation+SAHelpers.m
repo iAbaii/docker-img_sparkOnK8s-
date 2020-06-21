@@ -175,4 +175,13 @@ static void *SAAllocBufferForObjCType(const char *objCType)
             }
             default:
                 NSAssert1(NO, @"Unhandled return type: %s", objCType);
-               
+                break;
+        }
+    }
+
+    SAFree(buffer);
+
+    return returnValue;
+}
+
+@end

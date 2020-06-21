@@ -75,3 +75,25 @@
         NSString *b64String = [zippedData sa_base64EncodedString];
 
         [jsonObject setValue:b64String forKey:@"gzip_payload"];
+    } else {
+        [jsonObject setValue:[_payload copy] forKey:@"payload"];
+    }
+
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 error:&error];
+    if (jsonData == nil && error) {
+        SAError(@"Failed to serialize test designer message: %@", error);
+    }
+
+    return jsonData;
+}
+
+- (NSOperation *)responseCommandWithConnection:(SADesignerConnection *)connection {
+    return nil;
+}
+
+- (NSString *)debugDescription {
+    return [NSString stringWithFormat:@"<%@:%p type='%@'>", NSStringFromClass([self class]), (__bridge void *)self, self.type];
+}
+
+@end

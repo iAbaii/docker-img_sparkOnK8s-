@@ -169,4 +169,10 @@ static void *SAAllocBufferForObjCType(const char *objCType)
                 {
                     returnValue = (__bridge id)cfTypeRef;
                 } else {
-                    NS
+                    NSAssert(NO, @"Currently unsupported return type!");
+                }
+                break;
+            }
+            default:
+                NSAssert1(NO, @"Unhandled return type: %s", objCType);
+               

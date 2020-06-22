@@ -1,0 +1,5 @@
+//
+//  SAClassDescription.h
+//  SensorsAnalyticsSDK
+//
+//  Cre

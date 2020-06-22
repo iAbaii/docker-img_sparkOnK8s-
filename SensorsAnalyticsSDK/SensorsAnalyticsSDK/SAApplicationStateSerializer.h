@@ -21,4 +21,6 @@
 
 - (UIImage *)screenshotImageForWindow:(UIWindow *)window;
 
-- (NSD
+- (NSDictionary *)objectHierarchyForWindow:(UIWindow *)window;
+
+@end

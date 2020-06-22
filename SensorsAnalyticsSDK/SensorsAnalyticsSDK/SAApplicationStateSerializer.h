@@ -15,4 +15,10 @@
 
 @interface SAApplicationStateSerializer : NSObject
 
-- (instancetype)initWithApplication:(UIApplication *
+- (instancetype)initWithApplication:(UIApplication *)application
+                      configuration:(SAObjectSerializerConfig *)configuration
+             objectIdentityProvider:(SAObjectIdentityProvider *)objectIdentityProvider;
+
+- (UIImage *)screenshotImageForWindow:(UIWindow *)window;
+
+- (NSD

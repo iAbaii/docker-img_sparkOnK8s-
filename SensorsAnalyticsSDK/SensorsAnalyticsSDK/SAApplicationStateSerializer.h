@@ -6,3 +6,13 @@
 //  Copyright (c) 2016年 SensorsData. All rights reserved.
 //
 /// Copyright (c) 2014 Mixpanel. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@class SAObjectSerializerConfig;
+@class SAObjectIdentityProvider;
+
+@interface SAApplicationStateSerializer : NSObject
+
+- (instancetype)initWithApplication:(UIApplication *

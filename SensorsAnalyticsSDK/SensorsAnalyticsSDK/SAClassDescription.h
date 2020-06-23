@@ -11,4 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "SATypeDescription.h"
 
-@interface SAC
+@interface SAClassDescription : SATypeDescription
+
+@property (nonatomic, readonly) SAClassDescription *superclassDescription;
+@property (nonatomic, readonly) NSArray *propertyDescriptions;
+@property (nonatomic

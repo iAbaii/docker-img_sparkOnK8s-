@@ -19,4 +19,14 @@
 
 - (instancetype)initWithSuperclassDescription:(SAClassDescription *)superclassDescription dictionary:(NSDictionary *)dictionary;
 
-- (BOOL)isDescript
+- (BOOL)isDescriptionForKindOfClass:(Class)class;
+
+@end
+
+@interface SADelegateInfo : NSObject
+
+@property (nonatomic, readonly) NSString *selectorName;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+@end

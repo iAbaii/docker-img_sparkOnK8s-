@@ -15,4 +15,8 @@
 
 @property (nonatomic, readonly) SAClassDescription *superclassDescription;
 @property (nonatomic, readonly) NSArray *propertyDescriptions;
-@property (nonatomic
+@property (nonatomic, readonly) NSArray *delegateInfos;
+
+- (instancetype)initWithSuperclassDescription:(SAClassDescription *)superclassDescription dictionary:(NSDictionary *)dictionary;
+
+- (BOOL)isDescript

@@ -13,4 +13,11 @@
 
 @protocol SADesignerMessage;
 
-@interface SADesignerConne
+@interface SADesignerConnection : NSObject
+
+@property (nonatomic, readonly) BOOL connected;
+@property (nonatomic, assign) BOOL sessionEnded;
+@property (nonatomic, assign) BOOL useGzip;
+
+- (instancetype)initWithURL:(NSURL *)url;
+- (instancetype)initWithURL:(NSUR

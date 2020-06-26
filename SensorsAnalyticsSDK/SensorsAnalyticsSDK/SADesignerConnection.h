@@ -23,4 +23,8 @@
 - (instancetype)initWithURL:(NSURL *)url keepTrying:(BOOL)keepTrying connectCallback:(void (^)())connectCallback disconnectCallback:(void (^)())disconnectCallback;
 
 - (void)setSessionObject:(id)object forKey:(NSString *)key;
-- (id)sessionObjectFor
+- (id)sessionObjectForKey:(NSString *)key;
+- (void)sendMessage:(id<SADesignerMessage>)message;
+- (void)close;
+
+@end

@@ -1,0 +1,3 @@
+//
+//  SADesignerDeviceInfoMessage.h
+//  Sensor

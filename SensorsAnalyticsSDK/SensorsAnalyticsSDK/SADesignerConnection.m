@@ -116,3 +116,181 @@
 }
 
 - (void)close {
+    [_webSocket close];
+    for (NSString *key in [_session keyEnumerator]) {
+        id value = [_session valueForKey:key];
+        if ([value conformsToProtocol:@protocol(SADesignerSessionCollection)]) {
+            [value cleanup];
+        }
+    }
+    _session = [[NSMutableDictionary alloc] init];
+}
+
+- (void)dealloc {
+    _webSocket.delegate = nil;
+    [self close];
+}
+
+- (void)setSessionObject:(id)object forKey:(NSString *)key {
+    NSParameterAssert(key != nil);
+
+    @synchronized (_session) {
+        _session[key] = object ?: [NSNull null];
+    }
+}
+
+- (id)sessionObjectForKey:(NSString *)key {
+    NSParameterAssert(key != nil);
+
+    @synchronized (_session) {
+        id object = _session[key];
+        return [object isEqual:[NSNull null]] ? nil : object;
+    }
+}
+
+- (void)sendMessage:(id<SADesignerMessage>)message {
+    if (_connected) {
+    
+        NSString *jsonString = [[NSString alloc] initWithData:[message JSONData:_useGzip] encoding:NSUTF8StringEncoding];
+//        SADebug(@"%@ VTrack sending message: %@", self, [message description]);
+        [_webSocket send:jsonString];
+    } else {
+        SADebug(@"Not sending message as we are not connected: %@", [message debugDescription]);
+    }
+}
+
+- (id <SADesignerMessage>)designerMessageForMessage:(id)message {
+    NSParameterAssert([message isKindOfClass:[NSString class]] || [message isKindOfClass:[NSData class]]);
+
+    id <SADesignerMessage> designerMessage = nil;
+
+    NSData *jsonData = [message isKindOfClass:[NSString class]] ? [(NSString *)message dataUsingEncoding:NSUTF8StringEncoding] : message;
+//    SADebug(@"%@ VTrack received message: %@", self, [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
+    NSError *error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *messageDictionary = (NSDictionary *)jsonObject;
+        NSString *type = messageDictionary[@"type"];
+        NSDictionary *payload = messageDictionary[@"payload"];
+
+        designerMessage = [_typeToMessageClassMap[type] messageWithType:type payload:payload];
+    } else {
+        SAError(@"Badly formed socket message expected JSON dictionary: %@", error);
+    }
+
+    return designerMessage;
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        SADebug(@"Canceled to connect VTrack ...");
+        _sessionEnded = YES;
+        [self close];
+    } else {
+        SADebug(@"Confirmed to connect VTrack ...");
+    }
+}
+
+#pragma mark - SAWebSocketDelegate Methods
+
+- (void)handleMessage:(id)message {
+    id<SADesignerMessage> designerMessage = [self designerMessageForMessage:message];
+    NSOperation *commandOperation = [designerMessage responseCommandWithConnection:self];
+    if (commandOperation) {
+        [_commandQueue addOperation:commandOperation];
+    }
+}
+
+- (void)webSocket:(SAWebSocket *)webSocket didReceiveMessage:(id)message {
+    if (!_connected) {
+        _connected = YES;
+        
+        NSString *alertTitle = @"Connecting to VTrack";
+        NSString *alertMessage = @"正在连接到 Sensors Analytics 可视化埋点管理界面...";
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            UIWindow *mainWindow = [SensorsAnalyticsSDK sharedInstance].vtrackWindow;
+            if (mainWindow == nil) {
+                mainWindow = [[UIApplication sharedApplication] delegate].window;
+            }
+            if (mainWindow == nil) {
+                return;
+            }
+            
+            UIAlertController *connectAlert = [UIAlertController
+                                               alertControllerWithTitle:alertTitle
+                                               message:alertMessage
+                                               preferredStyle:UIAlertControllerStyleAlert];
+            
+            [connectAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                SADebug(@"Canceled to connect VTrack ...");
+                
+                _sessionEnded = YES;
+                [self close];
+            }]];
+            
+            [connectAlert addAction:[UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                SADebug(@"Confirmed to connect VTrack ...");
+                
+                _connected = YES;
+                
+                if (_connectCallback) {
+                    _connectCallback();
+                }
+                
+                [self handleMessage:message];
+            }]];
+            
+            [[mainWindow rootViewController] presentViewController:connectAlert animated:YES completion:nil];
+        } else {
+            _connected = YES;
+            
+            if (_connectCallback) {
+                _connectCallback();
+            }
+            
+            [self handleMessage:message];
+
+            UIAlertView *connectAlert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续", nil];
+            [connectAlert show];
+        }
+    } else {
+        [self handleMessage:message];
+    }
+}
+
+- (void)webSocketDidOpen:(SAWebSocket *)webSocket {
+    _commandQueue.suspended = NO;
+}
+
+- (void)webSocket:(SAWebSocket *)webSocket didFailWithError:(NSError *)error {
+    _commandQueue.suspended = YES;
+    [_commandQueue cancelAllOperations];
+    _open = NO;
+    if (_connected) {
+        _connected = NO;
+        [self open:YES maxInterval:15 maxRetries:999];
+        if (_disconnectCallback) {
+            _disconnectCallback();
+        }
+    }
+}
+
+- (void)webSocket:(SAWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    SADebug(@"WebSocket did close with code '%d' reason '%@'.", (int)code, reason);
+    _commandQueue.suspended = YES;
+    [_commandQueue cancelAllOperations];
+    _open = NO;
+    if (_connected) {
+        _connected = NO;
+        [self open:YES maxInterval:15 maxRetries:999];
+        if (_disconnectCallback) {
+            _disconnectCallback();
+        }
+    }
+}
+
+@end

@@ -8,4 +8,11 @@
 /// Copyright (c) 2014 Mixpanel. All rights reserved.
 //
 
-#import <Foundati
+#import <Foundation/Foundation.h>
+#import "SAAbstractDesignerMessage.h"
+
+#pragma mark -- DeviceInfo Request
+
+extern NSString *const SADesignerDeviceInfoRequestMessageType;
+
+@interface SADesignerDeviceInfoRequestMessage : SAAbstractDesig

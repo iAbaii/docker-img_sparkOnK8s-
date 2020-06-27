@@ -15,4 +15,14 @@
 
 extern NSString *const SADesignerDeviceInfoRequestMessageType;
 
-@interface SADesignerDeviceInfoRequestMessage : SAAbstractDesig
+@interface SADesignerDeviceInfoRequestMessage : SAAbstractDesignerMessage
+
+@end
+
+#pragma mark -- DeviceInfo Response
+
+@interface SADesignerDeviceInfoResponseMessage : SAAbstractDesignerMessage
+
++ (instancetype)message;
+
+@property (nonatomic, co

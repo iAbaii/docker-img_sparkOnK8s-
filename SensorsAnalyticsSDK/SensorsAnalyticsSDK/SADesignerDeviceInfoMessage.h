@@ -29,4 +29,9 @@ extern NSString *const SADesignerDeviceInfoRequestMessageType;
 @property (nonatomic, copy) NSString *systemName;
 @property (nonatomic, copy) NSString *systemVersion;
 @property (nonatomic, copy) NSString *appVersion;
-@property (nonatomic, copy) NSString *deviceI
+@property (nonatomic, copy) NSString *deviceId;
+@property (nonatomic, copy) NSString *deviceName;
+@property (nonatomic, copy) NSString *deviceModel;
+@property (nonatomic, copy) NSString *libVersion;
+@property (nonatomic, copy) NSString *mainBundleIdentifier;
+@prope

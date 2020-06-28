@@ -102,3 +102,69 @@ NSString *const SADesignerDeviceInfoRequestMessageType = @"device_info_request";
 - (void)setSystemVersion:(NSString *)systemVersion {
     [self setPayloadObject:systemVersion forKey:@"$os_version"];
 }
+
+- (NSString *)appVersion {
+    return [self payloadObjectForKey:@"$app_version"];
+}
+
+- (void)setAppVersion:(NSString *)appVersion {
+    [self setPayloadObject:appVersion forKey:@"$app_version"];
+}
+
+- (NSString *)deviceId {
+    return [self payloadObjectForKey:@"$device_id"];
+}
+
+- (void)setDeviceId:(NSString *)deviceId {
+    [self setPayloadObject:deviceId forKey:@"$device_id"];
+}
+
+- (NSString *)deviceName {
+    return [self payloadObjectForKey:@"$device_name"];
+}
+
+- (void)setDeviceName:(NSString *)deviceName {
+    [self setPayloadObject:deviceName forKey:@"$device_name"];
+}
+
+- (NSString *)libVersion {
+    return [self payloadObjectForKey:@"$lib_version"];
+}
+
+- (void)setLibVersion:(NSString *)libVersion {
+    [self setPayloadObject:libVersion forKey:@"$lib_version"];
+}
+
+- (NSString *)deviceModel {
+    return [self payloadObjectForKey:@"$device_model"];
+}
+
+- (void)setDeviceModel:(NSString *)deviceModel {
+    [self setPayloadObject:deviceModel forKey:@"$device_model"];
+}
+
+- (NSString *)mainBundleIdentifier {
+    return [self payloadObjectForKey:@"$main_bundle_identifier"];
+}
+
+- (void)setMainBundleIdentifier:(NSString *)mainBundleIdentifier {
+    [self setPayloadObject:mainBundleIdentifier forKey:@"$main_bundle_identifier"];
+}
+
+- (NSString *)screenHeight {
+    return [self payloadObjectForKey:@"$screen_height"];
+}
+
+- (void)setScreenHeight:(NSString *)screenHeight {
+    [self setPayloadObject:screenHeight forKey:@"$screen_height"];
+}
+
+- (NSString *)screenWidth {
+    return [self payloadObjectForKey:@"$screen_width"];
+}
+
+- (void)setScreenWidth:(NSString *)screenWidth {
+    [self setPayloadObject:screenWidth forKey:@"$screen_width"];
+}
+
+@end

@@ -34,4 +34,7 @@ extern NSString *const SADesignerDeviceInfoRequestMessageType;
 @property (nonatomic, copy) NSString *deviceModel;
 @property (nonatomic, copy) NSString *libVersion;
 @property (nonatomic, copy) NSString *mainBundleIdentifier;
-@prope
+@property (nonatomic, copy) NSString *screenHeight;
+@property (nonatomic, copy) NSString *screenWidth;
+
+@end

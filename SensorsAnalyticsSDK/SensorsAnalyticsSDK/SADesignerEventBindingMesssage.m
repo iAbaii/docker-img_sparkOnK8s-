@@ -67,3 +67,70 @@ NSString *const SADesignerEventBindingRequestMessageType = @"event_binding_reque
 }
 
 - (NSString *)status {
+    return [self payloadObjectForKey:@"status"];
+}
+
+@end
+
+
+# pragma mark -- DebugTrack
+
+@implementation SADesignerTrackMessage {
+    NSDictionary *_payload;
+}
+
++ (instancetype)messageWithPayload:(NSDictionary *)payload {
+    return[[self alloc] initWithType:@"debug_track" payload:payload];
+}
+
+@end
+
+# pragma mark -- SAEventBindingCollection
+
+@interface SAEventBindingCollection()
+
+@property (nonatomic) NSMutableSet *bindings;
+
+@end
+
+@implementation SAEventBindingCollection
+
+- (instancetype)initWithEvents:(NSMutableSet *)bindings {
+    if (self = [super init]) {
+        self.bindings = bindings;
+    }
+    return self;
+}
+
+- (void)updateBindingsWithPayload:(NSArray *)bindingPayload {
+    NSMutableSet *newBindings = [[NSMutableSet alloc] init];
+    for (NSDictionary *bindingInfo in bindingPayload) {
+        SAEventBinding *binding = [SAEventBinding bindingWithJSONObject:bindingInfo];
+        if (binding != nil) {
+            [newBindings addObject:binding];
+        }
+    }
+    
+    [self updateBindingsWithEvents:newBindings];
+}
+
+- (void)updateBindingsWithEvents:(NSMutableSet *)newBindings {
+    [self cleanup];
+    
+    self.bindings = newBindings;
+    for (SAEventBinding *newBinding in self.bindings) {
+        [newBinding execute];
+    }
+}
+
+- (void)cleanup {
+    if (self.bindings) {
+        for (SAEventBinding *oldBinding in self.bindings) {
+            [oldBinding stop];
+        }
+    }
+    self.bindings = nil;
+}
+
+@end
+

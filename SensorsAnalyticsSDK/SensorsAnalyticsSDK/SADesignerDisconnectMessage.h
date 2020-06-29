@@ -13,4 +13,8 @@
 
 extern NSString *const SADesignerDisconnectMessageType;
 
-@interface SADe
+@interface SADesignerDisconnectMessage : SAAbstractDesignerMessage
+
+@end
+
+#endif /* SADesignerDisconnectMessage_h */

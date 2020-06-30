@@ -7,4 +7,12 @@
 //
 
 #import "SAEventBinding.h"
-#import "SALogg
+#import "SALogger.h"
+#import "SAUIControlBinding.h"
+#import "SAUITableViewBinding.h"
+#import "SensorsAnalyticsSDK.h"
+
+@implementation SAEventBinding
+
++ (SAEventBinding *)bindingWithJSONObject:(NSDictionary *)object {
+    if (object 

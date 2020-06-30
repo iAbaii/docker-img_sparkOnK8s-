@@ -37,3 +37,5 @@
 - (NSArray *)allValues {
     return [_values allKeys];
 }
+
+@end

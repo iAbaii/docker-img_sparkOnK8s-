@@ -30,4 +30,8 @@
                                    [SAUIControlBinding typeName] : [SAUIControlBinding class],
                                    [SAUITableViewBinding typeName] : [SAUITableViewBinding class]
                                    };
-    return[classTypeMap valueForKey:bindingType] ?: [SA
+    return[classTypeMap valueForKey:bindingType] ?: [SAUIControlBinding class];
+}
+
+- (void)track:(NSString *)event withProperties:(NSDictionary *)properties {
+    NSMutableDictionary *bindingProperties = [[NSMutableDictionary alloc] initWithObj

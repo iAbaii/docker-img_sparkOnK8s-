@@ -15,4 +15,10 @@
 @implementation SAEventBinding
 
 + (SAEventBinding *)bindingWithJSONObject:(NSDictionary *)object {
-    if (object 
+    if (object == nil) {
+        SAError(@"must supply an JSON object to initialize from");
+        return nil;
+    }
+
+    NSString *bindingType = object[@"event_type"];
+    Class klass = [self subclassFromString:bind

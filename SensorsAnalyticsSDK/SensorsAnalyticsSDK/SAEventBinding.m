@@ -27,4 +27,7 @@
 
 + (Class)subclassFromString:(NSString *)bindingType {
     NSDictionary *classTypeMap = @{
-                                   [SAUIControlBinding typ
+                                   [SAUIControlBinding typeName] : [SAUIControlBinding class],
+                                   [SAUITableViewBinding typeName] : [SAUITableViewBinding class]
+                                   };
+    return[classTypeMap valueForKey:bindingType] ?: [SA

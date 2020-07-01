@@ -21,4 +21,10 @@
     }
 
     NSString *bindingType = object[@"event_type"];
-    Class klass = [self subclassFromString:bind
+    Class klass = [self subclassFromString:bindingType];
+    return [klass bindingWithJSONObject:object];
+}
+
++ (Class)subclassFromString:(NSString *)bindingType {
+    NSDictionary *classTypeMap = @{
+                                   [SAUIControlBinding typ

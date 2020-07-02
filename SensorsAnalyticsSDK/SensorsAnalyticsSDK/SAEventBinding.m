@@ -34,4 +34,6 @@
 }
 
 - (void)track:(NSString *)event withProperties:(NSDictionary *)properties {
-    NSMutableDictionary *bindingProperties = [[NSMutableDictionary alloc] initWithObj
+    NSMutableDictionary *bindingProperties = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                              [NSString stringWithFormat: @"%ld", (long)self.triggerId], @"$from_vtrack",
+                                              @(self.triggerId), @"$bin

@@ -51,4 +51,9 @@
 - (instancetype)initWithEventName:(NSString *)eventName
                      andTriggerId:(NSInteger)triggerId
                            onPath:(NSString *)path
-                       isDeployed:(BOOL)de
+                       isDeployed:(BOOL)deployed {
+    if (self = [super init]) {
+        self.triggerId = triggerId;
+        self.deployed = deployed;
+        self.eventName = eventName;
+        self.path = [[SAObjectSelector alloc] initWi

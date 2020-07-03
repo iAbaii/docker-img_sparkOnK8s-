@@ -45,4 +45,10 @@
         [bindingProperties addEntriesFromDictionary:properties];
     }
     
-    [[SensorsAnalyticsSDK sharedInstance] track:event withProperties:bin
+    [[SensorsAnalyticsSDK sharedInstance] track:event withProperties:bindingProperties];
+}
+
+- (instancetype)initWithEventName:(NSString *)eventName
+                     andTriggerId:(NSInteger)triggerId
+                           onPath:(NSString *)path
+                       isDeployed:(BOOL)de

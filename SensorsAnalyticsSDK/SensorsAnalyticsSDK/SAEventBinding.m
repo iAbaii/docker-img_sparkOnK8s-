@@ -39,4 +39,10 @@
                                               @(self.triggerId), @"$binding_trigger_id",
                                               self.path.string, @"$binding_path",
                                               self.deployed ? @YES : @NO, @"$binding_depolyed",
-                               
+                                              nil];
+    
+    if (properties != nil) {
+        [bindingProperties addEntriesFromDictionary:properties];
+    }
+    
+    [[SensorsAnalyticsSDK sharedInstance] track:event withProperties:bin

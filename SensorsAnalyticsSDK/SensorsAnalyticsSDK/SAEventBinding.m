@@ -64,4 +64,11 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Event Bindin
+    return [NSString stringWithFormat:@"Event Binding base class: '%@' for '%@'", [self eventName], [self path]];
+}
+
+#pragma mark -- Method stubs
+
++ (NSString *)typeName {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   re

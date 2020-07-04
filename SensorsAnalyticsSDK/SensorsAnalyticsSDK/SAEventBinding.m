@@ -56,4 +56,12 @@
         self.triggerId = triggerId;
         self.deployed = deployed;
         self.eventName = eventName;
-        self.path = [[SAObjectSelector alloc] initWi
+        self.path = [[SAObjectSelector alloc] initWithString:path];
+        self.name = [[NSUUID UUID] UUIDString];
+        self.running = NO;
+    }
+    return self;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Event Bindin

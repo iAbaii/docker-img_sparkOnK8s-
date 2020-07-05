@@ -71,4 +71,9 @@
 
 + (NSString *)typeName {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   re
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
+
+- (void)execute {
+    @throw [NSException exceptionWithNa

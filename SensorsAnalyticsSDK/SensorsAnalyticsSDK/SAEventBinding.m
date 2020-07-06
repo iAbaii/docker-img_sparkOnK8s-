@@ -84,4 +84,11 @@
 - (void)stop {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
-               
+                                 userInfo:nil];
+}
+
+#pragma mark -- NSCoder
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    NSInteger triggerId = [aDecoder decodeIntegerForKey:@"triggerId"];
+    BOOL deployed = [aDecoder decodeBoolForKey:@"d

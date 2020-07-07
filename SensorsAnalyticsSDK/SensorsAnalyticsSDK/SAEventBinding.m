@@ -94,4 +94,11 @@
     BOOL deployed = [aDecoder decodeBoolForKey:@"deployed"];
     NSString *path = [aDecoder decodeObjectForKey:@"path"];
     NSString *eventName = [aDecoder decodeObjectForKey:@"eventName"];
-    if (self = [self initWithEventName:eventName andTriggerId:triggerId onPath:pa
+    if (self = [self initWithEventName:eventName andTriggerId:triggerId onPath:path isDeployed:deployed]) {
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.swizzleClass = NSClassFromString([aDecoder decodeObjectForKey:@"swizzleClass"]);
+    }
+    return self;
+}
+
+- (

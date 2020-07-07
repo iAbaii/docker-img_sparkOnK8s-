@@ -91,4 +91,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSInteger triggerId = [aDecoder decodeIntegerForKey:@"triggerId"];
-    BOOL deployed = [aDecoder decodeBoolForKey:@"d
+    BOOL deployed = [aDecoder decodeBoolForKey:@"deployed"];
+    NSString *path = [aDecoder decodeObjectForKey:@"path"];
+    NSString *eventName = [aDecoder decodeObjectForKey:@"eventName"];
+    if (self = [self initWithEventName:eventName andTriggerId:triggerId onPath:pa

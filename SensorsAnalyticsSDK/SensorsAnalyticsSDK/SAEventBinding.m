@@ -105,4 +105,9 @@
     [aCoder encodeInteger:_triggerId forKey:@"triggerId"];
     [aCoder encodeBool:_deployed forKey:@"deployed"];
     [aCoder encodeObject:_name forKey:@"name"];
-    [aCoder encodeOb
+    [aCoder encodeObject:_path.string forKey:@"path"];
+    [aCoder encodeObject:_eventName forKey:@"eventName"];
+    [aCoder encodeObject:NSStringFromClass(_swizzleClass) forKey:@"swizzleClass"];
+}
+
+@end

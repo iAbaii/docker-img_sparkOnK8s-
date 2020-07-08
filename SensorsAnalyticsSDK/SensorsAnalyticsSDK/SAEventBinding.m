@@ -101,4 +101,8 @@
     return self;
 }
 
-- (
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:_triggerId forKey:@"triggerId"];
+    [aCoder encodeBool:_deployed forKey:@"deployed"];
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeOb

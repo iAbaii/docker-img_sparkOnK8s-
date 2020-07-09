@@ -14,4 +14,9 @@
     
 }
 
-/******************************************************
+/***************************************************************************/
+/**
+ Uses zlib to compress the given data. Note that gzip headers will be added so
+ that the data can be easily decompressed using a tool like WinZip, gunzip, etc.
+ 
+ Note: Special thanks 

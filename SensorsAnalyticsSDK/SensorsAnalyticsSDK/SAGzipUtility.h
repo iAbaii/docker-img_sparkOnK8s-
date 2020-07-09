@@ -23,4 +23,11 @@
  showing how deflateInit2() can be used to make zlib generate a compressed file
  with gzip headers:
  
- http://deusty.blogspot.com/2007/07/gzip-compressiondeco
+ http://deusty.blogspot.com/2007/07/gzip-compressiondecompression.html
+ 
+ @param pUncompressedData memory buffer of bytes to compress
+ @return Compressed data as an NSData object
+ */
++(NSData*) gzipData: (NSData*)pUncompressedData;
+
+@end

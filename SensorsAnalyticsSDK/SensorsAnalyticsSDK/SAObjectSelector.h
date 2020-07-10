@@ -1,0 +1,3 @@
+//
+//  ObjectSelector.h
+//  SensorsAna

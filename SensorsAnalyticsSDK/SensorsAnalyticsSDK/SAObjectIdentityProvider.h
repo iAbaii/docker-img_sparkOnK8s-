@@ -10,3 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+@interface SAObjectIdentityProvider : NSObject
+
+- (NSString *)identifierForObject:(id)object;
+
+@end

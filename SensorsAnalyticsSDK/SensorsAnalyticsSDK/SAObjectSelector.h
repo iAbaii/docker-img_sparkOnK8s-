@@ -9,4 +9,11 @@
 ///  Copyright (c) 2014 Mixpanel. All rights reserved.
 //
 
-#imp
+#import <Foundation/Foundation.h>
+
+@interface SAObjectSelector : NSObject
+
+@property (nonatomic, strong, readonly) NSString *string;
+
++ (SAObjectSelector *)objectSelectorWithString:(NSString *)string;
+- (instancetyp

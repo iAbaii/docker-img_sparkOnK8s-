@@ -16,4 +16,10 @@
 @property (nonatomic, strong, readonly) NSString *string;
 
 + (SAObjectSelector *)objectSelectorWithString:(NSString *)string;
-- (instancetyp
+- (instancetype)initWithString:(NSString *)string;
+
+- (NSArray *)selectFromRoot:(id)root;
+- (NSArray *)fuzzySelectFromRoot:(id)root;
+
+- (BOOL)isLeafSelected:(id)leaf fromRoot:(id)root;
+- (BOOL)fuzzyIsLeafSelected:(id)leaf fromRoot:(i

@@ -22,4 +22,9 @@
 - (NSArray *)fuzzySelectFromRoot:(id)root;
 
 - (BOOL)isLeafSelected:(id)leaf fromRoot:(id)root;
-- (BOOL)fuzzyIsLeafSelected:(id)leaf fromRoot:(i
+- (BOOL)fuzzyIsLeafSelected:(id)leaf fromRoot:(id)root;
+
+- (Class)selectedClass;
+- (NSString *)description;
+
+@end

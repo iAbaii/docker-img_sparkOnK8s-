@@ -340,3 +340,56 @@
         }
     }
     return [result copy];
+}
+
+- (NSArray *)getChildrenOfObject:(NSObject *)obj ofType:(Class)class {
+    NSMutableArray *children = [NSMutableArray array];
+    // A UIWindow is also a UIView, so we could in theory follow the subviews chain from UIWindow, but
+    // for now we only follow rootViewController from UIView.
+    if ([obj isKindOfClass:[UIWindow class]] && [((UIWindow *)obj).rootViewController isKindOfClass:class]) {
+        [children addObject:((UIWindow *)obj).rootViewController];
+    } else if ([obj isKindOfClass:[UIView class]]) {
+        // For UIViews, only add subviews, nothing else.
+        // The ordering of this result is critical to being able to
+        // apply the index filter.
+        for (NSObject *child in [(UIView *)obj subviews]) {
+            if (!class || [child isKindOfClass:class]) {
+                [children addObject:child];
+            }
+        }
+    } else if ([obj isKindOfClass:[UIViewController class]]) {
+        UIViewController *viewController = (UIViewController *)obj;
+        for (NSObject *child in [viewController childViewControllers]) {
+            if (!class || [child isKindOfClass:class]) {
+                [children addObject:child];
+            }
+        }
+        if (viewController.presentedViewController && (!class || [viewController.presentedViewController isKindOfClass:class])) {
+            [children addObject:viewController.presentedViewController];
+        }
+        if (!class || (viewController.isViewLoaded && [viewController.view isKindOfClass:class])) {
+            [children addObject:viewController.view];
+        }
+    }
+    NSArray *result;
+    // Reorder the cells in a table view so that they are arranged by y position
+    if ([class isSubclassOfClass:[UITableViewCell class]]) {
+        result = [children sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+            if (obj2.frame.origin.y > obj1.frame.origin.y) {
+                return NSOrderedAscending;
+            } else if (obj2.frame.origin.y < obj1.frame.origin.y) {
+                return NSOrderedDescending;
+            }
+            return NSOrderedSame;
+        }];
+    } else {
+        result = [children copy];
+    }
+    return result;
+}
+
+- (NSString *)description; {
+    return [NSString stringWithFormat:@"%@[%@]", self.name, self.index ?: self.predicate];
+}
+
+@end

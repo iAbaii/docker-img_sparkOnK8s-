@@ -20,4 +20,8 @@
  @param     An array of SAClassDescription instances.
  */
 - (instancetype)initWithConfiguration:(SAObjectSerializerConfig *)configuration
-               objectIdentityProvider:(SAObjectIdentityProvider
+               objectIdentityProvider:(SAObjectIdentityProvider *)objectIdentityProvider;
+
+- (NSDictionary *)serializedObjectsWithRootObject:(id)rootObject;
+
+@end

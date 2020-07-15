@@ -21,3 +21,9 @@
 @property (nonatomic, readonly) NSArray *enumDescriptions;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+- (SATypeDescription *)typeWithName:(NSString *)name;
+- (SAEnumDescription *)enumWithName:(NSString *)name;
+- (SAClassDescription *)classWithName:(NSString *)name;
+
+@end

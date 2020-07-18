@@ -8,4 +8,11 @@
 /// Copyright (c) 2014 Mixpanel. All rights reserved.
 //
 
-#import "SACla
+#import "SAClassDescription.h"
+#import "SAEnumDescription.h"
+#import "SAObjectSerializerConfig.h"
+#import "SATypeDescription.h"
+
+@implementation SAObjectSerializerConfig {
+    NSDictionary *_classes;
+    NSDictionary *_e

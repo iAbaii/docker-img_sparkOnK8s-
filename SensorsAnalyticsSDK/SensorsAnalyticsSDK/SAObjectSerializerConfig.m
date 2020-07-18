@@ -15,4 +15,11 @@
 
 @implementation SAObjectSerializerConfig {
     NSDictionary *_classes;
-    NSDictionary *_e
+    NSDictionary *_enums;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        NSMutableDictionary *classDescriptions = [[NSMutableDictionary alloc] init];
+        for (

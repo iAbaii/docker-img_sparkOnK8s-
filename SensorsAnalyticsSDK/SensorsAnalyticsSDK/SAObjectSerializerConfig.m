@@ -22,4 +22,7 @@
     self = [super init];
     if (self) {
         NSMutableDictionary *classDescriptions = [[NSMutableDictionary alloc] init];
-        for (
+        for (NSDictionary *d in dictionary[@"classes"]) {
+            NSString *superclassName = d[@"superclass"];
+            SAClassDescription *superclassDescription = superclassName ? classDescriptions[superclassName] : nil;
+            SAClassDescri

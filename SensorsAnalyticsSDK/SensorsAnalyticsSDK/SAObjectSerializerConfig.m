@@ -37,4 +37,15 @@
             enumDescriptions[enumDescription.name] = enumDescription;
         }
 
-        _classes = [classDesc
+        _classes = [classDescriptions copy];
+        _enums = [enumDescriptions copy];
+    }
+
+    return self;
+}
+
+- (NSArray *)classDescriptions {
+    return [_classes allValues];
+}
+
+- (SAEnumDescription *)enumWithName:(NSString *)name {

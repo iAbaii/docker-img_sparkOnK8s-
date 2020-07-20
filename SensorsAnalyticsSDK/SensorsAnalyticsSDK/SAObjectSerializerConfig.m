@@ -25,4 +25,5 @@
         for (NSDictionary *d in dictionary[@"classes"]) {
             NSString *superclassName = d[@"superclass"];
             SAClassDescription *superclassDescription = superclassName ? classDescriptions[superclassName] : nil;
-            SAClassDescri
+            SAClassDescription *classDescription = [[SAClassDescription alloc] initWithSuperclassDescription:superclassDescription
+                                                                                                  dictionary

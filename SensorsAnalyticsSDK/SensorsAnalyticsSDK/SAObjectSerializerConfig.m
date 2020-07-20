@@ -26,4 +26,10 @@
             NSString *superclassName = d[@"superclass"];
             SAClassDescription *superclassDescription = superclassName ? classDescriptions[superclassName] : nil;
             SAClassDescription *classDescription = [[SAClassDescription alloc] initWithSuperclassDescription:superclassDescription
-                                                                                                  dictionary
+                                                                                                  dictionary:d];
+
+            classDescriptions[classDescription.name] = classDescription;
+        }
+
+        NSMutableDictionary *enumDescriptions = [[NSMutableDictionary alloc] init];
+        for (NSDictionary *d in dic

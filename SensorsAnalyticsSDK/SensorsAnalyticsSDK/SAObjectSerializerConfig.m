@@ -32,4 +32,9 @@
         }
 
         NSMutableDictionary *enumDescriptions = [[NSMutableDictionary alloc] init];
-        for (NSDictionary *d in dic
+        for (NSDictionary *d in dictionary[@"enums"]) {
+            SAEnumDescription *enumDescription = [[SAEnumDescription alloc] initWithDictionary:d];
+            enumDescriptions[enumDescription.name] = enumDescription;
+        }
+
+        _classes = [classDesc

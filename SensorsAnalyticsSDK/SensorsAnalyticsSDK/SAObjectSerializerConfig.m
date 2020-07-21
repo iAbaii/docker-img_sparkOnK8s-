@@ -49,3 +49,12 @@
 }
 
 - (SAEnumDescription *)enumWithName:(NSString *)name {
+    return _enums[name];
+}
+
+- (SAClassDescription *)classWithName:(NSString *)name {
+    return _classes[name];
+}
+
+- (SATypeDescription *)typeWithName:(NSString *)name {
+    SAEnumDescription *enumDescription

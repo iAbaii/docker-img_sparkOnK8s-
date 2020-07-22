@@ -64,4 +64,10 @@
 
     SAClassDescription *classDescription = [self classWithName:name];
     if (classDescription) {
-        return class
+        return classDescription;
+    }
+
+    return nil;
+}
+
+@end

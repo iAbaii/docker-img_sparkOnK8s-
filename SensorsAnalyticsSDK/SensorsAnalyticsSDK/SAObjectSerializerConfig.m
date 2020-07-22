@@ -57,4 +57,11 @@
 }
 
 - (SATypeDescription *)typeWithName:(NSString *)name {
-    SAEnumDescription *enumDescription
+    SAEnumDescription *enumDescription = [self enumWithName:name];
+    if (enumDescription) {
+        return enumDescription;
+    }
+
+    SAClassDescription *classDescription = [self classWithName:name];
+    if (classDescription) {
+        return class

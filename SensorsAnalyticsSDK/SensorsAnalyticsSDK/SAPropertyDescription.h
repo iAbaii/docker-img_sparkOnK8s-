@@ -12,4 +12,12 @@
 
 @class SAObjectSerializerContext;
 
-@interface SAPropertySelectorParameter
+@interface SAPropertySelectorParameterDescription : NSObject
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *type;
+
+@end
+
+@interface SAPropertyS

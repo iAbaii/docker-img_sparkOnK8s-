@@ -25,4 +25,12 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 @property (nonatomic, readonly) NSString *selectorName;
 @property (nonatomic, readonly) NSString *returnType;
-@property (nonatomic, readonly) N
+@property (nonatomic, readonly) NSArray *parameters; // array of SAPropertySelectorParameterDescription
+
+@end
+
+@interface SAPropertyDescription : NSObject
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+@property (nonatomic, 

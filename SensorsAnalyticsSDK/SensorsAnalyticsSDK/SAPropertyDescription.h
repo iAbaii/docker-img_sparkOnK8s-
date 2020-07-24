@@ -33,4 +33,8 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-@property (nonatomic, 
+@property (nonatomic, readonly) NSString *type;
+@property (nonatomic, readonly) BOOL readonly;
+@property (nonatomic, readonly) BOOL nofollow;
+@property (nonatomic, readonly) BOOL useKeyValueCoding;
+@property (nonatomic, readonly) BOOL useInstanceVariableAcc

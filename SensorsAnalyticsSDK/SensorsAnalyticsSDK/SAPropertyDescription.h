@@ -37,4 +37,8 @@
 @property (nonatomic, readonly) BOOL readonly;
 @property (nonatomic, readonly) BOOL nofollow;
 @property (nonatomic, readonly) BOOL useKeyValueCoding;
-@property (nonatomic, readonly) BOOL useInstanceVariableAcc
+@property (nonatomic, readonly) BOOL useInstanceVariableAccess;
+@property (nonatomic, readonly) NSString *name;
+
+@property (nonatomic, readonly) SAPropertySelectorDescription *getSelectorDescription;
+@property (nonatomic, readonly) SAPropertySelectorDesc

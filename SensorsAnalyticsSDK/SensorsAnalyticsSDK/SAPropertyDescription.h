@@ -41,4 +41,10 @@
 @property (nonatomic, readonly) NSString *name;
 
 @property (nonatomic, readonly) SAPropertySelectorDescription *getSelectorDescription;
-@property (nonatomic, readonly) SAPropertySelectorDesc
+@property (nonatomic, readonly) SAPropertySelectorDescription *setSelectorDescription;
+
+- (BOOL)shouldReadPropertyValueForObject:(NSObject *)object;
+
+- (NSValueTransformer *)valueTransformer;
+
+@end

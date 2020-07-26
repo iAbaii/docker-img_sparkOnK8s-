@@ -11,4 +11,11 @@
 #import "SALogger.h"
 #import "SAPropertyDescription.h"
 
-@implementation SAPropertySe
+@implementation SAPropertySelectorParameterDescription
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    NSParameterAssert(dictionary[@"name"] != nil);
+    NSParameterAssert(dictionary[@"type"] != nil);
+
+    self = [super init];
+ 

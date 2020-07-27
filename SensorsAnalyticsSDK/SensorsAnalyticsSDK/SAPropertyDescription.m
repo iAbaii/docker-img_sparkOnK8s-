@@ -30,4 +30,10 @@
 
 @implementation SAPropertySelectorDescription
 
-- (instancetype)initWithDictiona
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    NSParameterAssert(dictionary[@"selector"] != nil);
+    NSParameterAssert(dictionary[@"parameters"] != nil);
+
+    self = [super init];
+    if (self) {
+        _selectorN

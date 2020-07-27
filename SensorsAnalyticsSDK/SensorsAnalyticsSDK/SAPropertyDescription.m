@@ -18,4 +18,16 @@
     NSParameterAssert(dictionary[@"type"] != nil);
 
     self = [super init];
- 
+    if (self) {
+        _name = [dictionary[@"name"] copy];
+        _type = [dictionary[@"type"] copy];
+    }
+
+    return self;
+}
+
+@end
+
+@implementation SAPropertySelectorDescription
+
+- (instancetype)initWithDictiona

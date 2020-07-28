@@ -36,4 +36,7 @@
 
     self = [super init];
     if (self) {
-        _selectorN
+        _selectorName = [dictionary[@"selector"] copy];
+        NSMutableArray *parameters = [[NSMutableArray alloc] initWithCapacity:[dictionary[@"parameters"] count]];
+        for (NSDictionary *parameter in dictionary[@"parameters"]) {
+         

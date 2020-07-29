@@ -43,4 +43,20 @@
         }
 
         _parameters = [parameters copy];
-        _returnType = [dictionary[@"result"][@"type"] copy]; // op
+        _returnType = [dictionary[@"result"][@"type"] copy]; // optional
+    }
+
+    return self;
+}
+
+@end
+
+@interface SAPropertyDescription ()
+
+@property (nonatomic, readonly) NSPredicate *predicate;
+
+@end
+
+@implementation SAPropertyDescription
+
++ (NSValueTransformer *)valueTransformerForType:

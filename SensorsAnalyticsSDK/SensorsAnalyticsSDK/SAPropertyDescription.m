@@ -39,4 +39,8 @@
         _selectorName = [dictionary[@"selector"] copy];
         NSMutableArray *parameters = [[NSMutableArray alloc] initWithCapacity:[dictionary[@"parameters"] count]];
         for (NSDictionary *parameter in dictionary[@"parameters"]) {
-         
+            [parameters addObject:[[SAPropertySelectorParameterDescription alloc] initWithDictionary:parameter]];
+        }
+
+        _parameters = [parameters copy];
+        _returnType = [dictionary[@"result"][@"type"] copy]; // op

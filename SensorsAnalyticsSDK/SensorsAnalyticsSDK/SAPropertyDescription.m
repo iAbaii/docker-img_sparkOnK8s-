@@ -62,4 +62,7 @@
 + (NSValueTransformer *)valueTransformerForType:(NSString *)typeName {
     // TODO: lookup transformer by type
     for (NSString *toTypeName in @[@"NSDictionary", @"NSNumber", @"NSString"]) {
-        NSString *toTransformerName = [NSString stringW
+        NSString *toTransformerName = [NSString stringWithFormat:@"SA%@To%@ValueTransformer", typeName, toTypeName];
+        NSValueTransformer *toTransformer = [NSValueTransformer valueTransformerForName:toTransformerName];
+        if (toTransformer) {
+            return toTransfor

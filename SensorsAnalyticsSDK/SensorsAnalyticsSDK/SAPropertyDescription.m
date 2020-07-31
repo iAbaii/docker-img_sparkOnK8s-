@@ -65,4 +65,12 @@
         NSString *toTransformerName = [NSString stringWithFormat:@"SA%@To%@ValueTransformer", typeName, toTypeName];
         NSValueTransformer *toTransformer = [NSValueTransformer valueTransformerForName:toTransformerName];
         if (toTransformer) {
-            return toTransfor
+            return toTransformer;
+        }
+    }
+
+    // Default to pass-through.
+    return [NSValueTransformer valueTransformerForName:@"SAPassThroughValueTransformer"];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary

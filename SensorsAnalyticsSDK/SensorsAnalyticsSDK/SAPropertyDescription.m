@@ -83,4 +83,11 @@
         _readonly = [dictionary[@"readonly"] boolValue]; // Optional
         _nofollow = [dictionary[@"nofollow"] boolValue]; // Optional
 
-        NSString *predicateFormat = dictionary[@"pred
+        NSString *predicateFormat = dictionary[@"predicate"]; // Optional
+        if (predicateFormat) {
+            _predicate = [NSPredicate predicateWithFormat:predicateFormat];
+        }
+
+        NSDictionary *get = dictionary[@"get"];
+        if (get == nil) {
+   

@@ -73,4 +73,10 @@
     return [NSValueTransformer valueTransformerForName:@"SAPassThroughValueTransformer"];
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    NSParameterAssert(dictionary[@"name"] != nil);
+
+    self = [super init];
+    if (self) {
+        _name = [dictionary[@"name"] copy]; // required
+        _useInstanceVariableAccess = [dictionary[@"use_iv

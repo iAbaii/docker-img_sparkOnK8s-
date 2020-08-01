@@ -79,4 +79,8 @@
     self = [super init];
     if (self) {
         _name = [dictionary[@"name"] copy]; // required
-        _useInstanceVariableAccess = [dictionary[@"use_iv
+        _useInstanceVariableAccess = [dictionary[@"use_ivar"] boolValue]; // Optional
+        _readonly = [dictionary[@"readonly"] boolValue]; // Optional
+        _nofollow = [dictionary[@"nofollow"] boolValue]; // Optional
+
+        NSString *predicateFormat = dictionary[@"pred

@@ -90,4 +90,8 @@
 
         NSDictionary *get = dictionary[@"get"];
         if (get == nil) {
-   
+            NSParameterAssert(dictionary[@"type"] != nil);
+            get = @{
+                    @"selector" : _name,
+                    @"result" : @{
+                            @"type" : dictiona

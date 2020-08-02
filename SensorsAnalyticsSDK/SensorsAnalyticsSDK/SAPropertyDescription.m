@@ -102,4 +102,8 @@
         }
 
         NSDictionary *set = dictionary[@"set"];
-        if (set == n
+        if (set == nil && _readonly == NO) {
+            NSParameterAssert(dictionary[@"type"] != nil);
+            set = @{
+                    @"selector" : [NSString stringWithFormat:@"set%@:", [_name capitalizedString]],
+       

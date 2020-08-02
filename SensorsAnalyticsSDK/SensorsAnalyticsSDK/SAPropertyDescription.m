@@ -94,4 +94,12 @@
             get = @{
                     @"selector" : _name,
                     @"result" : @{
-                            @"type" : dictiona
+                            @"type" : dictionary[@"type"],
+                            @"name" : @"value"
+                    },
+                    @"parameters": @[]
+            };
+        }
+
+        NSDictionary *set = dictionary[@"set"];
+        if (set == n

@@ -106,4 +106,10 @@
             NSParameterAssert(dictionary[@"type"] != nil);
             set = @{
                     @"selector" : [NSString stringWithFormat:@"set%@:", [_name capitalizedString]],
+                    @"parameters" : @[
+                            @{
+                                    @"name" : @"value",
+                                    @"type" : dictionary[@"type"]
+                            }
+                    ]
        

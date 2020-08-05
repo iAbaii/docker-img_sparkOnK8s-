@@ -112,4 +112,9 @@
                                     @"type" : dictionary[@"type"]
                             }
                     ]
-       
+            };
+        }
+
+        _getSelectorDescription = [[SAPropertySelectorDescription alloc] initWithDictionary:get];
+        if (set) {
+            _setSelectorDescription = [[SAPropertySelectorDescription alloc] initWithDictio

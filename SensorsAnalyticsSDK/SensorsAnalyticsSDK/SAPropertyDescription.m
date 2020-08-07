@@ -117,4 +117,10 @@
 
         _getSelectorDescription = [[SAPropertySelectorDescription alloc] initWithDictionary:get];
         if (set) {
-            _setSelectorDescription = [[SAPropertySelectorDescription alloc] initWithDictio
+            _setSelectorDescription = [[SAPropertySelectorDescription alloc] initWithDictionary:set];
+        } else {
+            _readonly = YES;
+        }
+
+        BOOL useKVC = (dictionary[@"use_kvc"] == nil ? YES : [dictionary[@"use_kvc"] boolValue]) && _useInstanceVariableAccess == NO;
+        _us

@@ -123,4 +123,12 @@
         }
 
         BOOL useKVC = (dictionary[@"use_kvc"] == nil ? YES : [dictionary[@"use_kvc"] boolValue]) && _useInstanceVariableAccess == NO;
-        _us
+        _useKeyValueCoding = useKVC &&
+                [_getSelectorDescription.parameters count] == 0 &&
+                (_setSelectorDescription == nil || [_setSelectorDescription.parameters count] == 1);
+    }
+
+    return self;
+}
+
+-

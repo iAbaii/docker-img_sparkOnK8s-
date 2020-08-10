@@ -131,4 +131,12 @@
     return self;
 }
 
--
+- (NSString *)type {
+    return _getSelectorDescription.returnType;
+}
+
+- (NSValueTransformer *)valueTransformer {
+    return [[self class] valueTransformerForType:self.type];
+}
+
+- (NSString *)debugDescr

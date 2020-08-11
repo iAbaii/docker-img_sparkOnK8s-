@@ -139,4 +139,8 @@
     return [[self class] valueTransformerForType:self.type];
 }
 
-- (NSString *)debugDescr
+- (NSString *)debugDescription {
+    return [NSString stringWithFormat:@"<%@:%p name='%@' type='%@' %@>", NSStringFromClass([self class]), (__bridge void *)self, self.name, self.type, self.readonly ? @"readonly" : @""];
+}
+
+- (BOOL

@@ -7,3 +7,15 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <netinet/in.h>
+
+
+typedef enum : NSInteger {
+	SANotReachable = 0,
+	SAReachableViaWiFi,
+	SAReachableViaWWAN
+} SANetworkStatus;
+
+#pragma mark IPv6 Support
+//Reachability full

@@ -143,4 +143,15 @@
     return [NSString stringWithFormat:@"<%@:%p name='%@' type='%@' %@>", NSStringFromClass([self class]), (__bridge void *)self, self.name, self.type, self.readonly ? @"readonly" : @""];
 }
 
-- (BOOL
+- (BOOL)shouldReadPropertyValueForObject:(NSObject *)object {
+    if (_nofollow) {
+        return NO;
+    }
+    if (_predicate) {
+        return [_predicate evaluateWithObject:object];
+    }
+
+    return YES;
+}
+
+@end

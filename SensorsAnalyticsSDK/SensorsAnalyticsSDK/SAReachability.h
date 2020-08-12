@@ -29,3 +29,9 @@ extern NSString *kSAReachabilityChangedNotification;
 /*!
  * Use to check the reachability of a given host name.
  */
++ (instancetype)reachabilityWithHostName:(NSString *)hostName;
+
+/*!
+ * Use to check the reachability of a given IP address.
+ */
++ (instancetype)reachabilityWithAddress:(const struct sockaddr *)hostAd

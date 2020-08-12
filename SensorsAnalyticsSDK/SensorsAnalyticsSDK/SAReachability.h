@@ -18,4 +18,14 @@ typedef enum : NSInteger {
 } SANetworkStatus;
 
 #pragma mark IPv6 Support
-//Reachability full
+//Reachability fully support IPv6.  For full details, see ReadMe.md.
+
+
+extern NSString *kSAReachabilityChangedNotification;
+
+
+@interface SAReachability : NSObject
+
+/*!
+ * Use to check the reachability of a given host name.
+ */

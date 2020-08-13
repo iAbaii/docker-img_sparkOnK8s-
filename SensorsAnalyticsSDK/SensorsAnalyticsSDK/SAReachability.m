@@ -6,4 +6,15 @@
  Basic demonstration of how to use the SystemConfiguration Reachablity APIs.
  */
 
-#imp
+#import <arpa/inet.h>
+#import <ifaddrs.h>
+#import <netdb.h>
+#import <sys/socket.h>
+#import <netinet/in.h>
+
+#import <CoreFoundation/CoreFoundation.h>
+
+#import "SAReachability.h"
+
+#pragma mark IPv6 Support
+//Reachability fully support IPv6.  Fo

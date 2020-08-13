@@ -42,4 +42,8 @@ extern NSString *kSAReachabilityChangedNotification;
 + (instancetype)reachabilityForInternetConnection;
 
 
-- (SANetworkStatus)currentReacha
+- (SANetworkStatus)currentReachabilityStatus;
+
+@end
+
+

@@ -17,4 +17,13 @@
 #import "SAReachability.h"
 
 #pragma mark IPv6 Support
-//Reachability fully support IPv6.  Fo
+//Reachability fully support IPv6.  For full details, see ReadMe.md.
+
+
+NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNotification";
+
+#pragma mark - SAReachability implementation
+
+@implementation SAReachability
+{
+	SCN

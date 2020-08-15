@@ -32,4 +32,12 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 + (instancetype)reachabilityWithHostName:(NSString *)hostName
 {
 	SAReachability* returnValue = NULL;
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateW
+	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
+	if (reachability != NULL)
+	{
+		returnValue= [[self alloc] init];
+		if (returnValue != NULL)
+		{
+            returnValue->_reachabilityRef = reachability;
+		}
+        el

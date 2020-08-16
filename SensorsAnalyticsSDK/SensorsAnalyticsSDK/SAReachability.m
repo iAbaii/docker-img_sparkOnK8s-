@@ -40,4 +40,14 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 		{
             returnValue->_reachabilityRef = reachability;
 		}
-        el
+        else {
+            CFRelease(reachability);
+        }
+	}
+	return returnValue;
+}
+
+
++ (instancetype)reachabilityWithAddress:(const struct sockaddr *)hostAddress
+{
+	SCNetworkReachabilityRef reachab

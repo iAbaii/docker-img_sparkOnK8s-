@@ -50,4 +50,11 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr *)hostAddress
 {
-	SCNetworkReachabilityRef reachab
+	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
+
+	SAReachability* returnValue = NULL;
+
+	if (reachability != NULL)
+	{
+		returnValue = [[self alloc] init];
+		if (returnValue != 

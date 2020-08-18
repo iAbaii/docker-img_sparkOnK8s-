@@ -57,4 +57,18 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 	if (reachability != NULL)
 	{
 		returnValue = [[self alloc] init];
-		if (returnValue != 
+		if (returnValue != NULL)
+		{
+            returnValue->_reachabilityRef = reachability;
+		}
+        else {
+            CFRelease(reachability);
+        }
+	}
+	return returnValue;
+}
+
+
++ (instancetype)reachabilityForInternetConnection
+{
+	st

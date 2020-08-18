@@ -76,4 +76,14 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 	zeroAddress.sin_len = sizeof(zeroAddress);
 	zeroAddress.sin_family = AF_INET;
     
-    return [self reachabilityWithAddress: (const struct sockad
+    return [self reachabilityWithAddress: (const struct sockaddr *) &zeroAddress];
+}
+
+#pragma mark reachabilityForLocalWiFi
+//reachabilityForLocalWiFi has been removed from the sample.  See ReadMe.md for more information.
+//+ (instancetype)reachabilityForLocalWiFi
+
+
+
+
+#pragma mark 

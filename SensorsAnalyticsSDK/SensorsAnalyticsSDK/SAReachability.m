@@ -86,4 +86,11 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 
 
 
-#pragma mark 
+#pragma mark - Network Flag Handling
+
+- (SANetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
+{
+	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
+	{
+		// The target host is not reachable.
+		retur

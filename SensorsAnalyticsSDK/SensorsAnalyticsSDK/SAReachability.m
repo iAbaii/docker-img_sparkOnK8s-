@@ -71,4 +71,9 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 
 + (instancetype)reachabilityForInternetConnection
 {
-	st
+	struct sockaddr_in zeroAddress;
+	bzero(&zeroAddress, sizeof(zeroAddress));
+	zeroAddress.sin_len = sizeof(zeroAddress);
+	zeroAddress.sin_family = AF_INET;
+    
+    return [self reachabilityWithAddress: (const struct sockad

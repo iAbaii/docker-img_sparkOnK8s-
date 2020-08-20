@@ -101,4 +101,10 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
 	{
 		/*
-         If the target host i
+         If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
+         */
+		returnValue = SAReachableViaWiFi;
+	}
+
+	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
+      

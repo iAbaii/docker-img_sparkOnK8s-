@@ -118,4 +118,11 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
             /*
              ... and no [user] intervention is needed...
              */
-            returnValue = SAReachab
+            returnValue = SAReachableViaWiFi;
+        }
+    }
+
+	if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+	{
+		/*
+         ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.

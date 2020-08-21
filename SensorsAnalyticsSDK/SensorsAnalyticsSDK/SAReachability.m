@@ -110,4 +110,12 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
         (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
 	{
         /*
-         ... and the connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or h
+         ... and the connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or higher APIs...
+         */
+
+        if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
+        {
+            /*
+             ... and no [user] intervention is needed...
+             */
+            returnValue = SAReachab

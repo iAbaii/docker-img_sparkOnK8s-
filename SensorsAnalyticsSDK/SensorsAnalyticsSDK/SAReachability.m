@@ -126,3 +126,14 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 	{
 		/*
          ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
+         */
+		returnValue = SAReachableViaWWAN;
+	}
+    
+	return returnValue;
+}
+
+
+- (SANetworkStatus)currentReachabilityStatus
+{
+	NSAssert(_reachabilityRef != NULL, @"currentNetworkStatus called with NU

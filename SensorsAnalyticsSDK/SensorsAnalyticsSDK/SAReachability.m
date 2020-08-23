@@ -136,4 +136,10 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
 
 - (SANetworkStatus)currentReachabilityStatus
 {
-	NSAssert(_reachabilityRef != NULL, @"currentNetworkStatus called with NU
+	NSAssert(_reachabilityRef != NULL, @"currentNetworkStatus called with NULL SCNetworkReachabilityRef");
+	SANetworkStatus returnValue = SANotReachable;
+	SCNetworkReachabilityFlags flags;
+    
+	if (SCNetworkReachabilityGetFlags(_reachabilityRef, &flags))
+	{
+        returnValue

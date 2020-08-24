@@ -142,4 +142,19 @@ NSString *kSAReachabilityChangedNotification = @"kSANetworkReachabilityChangedNo
     
 	if (SCNetworkReachabilityGetFlags(_reachabilityRef, &flags))
 	{
-        returnValue
+        returnValue = [self networkStatusForFlags:flags];
+	}
+    
+	return returnValue;
+}
+
+- (void)dealloc
+{
+    if (_reachabilityRef != NULL)
+    {
+        CFRelease(_reachabilityRef);
+    }
+}
+
+
+@end

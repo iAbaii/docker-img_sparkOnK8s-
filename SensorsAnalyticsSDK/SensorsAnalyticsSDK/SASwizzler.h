@@ -12,4 +12,10 @@
 #import <Foundation/Foundation.h>
 
 // Cast to turn things that are not ids into NSMapTable keys
-#de
+#define MAPTABLE_ID(x) (__bridge id)((void *)x)
+
+typedef void (^swizzleBlock)();
+
+@interface SASwizzler : NSObject
+
++ (void)swizzleSelector:(SEL)aSelector onClass:(Class)aClass withBlock:(swizzleBlock)block named:(NSStrin

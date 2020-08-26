@@ -18,4 +18,6 @@ typedef void (^swizzleBlock)();
 
 @interface SASwizzler : NSObject
 
-+ (void)swizzleSelector:(SEL)aSelector onClass:(Class)aClass withBlock:(swizzleBlock)block named:(NSStrin
++ (void)swizzleSelector:(SEL)aSelector onClass:(Class)aClass withBlock:(swizzleBlock)block named:(NSString *)aName;
++ (void)swizzleBoolSelector:(SEL)aSelector onClass:(Class)aClass withBlock:(swizzleBlock)aBlock named:(NSString *)aName;
++ (void)unswizzleSelector:(SEL)aSelector onClass:(Class)aClass named:(NSSt

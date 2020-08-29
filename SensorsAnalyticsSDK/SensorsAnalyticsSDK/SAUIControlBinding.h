@@ -16,4 +16,8 @@
 @property (nonatomic, readonly) UIControlEvents verifyEvent;
 
 - (instancetype)init __unavailable;
-- (instancetype)initWithEventName:(NSString *)ev
+- (instancetype)initWithEventName:(NSString *)eventName
+                     andTriggerId:(NSInteger)triggerId
+                           onPath:(NSString *)path
+                       isDeployed:(BOOL)deployed
+                 withControlEvent:(UICo

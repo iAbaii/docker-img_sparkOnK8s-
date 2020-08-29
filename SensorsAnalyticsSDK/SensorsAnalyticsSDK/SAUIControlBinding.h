@@ -12,4 +12,8 @@
 
 @interface SAUIControlBinding : SAEventBinding
 
-@proper
+@property (nonatomic, readonly) UIControlEvents controlEvent;
+@property (nonatomic, readonly) UIControlEvents verifyEvent;
+
+- (instancetype)init __unavailable;
+- (instancetype)initWithEventName:(NSString *)ev

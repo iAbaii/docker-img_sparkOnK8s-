@@ -20,4 +20,7 @@
                      andTriggerId:(NSInteger)triggerId
                            onPath:(NSString *)path
                        isDeployed:(BOOL)deployed
-                 withControlEvent:(UICo
+                 withControlEvent:(UIControlEvents)controlEvent
+                   andVerifyEvent:(UIControlEvents)verifyEvent;
+
+@end

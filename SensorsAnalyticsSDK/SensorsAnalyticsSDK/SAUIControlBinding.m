@@ -110,3 +110,155 @@
                         objects = @[view];
                     } else {
                         objects = @[];
+                    }
+                } else {
+                    objects = [self.path fuzzySelectFromRoot:root];
+                }
+
+                for (UIControl *control in objects) {
+                    if ([control isKindOfClass:[UIControl class]]) {
+                        UIControlEvents verifyEvent = [self getPreVerifyEventForClass:control
+                                                                      withVerifyEvent:self.verifyEvent
+                                                                      andControlEvent:self.controlEvent];
+                        
+                        SADebug(@"%@ event binding [%d, %d on '%@' for %@] executed.",
+                                self, self.controlEvent, verifyEvent, self.path.string, [control class]);
+                        
+                        if (verifyEvent != 0 && verifyEvent != self.controlEvent) {
+                            [control addTarget:self
+                                        action:@selector(caojiangPreVerify:forEvent:)
+                              forControlEvents:verifyEvent];
+                        }
+
+                        [control addTarget:self
+                                    action:@selector(caojiangEventAction:forEvent:)
+                          forControlEvents:self.controlEvent];
+                        [self.appliedTo addObject:control];
+                    }
+                }
+            }
+        };
+
+        executeBlock(nil, _cmd);
+
+        [SASwizzler swizzleSelector:NSSelectorFromString(@"didMoveToWindow")
+                            onClass:self.swizzleClass
+                          withBlock:executeBlock
+                              named:self.name];
+        [SASwizzler swizzleSelector:NSSelectorFromString(@"didMoveToSuperview")
+                            onClass:self.swizzleClass
+                          withBlock:executeBlock
+                              named:self.name];
+
+        self.running = true;
+    }
+}
+
+- (void)stop {
+    if (self.running) {
+        // remove what has been swizzled
+        [SASwizzler unswizzleSelector:NSSelectorFromString(@"didMoveToWindow")
+                            onClass:self.swizzleClass
+                              named:self.name];
+        [SASwizzler unswizzleSelector:NSSelectorFromString(@"didMoveToSuperview")
+                            onClass:self.swizzleClass
+                              named:self.name];
+
+        // remove target-action pairs
+        @try {
+        NSArray *allObjects = [NSArray arrayWithArray:[self.appliedTo allObjects]];
+            for (UIControl *control in allObjects) {
+                if (control && [control isKindOfClass:[UIControl class]]) {
+                    [self stopOnView:control];
+                }
+            }
+        } @catch (NSException *exception) {
+            SADebug(@"stop error: %@", exception);
+        }
+        [self resetAppliedTo];
+        self.running = false;
+    }
+}
+
+- (void)stopOnView:(UIControl *)control {
+    UIControlEvents verifyEvent = [self getPreVerifyEventForClass:control
+                                                  withVerifyEvent:self.verifyEvent
+                                                  andControlEvent:self.controlEvent];
+    
+    if (verifyEvent != 0 && verifyEvent != self.controlEvent) {
+        [control removeTarget:self
+                    action:@selector(caojiangPreVerify:forEvent:)
+          forControlEvents:verifyEvent];
+    }
+    [control removeTarget:self
+                action:@selector(caojiangEventAction:forEvent:)
+      forControlEvents:self.controlEvent];
+}
+
+- (UIControlEvents) getPreVerifyEventForClass:(UIControl *)control
+                   withVerifyEvent:(UIControlEvents)verifyEvent
+                   andControlEvent:(UIControlEvents)controlEvent {
+    if (verifyEvent == 0) {
+        if (controlEvent & UIControlEventAllTouchEvents) {
+            if ([control isKindOfClass:[UISlider class]] || [control isKindOfClass:[UISwitch class]]) {
+                return UIControlEventValueChanged;
+            } else {
+                return UIControlEventTouchDown;
+            }
+        } else if (controlEvent & UIControlEventAllEditingEvents) {
+            return UIControlEventEditingDidBegin;
+        }
+    }
+    return verifyEvent;
+}
+
+#pragma mark -- To execute for Target-Action event firing
+
+- (BOOL)verifyControlMatchesPath:(id)control {
+    NSObject *root = [[UIApplication sharedApplication] keyWindow].rootViewController;
+    return [self.path isLeafSelected:control fromRoot:root];
+}
+
+- (void)caojiangPreVerify:(id)sender forEvent:(UIEvent *)event {
+    if ([self verifyControlMatchesPath:sender]) {
+        [self.verified addObject:sender];
+    } else {
+        [self.verified removeObject:sender];
+    }
+}
+
+- (void)caojiangEventAction:(id)sender forEvent:(UIEvent *)event {
+    UIControlEvents verifyEvent = [self getPreVerifyEventForClass:sender
+                                                  withVerifyEvent:self.verifyEvent
+                                                  andControlEvent:self.controlEvent];
+    BOOL shouldTrack = NO;
+    if (verifyEvent != 0 && verifyEvent != self.controlEvent) {
+        shouldTrack = [self.verified containsObject:sender];
+    } else {
+        shouldTrack = [self verifyControlMatchesPath:sender];
+    }
+    if (shouldTrack) {
+        [self track:[self eventName] withProperties:nil];
+    }
+}
+
+#pragma mark -- NSCoder
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        _controlEvent = [[aDecoder decodeObjectForKey:@"controlEvent"] unsignedIntegerValue];
+        _verifyEvent = [[aDecoder decodeObjectForKey:@"verifyEvent"] unsignedIntegerValue];
+        
+        [self setSwizzleClass:[UIControl class]];
+        [self resetAppliedTo];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:@(_controlEvent) forKey:@"controlEvent"];
+    [aCoder encodeObject:@(_verifyEvent) forKey:@"verifyEvent"];
+}
+
+@end

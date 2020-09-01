@@ -43,4 +43,15 @@
 
 @end
 
-@interface SANSAttribute
+@interface SANSAttributedStringToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SANSNumberToCGFloatValueTransformer : NSValueTransformer
+
+@end
+
+__unused static id transformValue(id value, NSString *toType) {
+    assert(value != nil);
+
+    if ([

@@ -11,4 +11,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAPassThroughValueTransfor
+@interface SAPassThroughValueTransformer : NSValueTransformer
+
+@end
+
+@interface SABOOLToNSNumberValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACATransform3DToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACGAffineTransformToNS

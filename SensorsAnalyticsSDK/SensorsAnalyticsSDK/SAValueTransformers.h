@@ -23,4 +23,12 @@
 
 @end
 
-@interface SACGAffineTransformToNS
+@interface SACGAffineTransformToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACGColorRefToNSStringValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACGPointToNSDictionaryValueTransformer : NSValue

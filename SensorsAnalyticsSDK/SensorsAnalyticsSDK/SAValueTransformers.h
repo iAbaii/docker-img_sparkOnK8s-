@@ -31,4 +31,16 @@
 
 @end
 
-@interface SACGPointToNSDictionaryValueTransformer : NSValue
+@interface SACGPointToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACGRectToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SACGSizeToNSDictionaryValueTransformer : NSValueTransformer
+
+@end
+
+@interface SANSAttribute

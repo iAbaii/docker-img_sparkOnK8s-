@@ -62,3 +62,11 @@ __unused static id transformValue(id value, NSString *toType) {
     NSArray *validTypes = @[[NSString class], [NSNumber class], [NSDictionary class], [NSArray class], [NSNull class]];
     for (Class c in validTypes) {
         if ([value isKindOfClass:c]) {
+            fromType = NSStringFromClass(c);
+            break;
+        }
+    }
+
+    assert(fromType != nil);
+    NSValueTransformer *transformer = nil;
+    NSString *forwardTransformerName = [NSString stringWithFormat:@"SA%

@@ -58,4 +58,7 @@ __unused static id transformValue(id value, NSString *toType) {
         return [[NSValueTransformer valueTransformerForName:@"SAPassThroughValueTransformer"] transformedValue:value];
     }
 
-    NSString *fromTyp
+    NSString *fromType = nil;
+    NSArray *validTypes = @[[NSString class], [NSNumber class], [NSDictionary class], [NSArray class], [NSNull class]];
+    for (Class c in validTypes) {
+        if ([value isKindOfClass:c]) {

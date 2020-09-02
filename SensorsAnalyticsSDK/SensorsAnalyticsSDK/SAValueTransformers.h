@@ -69,4 +69,10 @@ __unused static id transformValue(id value, NSString *toType) {
 
     assert(fromType != nil);
     NSValueTransformer *transformer = nil;
-    NSString *forwardTransformerName = [NSString stringWithFormat:@"SA%
+    NSString *forwardTransformerName = [NSString stringWithFormat:@"SA%@To%@ValueTransformer", fromType, toType];
+    transformer = [NSValueTransformer valueTransformerForName:forwardTransformerName];
+    if (transformer) {
+        return [transformer transformedValue:value];
+    }
+
+  

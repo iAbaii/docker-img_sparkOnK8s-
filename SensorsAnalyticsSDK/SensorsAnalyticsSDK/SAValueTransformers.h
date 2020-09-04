@@ -77,4 +77,8 @@ __unused static id transformValue(id value, NSString *toType) {
 
     NSString *reverseTransformerName = [NSString stringWithFormat:@"SA%@To%@ValueTransformer", toType, fromType];
     transformer = [NSValueTransformer valueTransformerForName:reverseTransformerName];
-    if (tran
+    if (transformer && [[transformer class] allowsReverseTransformation]) {
+        return [transformer reverseTransformedValue:value];
+    }
+
+    return [[NSValueTransformer valueTransformerForName:@"SAPassThroug

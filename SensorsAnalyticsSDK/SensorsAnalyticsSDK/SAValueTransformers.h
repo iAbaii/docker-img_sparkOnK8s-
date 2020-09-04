@@ -81,4 +81,5 @@ __unused static id transformValue(id value, NSString *toType) {
         return [transformer reverseTransformedValue:value];
     }
 
-    return [[NSValueTransformer valueTransformerForName:@"SAPassThroug
+    return [[NSValueTransformer valueTransformerForName:@"SAPassThroughValueTransformer"] transformedValue:value];
+}

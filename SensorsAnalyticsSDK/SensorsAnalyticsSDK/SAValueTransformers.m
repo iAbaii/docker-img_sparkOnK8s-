@@ -178,3 +178,214 @@ static NSDictionary *MPCGAffineTransformCreateDictionaryRepresentation(CGAffineT
              @"b" : @(transform.b),
              @"c" : @(transform.c),
              @"d" : @(transform.d),
+             @"tx" : @(transform.tx),
+             @"ty" : @(transform.ty)
+             };
+}
+
+static BOOL MPCGAffineTransformMakeWithDictionaryRepresentation(NSDictionary *dictionary, CGAffineTransform *transform) {
+    if (transform) {
+        id a = dictionary[@"a"];
+        id b = dictionary[@"b"];
+        id c = dictionary[@"c"];
+        id d = dictionary[@"d"];
+        id tx = dictionary[@"tx"];
+        id ty = dictionary[@"ty"];
+        
+        if (a && b && c && d && tx && ty) {
+            transform->a = (CGFloat)[a doubleValue];
+            transform->b = (CGFloat)[b doubleValue];
+            transform->c = (CGFloat)[c doubleValue];
+            transform->d = (CGFloat)[d doubleValue];
+            transform->tx = (CGFloat)[tx doubleValue];
+            transform->ty = (CGFloat)[ty doubleValue];
+            
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+@implementation SACGAffineTransformToNSDictionaryValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSDictionary class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value respondsToSelector:@selector(CGAffineTransformValue)]) {
+        return MPCGAffineTransformCreateDictionaryRepresentation([value CGAffineTransformValue]);
+    }
+    
+    return @{};
+}
+
+- (id)reverseTransformedValue:(id)value {
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    if ([value isKindOfClass:[NSDictionary class]] && MPCGAffineTransformMakeWithDictionaryRepresentation(value, &transform)) {
+        return [NSValue valueWithCGAffineTransform:transform];
+    }
+    
+    return [NSValue valueWithCGAffineTransform:CGAffineTransformIdentity];
+}
+
+@end
+
+#pragma mark -- CGColorRef To NSString
+
+@implementation SACGColorRefToNSStringValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSString class];
+}
+
+- (id)transformedValue:(id)value {
+    if (value && CFGetTypeID((__bridge CFTypeRef)value) == CGColorGetTypeID()) {
+        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:@"MPUIColorToNSStringValueTransformer"];
+        return [transformer transformedValue:[[UIColor alloc] initWithCGColor:(__bridge CGColorRef)value]];
+    }
+    
+    return nil;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:@"MPUIColorToNSStringValueTransformer"];
+    UIColor *uiColor =  [transformer reverseTransformedValue:value];
+    return CFBridgingRelease(CGColorCreateCopy([uiColor CGColor]));
+}
+
+@end
+
+#pragma mark -- CGPoint To NSDictionary
+
+@implementation SACGPointToNSDictionaryValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSDictionary class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value respondsToSelector:@selector(CGPointValue)]) {
+        CGPoint point = [value CGPointValue];
+        point.x = isnormal(point.x) ? point.x : 0.0f;
+        point.y = isnormal(point.y) ? point.y : 0.0f;
+        return CFBridgingRelease(CGPointCreateDictionaryRepresentation(point));
+    }
+    
+    return nil;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    CGPoint point = CGPointZero;
+    if ([value isKindOfClass:[NSDictionary class]] && CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)value, &point)) {
+        return [NSValue valueWithCGPoint:point];
+    }
+    
+    return [NSValue valueWithCGPoint:CGPointZero];
+}
+
+@end
+
+#pragma mark -- CGRect To NSDictionary
+
+@implementation SACGRectToNSDictionaryValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSDictionary class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value respondsToSelector:@selector(CGRectValue)]) {
+        CGRect rect = [value CGRectValue];
+        rect.origin.x = isnormal(rect.origin.x) ? rect.origin.x : 0.0f;
+        rect.origin.y = isnormal(rect.origin.y) ? rect.origin.y : 0.0f;
+        rect.size.width = isnormal(rect.size.width) ? rect.size.width : 0.0f;
+        rect.size.height = isnormal(rect.size.height) ? rect.size.height : 0.0f;
+        return CFBridgingRelease(CGRectCreateDictionaryRepresentation(rect));
+    }
+    
+    return nil;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    CGRect rect = CGRectZero;
+    if ([value isKindOfClass:[NSDictionary class]] && CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)value, &rect)) {
+        return [NSValue valueWithCGRect:rect];
+    }
+    
+    return [NSValue valueWithCGRect:CGRectZero];
+}
+
+@end
+
+#pragma mark -- CGSize To NSDictionary
+
+@implementation SACGSizeToNSDictionaryValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSDictionary class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value respondsToSelector:@selector(CGSizeValue)]) {
+        CGSize size = [value CGSizeValue];
+        size.width = isnormal(size.width) ? size.width : 0.0f;
+        size.height = isnormal(size.height) ? size.height : 0.0f;
+        return CFBridgingRelease(CGSizeCreateDictionaryRepresentation(size));
+    }
+    
+    return nil;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    CGSize size = CGSizeZero;
+    if ([value isKindOfClass:[NSDictionary class]] && CGSizeMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)value, &size)) {
+        return [NSValue valueWithCGSize:size];
+    }
+    
+    return [NSValue valueWithCGSize:CGSizeZero];
+}
+
+@end
+
+#pragma mark -- NSAttributedString To NSDictionary
+
+@implementation SANSAttributedStringToNSDictionaryValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSDictionary class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value isKindOfClass:[NSAttributedString class]]) {
+        NSAttributedString *attributedString = value;
+        
+        NSError *error = nil;
+        NSData *data = nil;
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        if ([attributedString respondsToSelector:@selector(dataFromRange:documentAttributes:error:)]) {
+            data = [attributedString dataFromRange:NSMakeRange(0, [attributedString length])
+                                documentAttributes:@{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
+                                             error:&error];

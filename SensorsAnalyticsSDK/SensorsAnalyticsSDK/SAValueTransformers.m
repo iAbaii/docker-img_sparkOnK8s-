@@ -389,3 +389,82 @@ static BOOL MPCGAffineTransformMakeWithDictionaryRepresentation(NSDictionary *di
             data = [attributedString dataFromRange:NSMakeRange(0, [attributedString length])
                                 documentAttributes:@{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
                                              error:&error];
+        }
+#endif
+        if (data) {
+            return @{
+                     @"mime_type" : @"text/html",
+                     @"data" : [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]
+                     };
+        } else {
+            SAError(@"Failed to convert NSAttributedString to HTML: %@", error);
+        }
+    }
+    
+    return nil;
+}
+
+- (id)reverseTransformedValue:(id)value {
+    if ([value isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionaryValue = value;
+        NSString *mimeType = dictionaryValue[@"mime_type"];
+        NSString *dataString = dictionaryValue[@"data"];
+        
+        if ([mimeType isEqualToString:@"text/html"] && dataString) {
+            NSError *error = nil;
+            NSAttributedString *attributedString;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+            NSData *data = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+            attributedString = [[NSAttributedString alloc] initWithData:data
+                                                                options:@{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
+                                                     documentAttributes:NULL
+                                                                  error:&error];
+#endif
+            if (attributedString == nil) {
+                SAError(@"Failed to convert HTML to NSAttributed string: %@", error);
+            }
+            
+            return attributedString;
+        }
+    }
+    
+    return nil;
+}
+
+@end
+
+#pragma mark -- NSNumberToCGFloat
+
+@implementation SANSNumberToCGFloatValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return NO;
+}
+
+- (id)transformedValue:(id)value {
+    if ([value isKindOfClass:[NSNumber class]]) {
+        NSNumber *number = (NSNumber *) value;
+        
+        // if the number is not a cgfloat, cast it to a cgfloat
+        if (strcmp([number objCType], (char *) @encode(CGFloat)) != 0) {
+            if (strcmp((char *) @encode(CGFloat), (char *) @encode(double)) == 0) {
+                value = @([number doubleValue]);
+            } else {
+                value = @([number floatValue]);
+            }
+        }
+        
+        return value;
+    }
+    
+    return nil;
+}
+
+@end
+
+
+

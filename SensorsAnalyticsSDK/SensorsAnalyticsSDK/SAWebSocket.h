@@ -19,4 +19,11 @@
 //   limitations under the License.
 //
 
-#import <Foundati
+#import <Foundation/Foundation.h>
+#import <Security/SecCertificate.h>
+
+typedef NS_ENUM(unsigned int, SAWebSocketReadyState) {
+    SAWebSocketStateConnecting = 0,
+    SAWebSocketStateOpen = 1,
+    SAWebSocketStateClosing = 2,
+    S

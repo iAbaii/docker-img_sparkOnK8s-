@@ -50,4 +50,8 @@ extern NSString *const SAWebSocketErrorDomain;
 // It will be nil until after the handshake completes.
 @property (nonatomic, readonly, copy) NSString *protocol;
 
-// Protocols should be an array of strings that turn into Sec-WebSocket-Pr
+// Protocols should be an array of strings that turn into Sec-WebSocket-Protocol.
+- (instancetype)initWithURLRequest:(NSURLRequest *)request protocols:(NSArray *)protocols;
+- (instancetype)initWithURLRequest:(NSURLRequest *)request;
+
+// Some helper constructors.

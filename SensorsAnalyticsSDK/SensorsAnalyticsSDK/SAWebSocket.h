@@ -39,4 +39,11 @@ extern NSString *const SAWebSocketErrorDomain;
 
 #pragma mark - SAWebSocket
 
-@interface SAWebSocket :
+@interface SAWebSocket : NSObject <NSStreamDelegate>
+
+@property (nonatomic, assign) id <SAWebSocketDelegate> delegate;
+
+@property (nonatomic, readonly) SAWebSocketReadyState readyState;
+@property (nonatomic, readonly, retain) NSURL *url;
+
+// This returns the negot

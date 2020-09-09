@@ -46,4 +46,8 @@ extern NSString *const SAWebSocketErrorDomain;
 @property (nonatomic, readonly) SAWebSocketReadyState readyState;
 @property (nonatomic, readonly, retain) NSURL *url;
 
-// This returns the negot
+// This returns the negotiated protocol.
+// It will be nil until after the handshake completes.
+@property (nonatomic, readonly, copy) NSString *protocol;
+
+// Protocols should be an array of strings that turn into Sec-WebSocket-Pr

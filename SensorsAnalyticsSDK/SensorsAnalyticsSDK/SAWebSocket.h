@@ -26,4 +26,17 @@ typedef NS_ENUM(unsigned int, SAWebSocketReadyState) {
     SAWebSocketStateConnecting = 0,
     SAWebSocketStateOpen = 1,
     SAWebSocketStateClosing = 2,
-    S
+    SAWebSocketStateClosed = 3,
+};
+
+@class SAWebSocket;
+
+extern NSString *const SAWebSocketErrorDomain;
+
+#pragma mark - SAWebSocketDelegate
+
+@protocol SAWebSocketDelegate;
+
+#pragma mark - SAWebSocket
+
+@interface SAWebSocket :

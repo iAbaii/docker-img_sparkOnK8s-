@@ -55,3 +55,8 @@ extern NSString *const SAWebSocketErrorDomain;
 - (instancetype)initWithURLRequest:(NSURLRequest *)request;
 
 // Some helper constructors.
+- (instancetype)initWithURL:(NSURL *)url protocols:(NSArray *)protocols;
+- (instancetype)initWithURL:(NSURL *)url;
+
+// Delegate queue will be dispatch_main_queue by default.
+// You cannot set both OperationQueue and d

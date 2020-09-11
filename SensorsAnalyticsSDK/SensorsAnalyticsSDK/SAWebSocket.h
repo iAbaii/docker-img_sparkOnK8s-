@@ -67,4 +67,11 @@ extern NSString *const SAWebSocketErrorDomain;
 - (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
 - (void)unscheduleFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
 
-// SAWebSockets are intended 
+// SAWebSockets are intended for one-time-use only.  Open should be called once and only once.
+- (void)open;
+
+- (void)close;
+- (void)closeWithCode:(NSInteger)code reason:(NSString *)reason;
+
+// Send a UTF8 String or Data.
+- (void)send:(id)dat

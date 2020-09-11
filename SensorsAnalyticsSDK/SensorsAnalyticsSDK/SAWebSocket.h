@@ -74,4 +74,14 @@ extern NSString *const SAWebSocketErrorDomain;
 - (void)closeWithCode:(NSInteger)code reason:(NSString *)reason;
 
 // Send a UTF8 String or Data.
-- (void)send:(id)dat
+- (void)send:(id)data;
+
+@end
+
+#pragma mark - SAWebSocketDelegate
+
+@protocol SAWebSocketDelegate <NSObject>
+
+// message will either be an NSString if the server is using text
+// or NSData if the server is using binary.
+- (void)webSocket:(SAWebSock

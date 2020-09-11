@@ -84,4 +84,10 @@ extern NSString *const SAWebSocketErrorDomain;
 
 // message will either be an NSString if the server is using text
 // or NSData if the server is using binary.
-- (void)webSocket:(SAWebSock
+- (void)webSocket:(SAWebSocket *)webSocket didReceiveMessage:(id)message;
+
+@optional
+
+- (void)webSocketDidOpen:(SAWebSocket *)webSocket;
+- (void)webSocket:(SAWebSocket *)webSocket didFailWithError:(NSError *)error;
+- (void)webSocket:(SAWebSoc

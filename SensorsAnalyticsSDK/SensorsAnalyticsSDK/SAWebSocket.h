@@ -63,4 +63,8 @@ extern NSString *const SAWebSocketErrorDomain;
 - (void)setDelegateOperationQueue:(NSOperationQueue*) queue;
 - (void)setDelegateDispatchQueue:(dispatch_queue_t) queue;
 
-// By default, it will schedule itself on +[NSRunLoop mp_networkRun
+// By default, it will schedule itself on +[NSRunLoop mp_networkRunLoop] using defaultModes.
+- (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
+- (void)unscheduleFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
+
+// SAWebSockets are intended 

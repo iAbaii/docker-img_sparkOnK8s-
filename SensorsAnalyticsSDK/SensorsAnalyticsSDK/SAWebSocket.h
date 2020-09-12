@@ -90,4 +90,12 @@ extern NSString *const SAWebSocketErrorDomain;
 
 - (void)webSocketDidOpen:(SAWebSocket *)webSocket;
 - (void)webSocket:(SAWebSocket *)webSocket didFailWithError:(NSError *)error;
-- (void)webSocket:(SAWebSoc
+- (void)webSocket:(SAWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+
+@end
+
+#pragma mark - NSURLRequest (CertificateAdditions)
+
+@interface NSURLRequest (CertificateAdditions)
+
+@property (no

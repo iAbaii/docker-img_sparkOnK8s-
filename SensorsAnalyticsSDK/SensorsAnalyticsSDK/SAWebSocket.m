@@ -278,3 +278,226 @@ typedef void (^data_callback)(SAWebSocket *webSocket,  NSData *data);
     BOOL _isPumping;
 
     NSMutableSet *_scheduledRunloops;
+
+    // We use this to retain ourselves.
+    __strong SAWebSocket *_selfRetain;
+
+    NSArray *_requestedProtocols;
+    SAIOConsumerPool *_consumerPool;
+}
+
+@synthesize delegate = _delegate;
+@synthesize url = _url;
+@synthesize readyState = _readyState;
+@synthesize protocol = _protocol;
+
+static __strong NSData *CRLFCRLF;
+
++ (void)initialize;
+{
+    CRLFCRLF = [[NSData alloc] initWithBytes:"\r\n\r\n" length:4];
+}
+
+- (instancetype)initWithURLRequest:(NSURLRequest *)request protocols:(NSArray *)protocols;
+{
+    self = [super init];
+    if (self) {
+        assert(request.URL);
+        _url = request.URL;
+        _urlRequest = request;
+
+        _requestedProtocols = [protocols copy];
+
+        [self _SA_commonInit];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithURLRequest:(NSURLRequest *)request;
+{
+    return [self initWithURLRequest:request protocols:nil];
+}
+
+- (instancetype)initWithURL:(NSURL *)url;
+{
+    return [self initWithURL:url protocols:nil];
+}
+
+- (instancetype)initWithURL:(NSURL *)url protocols:(NSArray *)protocols;
+{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    return [self initWithURLRequest:request protocols:protocols];
+}
+
+- (void)_SA_commonInit;
+{
+
+    NSString *scheme = _url.scheme.lowercaseString;
+    assert([scheme isEqualToString:@"ws"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"wss"] || [scheme isEqualToString:@"https"]);
+
+    if ([scheme isEqualToString:@"wss"] || [scheme isEqualToString:@"https"]) {
+        _secure = YES;
+    }
+
+    _readyState = SAWebSocketStateConnecting;
+    _consumerStopped = YES;
+    _webSocketVersion = 13;
+
+    _workQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+
+    // Going to set a specific on the queue so we can validate we're on the work queue
+    dispatch_queue_set_specific(_workQueue, (__bridge void *)self, maybe_bridge(_workQueue), NULL);
+
+    _delegateDispatchQueue = dispatch_get_main_queue();
+    sa_dispatch_retain(_delegateDispatchQueue);
+
+    _readBuffer = [[NSMutableData alloc] init];
+    _outputBuffer = [[NSMutableData alloc] init];
+
+    _currentFrameData = [[NSMutableData alloc] init];
+
+    _consumers = [[NSMutableArray alloc] init];
+
+    _consumerPool = [[SAIOConsumerPool alloc] init];
+
+    _scheduledRunloops = [[NSMutableSet alloc] init];
+
+    [self _initializeStreams];
+
+    // default handlers
+}
+
+- (void)assertOnWorkQueue;
+{
+    assert(dispatch_get_specific((__bridge void *)self) == maybe_bridge(_workQueue));
+}
+
+- (void)dealloc
+{
+    _inputStream.delegate = nil;
+    _outputStream.delegate = nil;
+
+    [_inputStream close];
+    [_outputStream close];
+
+    if (_workQueue) {
+        sa_dispatch_release(_workQueue);
+        _workQueue = NULL;
+    }
+
+    if (_receivedHTTPHeaders) {
+        CFRelease(_receivedHTTPHeaders);
+        _receivedHTTPHeaders = NULL;
+    }
+
+    if (_delegateDispatchQueue) {
+        sa_dispatch_release(_delegateDispatchQueue);
+        _delegateDispatchQueue = NULL;
+    }
+}
+
+#ifndef NDEBUG
+
+- (void)setReadyState:(SAWebSocketReadyState)aReadyState;
+{
+    [self willChangeValueForKey:@"readyState"];
+    assert(aReadyState > _readyState);
+    _readyState = aReadyState;
+    [self didChangeValueForKey:@"readyState"];
+}
+
+#endif
+
+- (void)open;
+{
+    assert(_url);
+    NSAssert(_readyState == SAWebSocketStateConnecting, @"Cannot call -(void)open on SAWebSocket more than once");
+
+    _selfRetain = self;
+
+    [self _connect];
+}
+
+// Calls block on delegate queue
+- (void)_performDelegateBlock:(dispatch_block_t)block;
+{
+    if (_delegateOperationQueue) {
+        [_delegateOperationQueue addOperationWithBlock:block];
+    } else {
+        assert(_delegateDispatchQueue);
+        dispatch_async(_delegateDispatchQueue, block);
+    }
+}
+
+- (void)setDelegateDispatchQueue:(dispatch_queue_t)queue;
+{
+    if (queue) {
+        sa_dispatch_retain(queue);
+    }
+
+    if (_delegateDispatchQueue) {
+        sa_dispatch_release(_delegateDispatchQueue);
+    }
+
+    _delegateDispatchQueue = queue;
+}
+
+- (BOOL)_checkHandshake:(CFHTTPMessageRef)httpMessage;
+{
+    NSString *acceptHeader = CFBridgingRelease(CFHTTPMessageCopyHeaderFieldValue(httpMessage, CFSTR("Sec-WebSocket-Accept")));
+
+    if (acceptHeader == nil) {
+        return NO;
+    }
+
+    NSString *concattedString = [_secKey stringByAppendingString:SAWebSocketAppendToSecKeyString];
+    NSString *expectedAccept = [concattedString stringBySHA1ThenBase64Encoding];
+
+    return [acceptHeader isEqualToString:expectedAccept];
+}
+
+- (void)_HTTPHeadersDidFinish;
+{
+    NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(_receivedHTTPHeaders);
+
+    if (responseCode >= 400) {
+        [self _failWithError:[NSError errorWithDomain:SAWebSocketErrorDomain code:2132 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"received bad response code from server %ld", (long)responseCode]}]];
+        return;
+
+    }
+
+    if(![self _checkHandshake:_receivedHTTPHeaders]) {
+        [self _failWithError:[NSError errorWithDomain:SAWebSocketErrorDomain code:2133 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid Sec-WebSocket-Accept response"]}]];
+        return;
+    }
+
+    NSString *negotiatedProtocol = CFBridgingRelease(CFHTTPMessageCopyHeaderFieldValue(_receivedHTTPHeaders, CFSTR("Sec-WebSocket-Protocol")));
+    if (negotiatedProtocol) {
+        // Make sure we requested the protocol
+        if ([_requestedProtocols indexOfObject:negotiatedProtocol] == NSNotFound) {
+            [self _failWithError:[NSError errorWithDomain:SAWebSocketErrorDomain code:2133 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Server specified Sec-WebSocket-Protocol that wasn't requested"]}]];
+            return;
+        }
+
+        _protocol = negotiatedProtocol;
+    }
+
+    self.readyState = SAWebSocketStateOpen;
+
+    if (!_didFail) {
+        [self _readFrameNew];
+    }
+
+    [self _performDelegateBlock:^{
+        if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
+            [self.delegate webSocketDidOpen:self];
+        }
+    }];
+}
+
+
+- (void)_readHTTPHeader;
+{
+    if (_receivedHTTPHeaders == NULL) {
+        _receivedHTTPHeaders = CFHTTPMessageCreateEmpty(NULL, NO);

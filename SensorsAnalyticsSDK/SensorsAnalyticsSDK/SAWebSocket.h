@@ -106,4 +106,14 @@ extern NSString *const SAWebSocketErrorDomain;
 
 @interface NSMutableURLRequest (CertificateAdditions)
 
-@property (nonatomic, retai
+@property (nonatomic, retain) NSArray *mp_SSLPinnedCertificates;
+
+@end
+
+#pragma mark - NSRunLoop (SRWebSocket)
+
+@interface NSRunLoop (SAWebSocket)
+
++ (NSRunLoop *)mp_networkRunLoop;
+
+@end

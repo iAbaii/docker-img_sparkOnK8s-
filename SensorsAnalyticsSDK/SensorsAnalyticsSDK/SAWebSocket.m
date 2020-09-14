@@ -904,3 +904,236 @@ static inline BOOL closeCodeIsValid(int closeCode) {
     }
 
     if (frame_header.payload_length == 0) {
+        if (isControlFrame) {
+            [self _handleFrameWithData:curData opCode:frame_header.opcode];
+        } else {
+            if (frame_header.fin) {
+                [self _handleFrameWithData:_currentFrameData opCode:frame_header.opcode];
+            } else {
+                // TODO add assert that opcode is not a control;
+                [self _readFrameContinue];
+            }
+        }
+    } else {
+        [self _addConsumerWithDataLength:(size_t)frame_header.payload_length callback:^(SAWebSocket *websocket, NSData *newData) {
+            if (isControlFrame) {
+                [websocket _handleFrameWithData:newData opCode:frame_header.opcode];
+            } else {
+                if (frame_header.fin) {
+                    [websocket _handleFrameWithData:websocket->_currentFrameData opCode:frame_header.opcode];
+                } else {
+                    // TODO add assert that opcode is not a control;
+                    [websocket _readFrameContinue];
+                }
+
+            }
+        } readToCurrentFrame:!isControlFrame unmaskBytes:frame_header.masked];
+    }
+}
+
+/* From RFC:
+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-------+-+-------------+-------------------------------+
+ |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+ |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+ |N|V|V|V|       |S|             |   (if payload len==126/127)   |
+ | |1|2|3|       |K|             |                               |
+ +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+ |     Extended payload length continued, if payload len == 127  |
+ + - - - - - - - - - - - - - - - +-------------------------------+
+ |                               |Masking-key, if MASK set to 1  |
+ +-------------------------------+-------------------------------+
+ | Masking-key (continued)       |          Payload Data         |
+ +-------------------------------- - - - - - - - - - - - - - - - +
+ :                     Payload Data continued ...                :
+ + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+ |                     Payload Data continued ...                |
+ +---------------------------------------------------------------+
+ */
+
+static const uint8_t MPFinMask          = 0x80;
+static const uint8_t SAOpCodeMask       = 0x0F;
+static const uint8_t MPRsvMask          = 0x70;
+static const uint8_t MPMaskMask         = 0x80;
+static const uint8_t MPPayloadLenMask   = 0x7F;
+
+
+- (void)_readFrameContinue;
+{
+    assert((_currentFrameCount == 0 && _currentFrameOpcode == 0) || (_currentFrameCount > 0 && _currentFrameOpcode > 0));
+
+    [self _addConsumerWithDataLength:2 callback:^(SAWebSocket *websocket, NSData *data) {
+        __block frame_header header = { .fin = NO, .opcode = 0, .masked = NO, .payload_length = 0 };
+
+        const uint8_t *headerBuffer = data.bytes;
+        assert(data.length >= 2);
+
+        if (headerBuffer[0] & MPRsvMask) {
+            [websocket _closeWithProtocolError:@"Server used RSV bits"];
+            return;
+        }
+
+        uint8_t receivedOpcode = (SAOpCodeMask & headerBuffer[0]);
+
+        BOOL isControlFrame = (receivedOpcode == SAOpCodePing || receivedOpcode == SAOpCodePong || receivedOpcode == SAOpCodeConnectionClose);
+
+        if (!isControlFrame && receivedOpcode != 0 && websocket->_currentFrameCount > 0) {
+            [websocket _closeWithProtocolError:@"all data frames after the initial data frame must have opcode 0"];
+            return;
+        }
+
+        if (receivedOpcode == 0 && websocket->_currentFrameCount == 0) {
+            [websocket _closeWithProtocolError:@"cannot continue a message"];
+            return;
+        }
+
+        header.opcode = receivedOpcode == 0 ? websocket->_currentFrameOpcode : receivedOpcode;
+
+        header.fin = !!(MPFinMask & headerBuffer[0]);
+
+
+        header.masked = !!(MPMaskMask & headerBuffer[1]);
+        header.payload_length = MPPayloadLenMask & headerBuffer[1];
+
+        headerBuffer = NULL;
+
+        if (header.masked) {
+            [websocket _closeWithProtocolError:@"Client must receive unmasked data"];
+        }
+
+        size_t extra_bytes_needed = header.masked ? sizeof(websocket->_currentReadMaskKey) : 0;
+
+        if (header.payload_length == 126) {
+            extra_bytes_needed += sizeof(uint16_t);
+        } else if (header.payload_length == 127) {
+            extra_bytes_needed += sizeof(uint64_t);
+        }
+
+        if (extra_bytes_needed == 0) {
+            [websocket _handleFrameHeader:header curData:websocket->_currentFrameData];
+        } else {
+            [websocket _addConsumerWithDataLength:extra_bytes_needed callback:^(SAWebSocket *websocket2, NSData *data2) {
+                size_t mapped_size = data2.length;
+                const void *mapped_buffer = data2.bytes;
+                size_t offset = 0;
+
+                if (header.payload_length == 126) {
+                    assert(mapped_size >= sizeof(uint16_t));
+                    uint16_t newLen = EndianU16_BtoN(*(uint16_t *)(mapped_buffer));
+                    header.payload_length = newLen;
+                    offset += sizeof(uint16_t);
+                } else if (header.payload_length == 127) {
+                    assert(mapped_size >= sizeof(uint64_t));
+                    header.payload_length = EndianU64_BtoN(*(uint64_t *)(mapped_buffer));
+                    offset += sizeof(uint64_t);
+                } else {
+                    assert(header.payload_length < 126 && header.payload_length >= 0);
+                }
+
+
+                if (header.masked) {
+                    assert(mapped_size >= sizeof(websocket2->_currentReadMaskOffset) + offset);
+                    memcpy(websocket2->_currentReadMaskKey, ((uint8_t *)mapped_buffer) + offset, sizeof(websocket2->_currentReadMaskKey));
+                }
+
+                [websocket2 _handleFrameHeader:header curData:websocket2->_currentFrameData];
+            } readToCurrentFrame:NO unmaskBytes:NO];
+        }
+    } readToCurrentFrame:NO unmaskBytes:NO];
+}
+
+- (void)_readFrameNew;
+{
+    dispatch_async(_workQueue, ^{
+        [self->_currentFrameData setLength:0];
+
+        self->_currentFrameOpcode = 0;
+        self->_currentFrameCount = 0;
+        self->_readOpCount = 0;
+        self->_currentStringScanPosition = 0;
+
+        [self _readFrameContinue];
+    });
+}
+
+- (void)_pumpWriting;
+{
+    [self assertOnWorkQueue];
+
+    NSUInteger dataLength = _outputBuffer.length;
+    if (dataLength - _outputBufferOffset > 0 && _outputStream.hasSpaceAvailable) {
+        NSInteger bytesWritten = [_outputStream write:((const uint8_t *)_outputBuffer.bytes + _outputBufferOffset) maxLength:(dataLength - _outputBufferOffset)];
+        if (bytesWritten == -1) {
+            [self _failWithError:[NSError errorWithDomain:SAWebSocketErrorDomain code:2145 userInfo:@{NSLocalizedDescriptionKey: @"Error writing to stream"}]];
+            return;
+        }
+
+        _outputBufferOffset += (NSUInteger) bytesWritten;
+
+        if (_outputBufferOffset > 4096 && _outputBufferOffset > (_outputBuffer.length >> 1)) {
+            _outputBuffer = [[NSMutableData alloc] initWithBytes:((char *)_outputBuffer.bytes + _outputBufferOffset) length:(_outputBuffer.length - _outputBufferOffset)];
+            _outputBufferOffset = 0;
+        }
+    }
+
+    if (_closeWhenFinishedWriting &&
+        _outputBuffer.length - _outputBufferOffset == 0 &&
+        (_inputStream.streamStatus != NSStreamStatusNotOpen &&
+         _inputStream.streamStatus != NSStreamStatusClosed) &&
+        !_sentClose) {
+        _sentClose = YES;
+
+        @synchronized(self) {
+            [_outputStream close];
+            [_inputStream close];
+
+
+            for (NSArray *runLoop in [_scheduledRunloops copy]) {
+                [self unscheduleFromRunLoop:runLoop[0] forMode:runLoop[1]];
+            }
+        }
+
+        if (!_failed) {
+            [self _performDelegateBlock:^{
+                if ([self.delegate respondsToSelector:@selector(webSocket:didCloseWithCode:reason:wasClean:)]) {
+                    [self.delegate webSocket:self didCloseWithCode:self->_closeCode reason:self->_closeReason wasClean:YES];
+                }
+            }];
+        }
+
+        [self _scheduleCleanup];
+    }
+}
+
+- (void)_addConsumerWithScanner:(stream_scanner)consumer callback:(data_callback)callback;
+{
+    [self assertOnWorkQueue];
+    [self _addConsumerWithScanner:consumer callback:callback dataLength:0];
+}
+
+- (void)_addConsumerWithDataLength:(size_t)dataLength callback:(data_callback)callback readToCurrentFrame:(BOOL)readToCurrentFrame unmaskBytes:(BOOL)unmaskBytes;
+{
+    [self assertOnWorkQueue];
+    assert(dataLength);
+
+    [_consumers addObject:[_consumerPool consumerWithScanner:nil handler:callback bytesNeeded:dataLength readToCurrentFrame:readToCurrentFrame unmaskBytes:unmaskBytes]];
+    [self _pumpScanner];
+}
+
+- (void)_addConsumerWithScanner:(stream_scanner)consumer callback:(data_callback)callback dataLength:(size_t)dataLength;
+{
+    [self assertOnWorkQueue];
+    [_consumers addObject:[_consumerPool consumerWithScanner:consumer handler:callback bytesNeeded:dataLength readToCurrentFrame:NO unmaskBytes:NO]];
+    [self _pumpScanner];
+}
+
+- (void)_scheduleCleanup
+{
+    @synchronized(self) {
+        if (_cleanupScheduled) {
+            return;
+        }
+        
+        _cleanupScheduled = YES;

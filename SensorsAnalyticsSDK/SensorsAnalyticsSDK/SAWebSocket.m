@@ -1137,3 +1137,215 @@ static const uint8_t MPPayloadLenMask   = 0x7F;
         }
         
         _cleanupScheduled = YES;
+        
+        // Cleanup NSStream delegate's in the same RunLoop used by the streams themselves:
+        // This way we'll prevent race conditions between handleEvent and SRWebsocket's dealloc
+        NSTimer *timer = [NSTimer timerWithTimeInterval:0.f
+                                                 target:self
+                                               selector:@selector(_cleanupSelfReference)
+                                               userInfo:nil
+                                                repeats:NO];
+        
+        [[NSRunLoop mp_networkRunLoop] addTimer:timer
+                                        forMode:NSDefaultRunLoopMode];
+    }
+}
+
+- (void)_cleanupSelfReference
+{
+    @synchronized(self) {
+        // Remove the delegates for each stream so we don't fire any events on
+        // close or error
+        _inputStream.delegate = nil;
+        _outputStream.delegate = nil;
+        
+        // Close the streams, which will immediately remove them from the run
+        // loop.
+        [_inputStream close];
+        [_outputStream close];
+    }
+    
+    // Cleanup self reference in the same GCD queue as usual
+    dispatch_async(_workQueue, ^{
+        self->_selfRetain = nil;
+    });
+}
+
+
+static const char CRLFCRLFBytes[] = {'\r', '\n', '\r', '\n'};
+
+- (void)_readUntilHeaderCompleteWithCallback:(data_callback)dataHandler;
+{
+    [self _readUntilBytes:CRLFCRLFBytes length:sizeof(CRLFCRLFBytes) callback:dataHandler];
+}
+
+- (void)_readUntilBytes:(const void *)bytes length:(size_t)length callback:(data_callback)dataHandler;
+{
+    // TODO optimize so this can continue from where we last searched
+    stream_scanner consumer = ^size_t(NSData *data) {
+        __block size_t found_size = 0;
+        __block size_t match_count = 0;
+
+        size_t size = data.length;
+        const unsigned char *buffer = data.bytes;
+        for (size_t i = 0; i < size; i++ ) {
+            if (((const unsigned char *)buffer)[i] == ((const unsigned char *)bytes)[match_count]) {
+                match_count += 1;
+                if (match_count == length) {
+                    found_size = i + 1;
+                    break;
+                }
+            } else {
+                match_count = 0;
+            }
+        }
+        return found_size;
+    };
+    [self _addConsumerWithScanner:consumer callback:dataHandler];
+}
+
+
+// Returns true if did work
+- (BOOL)_innerPumpScanner {
+
+    BOOL didWork = NO;
+
+    if (self.readyState >= SAWebSocketStateClosing) {
+        return didWork;
+    }
+
+    if (!_consumers.count) {
+        return didWork;
+    }
+
+    size_t curSize = _readBuffer.length - _readBufferOffset;
+    if (!curSize) {
+        return didWork;
+    }
+
+    SAIOConsumer *consumer = _consumers[0];
+
+    size_t bytesNeeded = consumer.bytesNeeded;
+
+    size_t foundSize = 0;
+    if (consumer.consumer) {
+        NSData *tempView = [NSData dataWithBytesNoCopy:(char *)_readBuffer.bytes + _readBufferOffset length:_readBuffer.length - _readBufferOffset freeWhenDone:NO];
+        foundSize = consumer.consumer(tempView);
+    } else {
+        assert(consumer.bytesNeeded);
+        if (curSize >= bytesNeeded) {
+            foundSize = bytesNeeded;
+        } else if (consumer.readToCurrentFrame) {
+            foundSize = curSize;
+        }
+    }
+
+    NSData *slice = nil;
+    if (consumer.readToCurrentFrame || foundSize) {
+        NSRange sliceRange = NSMakeRange(_readBufferOffset, foundSize);
+        slice = [_readBuffer subdataWithRange:sliceRange];
+
+        _readBufferOffset += foundSize;
+
+        if (_readBufferOffset > 4096 && _readBufferOffset > (_readBuffer.length >> 1)) {
+            _readBuffer = [[NSMutableData alloc] initWithBytes:(char *)_readBuffer.bytes + _readBufferOffset length:_readBuffer.length - _readBufferOffset];            _readBufferOffset = 0;
+        }
+
+        if (consumer.unmaskBytes) {
+            NSMutableData *mutableSlice = [slice mutableCopy];
+
+            NSUInteger len = mutableSlice.length;
+            uint8_t *bytes = mutableSlice.mutableBytes;
+
+            for (NSUInteger i = 0; i < len; i++) {
+                bytes[i] = bytes[i] ^ _currentReadMaskKey[_currentReadMaskOffset % sizeof(_currentReadMaskKey)];
+                _currentReadMaskOffset += 1;
+            }
+
+            slice = mutableSlice;
+        }
+
+        if (consumer.readToCurrentFrame) {
+            [_currentFrameData appendData:slice];
+
+            _readOpCount += 1;
+
+            if (_currentFrameOpcode == SAOpCodeTextFrame) {
+                // Validate UTF8 stuff.
+                size_t currentDataSize = _currentFrameData.length;
+                if (_currentFrameOpcode == SAOpCodeTextFrame && currentDataSize > 0) {
+                    // TODO: Optimize the crap out of this.  Don't really have to copy all the data each time
+
+                    size_t scanSize = currentDataSize - _currentStringScanPosition;
+
+                    NSData *scan_data = [_currentFrameData subdataWithRange:NSMakeRange(_currentStringScanPosition, scanSize)];
+                    int32_t valid_utf8_size = validate_dispatch_data_partial_string(scan_data);
+
+                    if (valid_utf8_size == -1) {
+                        [self closeWithCode:SAStatusCodeInvalidUTF8 reason:@"Text frames must be valid UTF-8"];
+                        dispatch_async(_workQueue, ^{
+                            [self _disconnect];
+                        });
+                        return didWork;
+                    } else {
+                        _currentStringScanPosition += (uint32_t)valid_utf8_size;
+                    }
+                }
+
+            }
+
+            consumer.bytesNeeded -= foundSize;
+
+            if (consumer.bytesNeeded == 0) {
+                [_consumers removeObjectAtIndex:0];
+                consumer.handler(self, nil);
+                [_consumerPool returnConsumer:consumer];
+                didWork = YES;
+            }
+        } else if (foundSize) {
+            [_consumers removeObjectAtIndex:0];
+            consumer.handler(self, slice);
+            [_consumerPool returnConsumer:consumer];
+            didWork = YES;
+        }
+    }
+    return didWork;
+}
+
+- (void)_pumpScanner;
+{
+    [self assertOnWorkQueue];
+
+    if (!_isPumping) {
+        _isPumping = YES;
+    } else {
+        return;
+    }
+
+    while ([self _innerPumpScanner]) {
+
+    }
+
+    _isPumping = NO;
+}
+
+//#define NOMASK
+
+static const size_t MPFrameHeaderOverhead = 32;
+
+- (void)_sendFrameWithOpcode:(SAOpCode)opcode data:(id)data;
+{
+    [self assertOnWorkQueue];
+
+    NSAssert(data == nil || [data isKindOfClass:[NSData class]] || [data isKindOfClass:[NSString class]], @"Function expects nil, NSString or NSData");
+
+    size_t payloadLength = [data isKindOfClass:[NSString class]] ? [(NSString *)data lengthOfBytesUsingEncoding:NSUTF8StringEncoding] : [(NSData *)data length];
+
+    NSMutableData *frame = [[NSMutableData alloc] initWithLength:payloadLength + MPFrameHeaderOverhead];
+    if (!frame) {
+        [self closeWithCode:SAStatusCodeMessageTooBig reason:@"Message too big"];
+        return;
+    }
+    uint8_t *frame_buffer = (uint8_t *)[frame mutableBytes];
+
+    // set fin

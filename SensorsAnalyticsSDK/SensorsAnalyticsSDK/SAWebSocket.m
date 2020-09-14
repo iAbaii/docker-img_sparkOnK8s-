@@ -696,3 +696,211 @@ static __strong NSData *CRLFCRLF;
 
             [self _disconnect];
             [self _scheduleCleanup];
+        }
+    });
+}
+
+- (void)_writeData:(NSData *)data;
+{
+    [self assertOnWorkQueue];
+
+    if (_closeWhenFinishedWriting) {
+            return;
+    }
+    [_outputBuffer appendData:data];
+    [self _pumpWriting];
+}
+
+- (void)send:(id)data;
+{
+    NSAssert(self.readyState != SAWebSocketStateConnecting, @"Invalid State: Cannot call send: until connection is open");
+    // TODO: maybe not copy this for performance
+    data = [data copy];
+    dispatch_async(_workQueue, ^{
+        if ([data isKindOfClass:[NSString class]]) {
+            [self _sendFrameWithOpcode:SAOpCodeTextFrame data:[(NSString *)data dataUsingEncoding:NSUTF8StringEncoding]];
+        } else if ([data isKindOfClass:[NSData class]]) {
+            [self _sendFrameWithOpcode:SAOpCodeBinaryFrame data:data];
+        } else if (data == nil) {
+            [self _sendFrameWithOpcode:SAOpCodeTextFrame data:data];
+        } else {
+            assert(NO);
+        }
+    });
+}
+
+- (void)handlePing:(NSData *)pingData;
+{
+    // Need to pingpong this off _callbackQueue first to make sure messages happen in order
+    [self _performDelegateBlock:^{
+        dispatch_async(self->_workQueue, ^{
+            [self _sendFrameWithOpcode:SAOpCodePong data:pingData];
+        });
+    }];
+}
+
+- (void)handlePong;
+{
+    // NOOP
+}
+
+- (void)_handleMessage:(id)message
+{
+    [self _performDelegateBlock:^{
+        [self.delegate webSocket:self didReceiveMessage:message];
+    }];
+}
+
+
+static inline BOOL closeCodeIsValid(int closeCode) {
+    if (closeCode < 1000) {
+        return NO;
+    }
+
+    if (closeCode >= 1000 && closeCode <= 1011) {
+        if (closeCode == 1004 ||
+            closeCode == 1005 ||
+            closeCode == 1006) {
+            return NO;
+        }
+        return YES;
+    }
+
+    if (closeCode >= 3000 && closeCode <= 3999) {
+        return YES;
+    }
+
+    if (closeCode >= 4000 && closeCode <= 4999) {
+        return YES;
+    }
+
+    return NO;
+}
+
+//  Note from RFC:
+//
+//  If there is a body, the first two
+//  bytes of the body MUST be a 2-byte unsigned integer (in network byte
+//  order) representing a status code with value /code/ defined in
+//  Section 7.4.  Following the 2-byte integer the body MAY contain UTF-8
+//  encoded data with value /reason/, the interpretation of which is not
+//  defined by this specification.
+
+- (void)handleCloseWithData:(NSData *)data;
+{
+    size_t dataSize = data.length;
+    __block uint16_t closeCode = 0;
+
+    if (dataSize == 1) {
+        // TODO handle error
+        [self _closeWithProtocolError:@"Payload for close must be larger than 2 bytes"];
+        return;
+    } else if (dataSize >= 2) {
+        [data getBytes:&closeCode length:sizeof(closeCode)];
+        _closeCode = EndianU16_BtoN(closeCode);
+        if (!closeCodeIsValid(_closeCode)) {
+            [self _closeWithProtocolError:[NSString stringWithFormat:@"Cannot have close code of %d", _closeCode]];
+            return;
+        }
+        if (dataSize > 2) {
+            _closeReason = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(2, dataSize - 2)] encoding:NSUTF8StringEncoding];
+            if (!_closeReason) {
+                [self _closeWithProtocolError:@"Close reason MUST be valid UTF-8"];
+                return;
+            }
+        }
+    } else {
+        _closeCode = MPStatusNoStatusReceived;
+    }
+
+    [self assertOnWorkQueue];
+
+    if (self.readyState == SAWebSocketStateOpen) {
+        [self closeWithCode:SAStatusCodeNormal reason:nil];
+    }
+    dispatch_async(_workQueue, ^{
+        [self _disconnect];
+    });
+}
+
+- (void)_disconnect;
+{
+    [self assertOnWorkQueue];
+    SADebug(@"Trying to disconnect");
+    _closeWhenFinishedWriting = YES;
+    [self _pumpWriting];
+}
+
+- (void)_handleFrameWithData:(NSData *)frameData opCode:(NSInteger)opcode;
+{
+    // Check that the current data is valid UTF8
+
+    BOOL isControlFrame = (opcode == SAOpCodePing || opcode == SAOpCodePong || opcode == SAOpCodeConnectionClose);
+    if (!isControlFrame) {
+        [self _readFrameNew];
+    } else {
+        dispatch_async(_workQueue, ^{
+            [self _readFrameContinue];
+        });
+    }
+
+    switch (opcode) {
+        case SAOpCodeTextFrame: {
+            NSString *str = [[NSString alloc] initWithData:frameData encoding:NSUTF8StringEncoding];
+            if (str == nil && frameData) {
+                [self closeWithCode:SAStatusCodeInvalidUTF8 reason:@"Text frames must be valid UTF-8"];
+                dispatch_async(_workQueue, ^{
+                    [self _disconnect];
+                });
+
+                return;
+            }
+            [self _handleMessage:str];
+            break;
+        }
+        case SAOpCodeBinaryFrame:
+            [self _handleMessage:[frameData copy]];
+            break;
+        case SAOpCodeConnectionClose:
+            [self handleCloseWithData:frameData];
+            break;
+        case SAOpCodePing:
+            [self handlePing:frameData];
+            break;
+        case SAOpCodePong:
+            [self handlePong];
+            break;
+        default:
+            [self _closeWithProtocolError:[NSString stringWithFormat:@"Unknown opcode %ld", (long)opcode]];
+            // TODO: Handle invalid opcode
+            break;
+    }
+}
+
+- (void)_handleFrameHeader:(frame_header)frame_header curData:(NSData *)curData;
+{
+    NSParameterAssert(frame_header.opcode != 0);
+
+    if (self.readyState != SAWebSocketStateOpen) {
+        return;
+    }
+
+
+    BOOL isControlFrame = (frame_header.opcode == SAOpCodePing || frame_header.opcode == SAOpCodePong || frame_header.opcode == SAOpCodeConnectionClose);
+
+    if (isControlFrame && !frame_header.fin) {
+        [self _closeWithProtocolError:@"Fragmented control frames not allowed"];
+        return;
+    }
+
+    if (isControlFrame && frame_header.payload_length >= 126) {
+        [self _closeWithProtocolError:@"Control frames cannot have payloads larger than 126 bytes"];
+        return;
+    }
+
+    if (!isControlFrame) {
+        _currentFrameOpcode = frame_header.opcode;
+        _currentFrameCount += 1;
+    }
+
+    if (frame_header.payload_length == 0) {

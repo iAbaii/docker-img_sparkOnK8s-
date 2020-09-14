@@ -501,3 +501,198 @@ static __strong NSData *CRLFCRLF;
 {
     if (_receivedHTTPHeaders == NULL) {
         _receivedHTTPHeaders = CFHTTPMessageCreateEmpty(NULL, NO);
+    }
+
+    [self _readUntilHeaderCompleteWithCallback:^(SAWebSocket *websocket,  NSData *data) {
+        CFHTTPMessageAppendBytes(websocket->_receivedHTTPHeaders, (const UInt8 *)data.bytes, (CFIndex)data.length);
+
+        if (CFHTTPMessageIsHeaderComplete(websocket->_receivedHTTPHeaders)) {
+            [websocket _HTTPHeadersDidFinish];
+        } else {
+            [websocket _readHTTPHeader];
+        }
+    }];
+}
+
+- (void)didConnect {
+    CFHTTPMessageRef request = CFHTTPMessageCreateRequest(NULL, CFSTR("GET"), (__bridge CFURLRef)_url, kCFHTTPVersion1_1);
+
+    // Set host first so it defaults
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Host"), (__bridge CFStringRef)(_url.port ? [NSString stringWithFormat:@"%@:%@", _url.host, _url.port] : _url.host));
+
+    NSMutableData *keyBytes = [[NSMutableData alloc] initWithLength:16];
+    SecRandomCopyBytes(kSecRandomDefault, keyBytes.length, keyBytes.mutableBytes);
+    _secKey = [keyBytes sa_base64EncodedString];
+    assert([_secKey length] == 24);
+
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Upgrade"), CFSTR("websocket"));
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Connection"), CFSTR("Upgrade"));
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Sec-WebSocket-Key"), (__bridge CFStringRef)_secKey);
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Sec-WebSocket-Version"), (__bridge CFStringRef)[NSString stringWithFormat:@"%ld", (long)_webSocketVersion]);
+
+    CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Origin"), (__bridge CFStringRef)_url.mp_origin);
+
+    if (_requestedProtocols) {
+        CFHTTPMessageSetHeaderFieldValue(request, CFSTR("Sec-WebSocket-Protocol"), (__bridge CFStringRef)[_requestedProtocols componentsJoinedByString:@", "]);
+    }
+
+    [_urlRequest.allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        CFHTTPMessageSetHeaderFieldValue(request, (__bridge CFStringRef)key, (__bridge CFStringRef)obj);
+    }];
+
+    NSData *message = CFBridgingRelease(CFHTTPMessageCopySerializedMessage(request));
+
+    CFRelease(request);
+
+    [self _writeData:message];
+    [self _readHTTPHeader];
+}
+
+- (void)_initializeStreams;
+{
+    NSInteger port = _url.port.integerValue;
+    if (port == 0) {
+        if (!_secure) {
+            port = 80;
+        } else {
+            port = 443;
+        }
+    }
+    NSString *host = _url.host;
+
+    CFReadStreamRef readStream = NULL;
+    CFWriteStreamRef writeStream = NULL;
+
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)host, (UInt32)port, &readStream, &writeStream);
+
+    _outputStream = CFBridgingRelease(writeStream);
+    _inputStream = CFBridgingRelease(readStream);
+
+
+    if (_secure) {
+        NSMutableDictionary *SSLOptions = [[NSMutableDictionary alloc] init];
+
+        [_outputStream setProperty:(__bridge id)kCFStreamSocketSecurityLevelNegotiatedSSL forKey:(__bridge id)kCFStreamPropertySocketSecurityLevel];
+
+        // If we're using pinned certs, don't validate the certificate chain
+        if ([_urlRequest mp_SSLPinnedCertificates].count) {
+            [SSLOptions setValue:@NO forKey:(__bridge id)kCFStreamSSLValidatesCertificateChain];
+        }
+
+#if DEBUG
+        [SSLOptions setValue:@NO forKey:(__bridge id)kCFStreamSSLValidatesCertificateChain];
+        SADebug(@"SocketRocket: In debug mode.  Allowing connection to any root cert");
+#endif
+
+        [_outputStream setProperty:SSLOptions
+                            forKey:(__bridge id)kCFStreamPropertySSLSettings];
+    }
+
+    _inputStream.delegate = self;
+    _outputStream.delegate = self;
+}
+
+- (void)_connect;
+{
+    if (!_scheduledRunloops.count) {
+        [self scheduleInRunLoop:[NSRunLoop mp_networkRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+
+
+    [_outputStream open];
+    [_inputStream open];
+}
+
+- (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
+{
+    [_outputStream scheduleInRunLoop:aRunLoop forMode:mode];
+    [_inputStream scheduleInRunLoop:aRunLoop forMode:mode];
+
+    [_scheduledRunloops addObject:@[aRunLoop, mode]];
+}
+
+- (void)unscheduleFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
+{
+    [_outputStream removeFromRunLoop:aRunLoop forMode:mode];
+    [_inputStream removeFromRunLoop:aRunLoop forMode:mode];
+
+    [_scheduledRunloops removeObject:@[aRunLoop, mode]];
+}
+
+- (void)close;
+{
+    [self closeWithCode:SAStatusCodeNormal reason:nil];
+}
+
+- (void)closeWithCode:(NSInteger)code reason:(NSString *)reason;
+{
+    assert(code);
+    dispatch_async(_workQueue, ^{
+        if (self.readyState == SAWebSocketStateClosing || self.readyState == SAWebSocketStateClosed) {
+            return;
+        }
+
+        BOOL wasConnecting = self.readyState == SAWebSocketStateConnecting;
+
+        self.readyState = SAWebSocketStateClosing;
+
+        SADebug(@"Closing with code %d reason %@", code, reason);
+
+        if (wasConnecting) {
+            [self _disconnect];
+            return;
+        }
+
+        size_t maxMsgSize = [reason maximumLengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        NSMutableData *mutablePayload = [[NSMutableData alloc] initWithLength:sizeof(uint16_t) + maxMsgSize];
+        NSData *payload = mutablePayload;
+
+        ((uint16_t *)mutablePayload.mutableBytes)[0] = EndianU16_BtoN(code);
+
+        if (reason) {
+            NSRange remainingRange = NSMakeRange(0, 0);
+            NSUInteger usedLength = 0;
+
+            BOOL success = [reason getBytes:(char *)mutablePayload.mutableBytes + sizeof(uint16_t) maxLength:payload.length - sizeof(uint16_t) usedLength:&usedLength encoding:NSUTF8StringEncoding options:NSStringEncodingConversionExternalRepresentation range:NSMakeRange(0, reason.length) remainingRange:&remainingRange];
+
+            assert(success);
+            assert(remainingRange.length == 0);
+
+            if (usedLength != maxMsgSize) {
+                payload = [payload subdataWithRange:NSMakeRange(0, usedLength + sizeof(uint16_t))];
+            }
+        }
+
+
+        [self _sendFrameWithOpcode:SAOpCodeConnectionClose data:payload];
+    });
+}
+
+- (void)_closeWithProtocolError:(NSString *)message;
+{
+    // Need to shunt this on the _callbackQueue first to see if they received any messages
+    [self _performDelegateBlock:^{
+        [self closeWithCode:SAStatusCodeProtocolError reason:message];
+        dispatch_async(self->_workQueue, ^{
+            [self _disconnect];
+        });
+    }];
+}
+
+- (void)_failWithError:(NSError *)error;
+{
+    dispatch_async(_workQueue, ^{
+        if (self.readyState != SAWebSocketStateClosed) {
+            self->_failed = YES;
+            [self _performDelegateBlock:^{
+                if ([self.delegate respondsToSelector:@selector(webSocket:didFailWithError:)]) {
+                    [self.delegate webSocket:self didFailWithError:error];
+                }
+            }];
+
+            self.readyState = SAWebSocketStateClosed;
+
+            SADebug(@"Failing with error %@", error.localizedDescription);
+
+            [self _disconnect];
+            [self _scheduleCleanup];

@@ -1349,3 +1349,217 @@ static const size_t MPFrameHeaderOverhead = 32;
     uint8_t *frame_buffer = (uint8_t *)[frame mutableBytes];
 
     // set fin
+    frame_buffer[0] = MPFinMask | opcode;
+
+    BOOL useMask = YES;
+#ifdef NOMASK
+    useMask = NO;
+#endif
+
+    if (useMask) {
+    // set the mask and header
+        frame_buffer[1] |= MPMaskMask;
+    }
+
+    size_t frame_buffer_size = 2;
+
+    const uint8_t *unmasked_payload = NULL;
+    if ([data isKindOfClass:[NSData class]]) {
+        unmasked_payload = (uint8_t *)[data bytes];
+    } else if ([data isKindOfClass:[NSString class]]) {
+        unmasked_payload =  (const uint8_t *)[data UTF8String];
+    } else {
+        assert(NO);
+    }
+
+    if (payloadLength < 126) {
+        frame_buffer[1] |= payloadLength;
+    } else if (payloadLength <= UINT16_MAX) {
+        frame_buffer[1] |= 126;
+        *((uint16_t *)(frame_buffer + frame_buffer_size)) = EndianU16_BtoN((uint16_t)payloadLength);
+        frame_buffer_size += sizeof(uint16_t);
+    } else {
+        frame_buffer[1] |= 127;
+        *((uint64_t *)(frame_buffer + frame_buffer_size)) = EndianU64_BtoN((uint64_t)payloadLength);
+        frame_buffer_size += sizeof(uint64_t);
+    }
+
+    if (!useMask) {
+        for (size_t i = 0; i < payloadLength; i++) {
+            frame_buffer[frame_buffer_size] = unmasked_payload[i];
+            frame_buffer_size += 1;
+        }
+    } else {
+        uint8_t *mask_key = frame_buffer + frame_buffer_size;
+        SecRandomCopyBytes(kSecRandomDefault, sizeof(uint32_t), (uint8_t *)mask_key);
+        frame_buffer_size += sizeof(uint32_t);
+
+        // TODO: could probably optimize this with SIMD
+        for (size_t i = 0; i < payloadLength; i++) {
+            frame_buffer[frame_buffer_size] = unmasked_payload[i] ^ mask_key[i % sizeof(uint32_t)];
+            frame_buffer_size += 1;
+        }
+    }
+
+    assert(frame_buffer_size <= [frame length]);
+    frame.length = frame_buffer_size;
+
+    [self _writeData:frame];
+}
+
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
+{
+    if (_secure && !_pinnedCertFound && (eventCode == NSStreamEventHasBytesAvailable || eventCode == NSStreamEventHasSpaceAvailable)) {
+
+        NSArray *sslCerts = [_urlRequest mp_SSLPinnedCertificates];
+        if (sslCerts) {
+            SecTrustRef secTrust = (__bridge SecTrustRef)[aStream propertyForKey:(__bridge id)kCFStreamPropertySSLPeerTrust];
+            if (secTrust) {
+                NSInteger numCerts = SecTrustGetCertificateCount(secTrust);
+                for (NSInteger i = 0; i < numCerts && !_pinnedCertFound; i++) {
+                    SecCertificateRef cert = SecTrustGetCertificateAtIndex(secTrust, i);
+                    NSData *certData = CFBridgingRelease(SecCertificateCopyData(cert));
+
+                    for (id ref in sslCerts) {
+                        SecCertificateRef trustedCert = (__bridge SecCertificateRef)ref;
+                        NSData *trustedCertData = CFBridgingRelease(SecCertificateCopyData(trustedCert));
+
+                        if ([trustedCertData isEqualToData:certData]) {
+                            _pinnedCertFound = YES;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!_pinnedCertFound) {
+                dispatch_async(_workQueue, ^{
+                    [self _failWithError:[NSError errorWithDomain:@"org.lolrus.SocketRocket" code:23556 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid server cert"]}]];
+                });
+                return;
+            }
+        }
+    }
+
+    dispatch_async(_workQueue, ^{
+        switch (eventCode) {
+            case NSStreamEventOpenCompleted: {
+                if (self.readyState >= SAWebSocketStateClosing) {
+                    return;
+                }
+                assert(self->_readBuffer);
+
+                if (self.readyState == SAWebSocketStateConnecting && aStream == self->_inputStream) {
+                    [self didConnect];
+                }
+                [self _pumpWriting];
+                [self _pumpScanner];
+                break;
+            }
+
+            case NSStreamEventErrorOccurred: {
+                SADebug(@"NSStreamEventErrorOccurred %@ %@", aStream, [[aStream streamError] copy]);
+                /// TODO specify error better!
+                [self _failWithError:aStream.streamError];
+                self->_readBufferOffset = 0;
+                [self->_readBuffer setLength:0];
+                break;
+
+            }
+
+            case NSStreamEventEndEncountered: {
+                [self _pumpScanner];
+                SADebug(@"NSStreamEventEndEncountered %@", aStream);
+                if (aStream.streamError) {
+                    [self _failWithError:aStream.streamError];
+                } else {
+                    if (self.readyState != SAWebSocketStateClosed) {
+                        self.readyState = SAWebSocketStateClosed;
+                        [self _scheduleCleanup];
+                    }
+
+                    if (!self->_sentClose && !self->_failed) {
+                        self->_sentClose = YES;
+                        // If we get closed in this state it's probably not clean because we should be sending this when we send messages
+                        [self _performDelegateBlock:^{
+                            if ([self.delegate respondsToSelector:@selector(webSocket:didCloseWithCode:reason:wasClean:)]) {
+                                [self.delegate webSocket:self didCloseWithCode:SAStatusCodeGoingAway reason:@"Stream end encountered" wasClean:NO];
+                            }
+                        }];
+                    }
+                }
+
+                break;
+            }
+
+            case NSStreamEventHasBytesAvailable: {
+                const int bufferSize = 2048;
+                uint8_t buffer[bufferSize];
+
+                while (self->_inputStream.hasBytesAvailable) {
+                    NSInteger bytes_read = [self->_inputStream read:buffer maxLength:bufferSize];
+
+                    if (bytes_read > 0) {
+                        [self->_readBuffer appendBytes:buffer length:(NSUInteger)bytes_read];
+                    } else if (bytes_read < 0) {
+                        [self _failWithError:self->_inputStream.streamError];
+                    }
+
+                    if (bytes_read != bufferSize) {
+                        break;
+                    }
+                }
+                [self _pumpScanner];
+                break;
+            }
+
+            case NSStreamEventHasSpaceAvailable: {
+                [self _pumpWriting];
+                break;
+            }
+
+            default:
+                SADebug(@"(default)  %@", aStream);
+                break;
+        }
+    });
+}
+
+@end
+
+
+@implementation SAIOConsumer
+
+@synthesize bytesNeeded = _bytesNeeded;
+@synthesize consumer = _scanner;
+@synthesize handler = _handler;
+@synthesize readToCurrentFrame = _readToCurrentFrame;
+@synthesize unmaskBytes = _unmaskBytes;
+
+- (void)setupWithScanner:(stream_scanner)scanner handler:(data_callback)handler bytesNeeded:(size_t)bytesNeeded readToCurrentFrame:(BOOL)readToCurrentFrame unmaskBytes:(BOOL)unmaskBytes;
+{
+    _scanner = [scanner copy];
+    _handler = [handler copy];
+    _bytesNeeded = bytesNeeded;
+    _readToCurrentFrame = readToCurrentFrame;
+    _unmaskBytes = unmaskBytes;
+    assert(_scanner || _bytesNeeded);
+}
+
+
+@end
+
+
+@implementation SAIOConsumerPool {
+    NSUInteger _poolSize;
+    NSMutableArray *_bufferedConsumers;
+}
+
+- (instancetype)initWithBufferCapacity:(NSUInteger)poolSize;
+{
+    self = [super init];
+    if (self) {
+        _poolSize = poolSize;
+        _bufferedConsumers = [[NSMutableArray alloc] initWithCapacity:poolSize];
+    }
+    return self;

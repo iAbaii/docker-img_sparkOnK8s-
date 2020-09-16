@@ -1777,3 +1777,5 @@ static NSRunLoop *networkRunLoop = nil;
     dispatch_group_wait(_waitGroup, DISPATCH_TIME_FOREVER);
     return _runLoop;
 }
+
+@end

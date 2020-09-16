@@ -1563,3 +1563,217 @@ static const size_t MPFrameHeaderOverhead = 32;
         _bufferedConsumers = [[NSMutableArray alloc] initWithCapacity:poolSize];
     }
     return self;
+}
+
+- (instancetype)init
+{
+    return [self initWithBufferCapacity:8];
+}
+
+- (SAIOConsumer *)consumerWithScanner:(stream_scanner)scanner handler:(data_callback)handler bytesNeeded:(size_t)bytesNeeded readToCurrentFrame:(BOOL)readToCurrentFrame unmaskBytes:(BOOL)unmaskBytes;
+{
+    SAIOConsumer *consumer = nil;
+    if (_bufferedConsumers.count) {
+        consumer = [_bufferedConsumers lastObject];
+        [_bufferedConsumers removeLastObject];
+    } else {
+        consumer = [[SAIOConsumer alloc] init];
+    }
+
+    [consumer setupWithScanner:scanner handler:handler bytesNeeded:bytesNeeded readToCurrentFrame:readToCurrentFrame unmaskBytes:unmaskBytes];
+
+    return consumer;
+}
+
+- (void)returnConsumer:(SAIOConsumer *)consumer
+{
+    if (_bufferedConsumers.count < _poolSize) {
+        [_bufferedConsumers addObject:consumer];
+    }
+}
+
+@end
+
+
+@implementation  NSURLRequest (CertificateAdditions)
+
+- (NSArray *)mp_SSLPinnedCertificates;
+{
+    return [NSURLProtocol propertyForKey:@"mp_SSLPinnedCertificates" inRequest:self];
+}
+
+@end
+
+@implementation  NSMutableURLRequest (CertificateAdditions)
+
+- (NSArray *)mp_SSLPinnedCertificates;
+{
+    return [NSURLProtocol propertyForKey:@"mp_SSLPinnedCertificates" inRequest:self];
+}
+
+- (void)setMp_SSLPinnedCertificates:(NSArray *)pinnedCertificates;
+{
+    [NSURLProtocol setProperty:pinnedCertificates forKey:@"mp_SSLPinnedCertificates" inRequest:self];
+}
+
+@end
+
+@implementation NSURL (SAWebSocket)
+
+- (NSString *)mp_origin;
+{
+    NSString *scheme = [self.scheme lowercaseString];
+
+    if ([scheme isEqualToString:@"wss"]) {
+        scheme = @"https";
+    } else if ([scheme isEqualToString:@"ws"]) {
+        scheme = @"http";
+    }
+
+    if (self.port) {
+        return [NSString stringWithFormat:@"%@://%@:%@/", scheme, self.host, self.port];
+    } else {
+        return [NSString stringWithFormat:@"%@://%@/", scheme, self.host];
+    }
+}
+
+@end
+
+#ifdef HAS_ICU
+
+static inline int32_t validate_dispatch_data_partial_string(NSData *data) {
+    const void * contents = [data bytes];
+    long size = (long)[data length];
+
+    const uint8_t *str = (const uint8_t *)contents;
+
+    UChar32 codepoint = 1;
+    int32_t offset = 0;
+    int32_t lastOffset = 0;
+    while(offset < size && codepoint > 0)  {
+        lastOffset = offset;
+        U8_NEXT(str, offset, size, codepoint);
+    }
+
+    if (codepoint == -1) {
+        // Check to see if the last byte is valid or whether it was just continuing
+        if (!U8_IS_LEAD(str[lastOffset]) || U8_COUNT_TRAIL_BYTES(str[lastOffset]) + lastOffset < (int32_t)size) {
+
+            size = -1;
+        } else {
+            uint8_t leadByte = str[lastOffset];
+            U8_MASK_LEAD_BYTE(leadByte, U8_COUNT_TRAIL_BYTES(leadByte));
+
+            for (NSInteger i = lastOffset + 1; i < offset; i++) {
+                if (U8_IS_SINGLE(str[i]) || U8_IS_LEAD(str[i]) || !U8_IS_TRAIL(str[i])) {
+                    size = -1;
+                }
+            }
+
+            if (size != -1) {
+                size = lastOffset;
+            }
+        }
+    }
+
+    if (size != -1 && ![[NSString alloc] initWithBytesNoCopy:(char *)[data bytes] length:(NSUInteger)size encoding:NSUTF8StringEncoding freeWhenDone:NO]) {
+        size = -1;
+    }
+
+    return (int32_t)size;
+}
+
+#else
+
+// This is a hack, and probably not optimal
+static inline int32_t validate_dispatch_data_partial_string(NSData *data) {
+    static const int maxCodepointSize = 3;
+
+    for (NSInteger i = 0; i < maxCodepointSize; i++) {
+        NSString *str = [[NSString alloc] initWithBytesNoCopy:(char *)data.bytes length:data.length - i encoding:NSUTF8StringEncoding freeWhenDone:NO];
+        if (str) {
+            return data.length - i;
+        }
+    }
+
+    return -1;
+}
+
+#endif
+
+static _SARunLoopThread *networkThread = nil;
+static NSRunLoop *networkRunLoop = nil;
+
+@implementation NSRunLoop (SAWebSocket)
+
++ (NSRunLoop *)mp_networkRunLoop {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        networkThread = [[_SARunLoopThread alloc] init];
+        networkThread.name = @"cn.sensorsdata.WebSocket.NetworkThread";
+        [networkThread start];
+        networkRunLoop = networkThread.runLoop;
+    });
+
+    return networkRunLoop;
+}
+
+@end
+
+
+@implementation _SARunLoopThread {
+    dispatch_group_t _waitGroup;
+}
+
+@synthesize runLoop = _runLoop;
+
+- (void)dealloc
+{
+    sa_dispatch_release(_waitGroup);
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _waitGroup = dispatch_group_create();
+        dispatch_group_enter(_waitGroup);
+    }
+    return self;
+}
+
+- (void)main;
+{
+    @autoreleasepool {
+        _runLoop = [NSRunLoop currentRunLoop];
+        dispatch_group_leave(_waitGroup);
+
+        // Add an empty run loop source to prevent runloop from spinning.
+        CFRunLoopSourceContext sourceCtx = {
+            .version = 0,
+            .info = NULL,
+            .retain = NULL,
+            .release = NULL,
+            .copyDescription = NULL,
+            .equal = NULL,
+            .hash = NULL,
+            .schedule = NULL,
+            .cancel = NULL,
+            .perform = NULL
+        };
+        CFRunLoopSourceRef source = CFRunLoopSourceCreate(NULL, 0, &sourceCtx);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), source, kCFRunLoopDefaultMode);
+        CFRelease(source);
+
+        while ([_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
+
+        }
+        assert(NO);
+    }
+}
+
+- (NSRunLoop *)runLoop
+{
+    dispatch_group_wait(_waitGroup, DISPATCH_TIME_FOREVER);
+    return _runLoop;
+}

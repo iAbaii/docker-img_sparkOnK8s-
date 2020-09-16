@@ -8,4 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class SensorsAnalyticsSDK
+@class SensorsAnalyticsSDK;
+
+@interface SensorsAnalyticsExceptionHandler : NSObject
+
++ (instancetype)sharedHandler;
+- (void)addSensorsAnalyticsInstance:(SensorsAnalyticsSDK *)instance;
+
+@end

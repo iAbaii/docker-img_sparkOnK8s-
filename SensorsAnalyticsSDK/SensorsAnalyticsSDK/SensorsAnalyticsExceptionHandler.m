@@ -13,4 +13,10 @@
 #include <execinfo.h>
 
 NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
-NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHand
+NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
+NSString * const UncaughtExceptionHandlerAddressesKey = @"UncaughtExceptionHandlerAddressesKey";
+
+volatile int32_t UncaughtExceptionCount = 0;
+const int32_t UncaughtExceptionMaximum = 10;
+
+const NSInteger UncaughtExceptionHandlerSkipA

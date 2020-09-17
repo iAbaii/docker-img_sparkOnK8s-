@@ -9,4 +9,8 @@
 #import "SensorsAnalyticsExceptionHandler.h"
 #import "SensorsAnalyticsSDK.h"
 #import "SALogger.h"
-#include <l
+#include <libkern/OSAtomic.h>
+#include <execinfo.h>
+
+NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
+NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHand

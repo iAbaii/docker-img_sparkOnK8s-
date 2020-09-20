@@ -25,4 +25,10 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 @interface SensorsAnalyticsExceptionHandler ()
 
 @property (nonatomic) NSUncaughtExceptionHandler *defaultExceptionHandler;
-@p
+@property (nonatomic, unsafe_unretained) struct sigaction *prev_signal_handlers;
+@property (nonatomic, strong) NSHashTable *sensorsAnalyticsSDKInstances;
+
+@end
+
+@interface SensorsAnalyticsSDK()
+@property (nonatomic, strong) dispa

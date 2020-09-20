@@ -39,4 +39,13 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 + (instancetype)sharedHandler {
     static SensorsAnalyticsExceptionHandler *gSharedHandler = nil;
     static dispatch_once_t onceToken;
-  
+    dispatch_once(&onceToken, ^{
+        gSharedHandler = [[SensorsAnalyticsExceptionHandler alloc] init];
+    });
+    return gSharedHandler;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        // Create a

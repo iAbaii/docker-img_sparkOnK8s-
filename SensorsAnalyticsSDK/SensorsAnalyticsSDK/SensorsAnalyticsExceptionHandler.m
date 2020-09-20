@@ -31,4 +31,12 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 @end
 
 @interface SensorsAnalyticsSDK()
-@property (nonatomic, strong) dispa
+@property (nonatomic, strong) dispatch_queue_t serialQueue;
+@end
+
+@implementation SensorsAnalyticsExceptionHandler
+
++ (instancetype)sharedHandler {
+    static SensorsAnalyticsExceptionHandler *gSharedHandler = nil;
+    static dispatch_once_t onceToken;
+  

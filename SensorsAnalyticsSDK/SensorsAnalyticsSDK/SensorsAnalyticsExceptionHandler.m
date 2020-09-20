@@ -19,4 +19,10 @@ NSString * const UncaughtExceptionHandlerAddressesKey = @"UncaughtExceptionHandl
 volatile int32_t UncaughtExceptionCount = 0;
 const int32_t UncaughtExceptionMaximum = 10;
 
-const NSInteger UncaughtExceptionHandlerSkipA
+const NSInteger UncaughtExceptionHandlerSkipAddressCount = 4;
+const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
+
+@interface SensorsAnalyticsExceptionHandler ()
+
+@property (nonatomic) NSUncaughtExceptionHandler *defaultExceptionHandler;
+@p

@@ -53,4 +53,16 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
         
         _prev_signal_handlers = calloc(NSIG, sizeof(struct sigaction));
         
-        // Install 
+        // Install our handler
+        [self setupHandlers];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    free(_prev_signal_handlers);
+}
+
+- (void)setupHandlers {
+    _defaultExceptionHandler = NSGetUncaughtExceptionHandler();
+    N

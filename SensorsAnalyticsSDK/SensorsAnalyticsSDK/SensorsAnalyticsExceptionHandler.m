@@ -48,4 +48,9 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        // Create a
+        // Create a hash table of weak pointers to SensorsAnalytics instances
+        _sensorsAnalyticsSDKInstances = [NSHashTable weakObjectsHashTable];
+        
+        _prev_signal_handlers = calloc(NSIG, sizeof(struct sigaction));
+        
+        // Install 

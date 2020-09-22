@@ -65,4 +65,10 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 - (void)setupHandlers {
     _defaultExceptionHandler = NSGetUncaughtExceptionHandler();
-    N
+    NSSetUncaughtExceptionHandler(&SAHandleException);
+    
+    struct sigaction action;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = SA_SIGINFO;
+    action.sa_sigaction = &SASignalHandler;
+    int signa

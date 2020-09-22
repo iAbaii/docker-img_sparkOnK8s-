@@ -71,4 +71,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     sigemptyset(&action.sa_mask);
     action.sa_flags = SA_SIGINFO;
     action.sa_sigaction = &SASignalHandler;
-    int signa
+    int signals[] = {SIGABRT, SIGILL, SIGSEGV, SIGFPE, SIGBUS, SIGPIPE};
+    for (int i = 0; i < sizeof(signals) / sizeof(int); i++) {
+        struct sigaction prev_action;
+        int err = sigaction(signals[i], &action, 

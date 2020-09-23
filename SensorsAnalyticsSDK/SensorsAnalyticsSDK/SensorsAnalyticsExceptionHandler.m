@@ -74,4 +74,8 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     int signals[] = {SIGABRT, SIGILL, SIGSEGV, SIGFPE, SIGBUS, SIGPIPE};
     for (int i = 0; i < sizeof(signals) / sizeof(int); i++) {
         struct sigaction prev_action;
-        int err = sigaction(signals[i], &action, 
+        int err = sigaction(signals[i], &action, &prev_action);
+        if (err == 0) {
+            memcpy(_prev_signal_handlers + signals[i], &prev_action, sizeof(prev_action));
+        } else {
+            NSLog(@"Errored while trying to set up sigaction for

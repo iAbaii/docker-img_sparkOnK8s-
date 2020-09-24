@@ -86,4 +86,10 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 - (void)addSensorsAnalyticsInstance:(SensorsAnalyticsSDK *)instance {
     NSParameterAssert(instance != nil);
     
-    [self.sensorsAnalyticsSDKInstances addObject
+    [self.sensorsAnalyticsSDKInstances addObject:instance];
+}
+
+void SASignalHandler(int signal, struct __siginfo *info, void *context) {
+    SensorsAnalyticsExceptionHandler *handler = [SensorsAnalyticsExceptionHandler sharedHandler];
+    
+    int32_t exceptionCount

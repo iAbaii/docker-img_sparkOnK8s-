@@ -92,4 +92,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 void SASignalHandler(int signal, struct __siginfo *info, void *context) {
     SensorsAnalyticsExceptionHandler *handler = [SensorsAnalyticsExceptionHandler sharedHandler];
     
-    int32_t exceptionCount
+    int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
+    if (exceptionCount <= UncaughtExceptionMaximum) {
+        NSDictionary *userInfo = @{UncaughtExceptionHandlerSignalKey: @(signal)};
+        NSException *exception = [NSExceptio

@@ -95,4 +95,6 @@ void SASignalHandler(int signal, struct __siginfo *info, void *context) {
     int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
     if (exceptionCount <= UncaughtExceptionMaximum) {
         NSDictionary *userInfo = @{UncaughtExceptionHandlerSignalKey: @(signal)};
-        NSException *exception = [NSExceptio
+        NSException *exception = [NSException exceptionWithName:UncaughtExceptionHandlerSignalExceptionName
+                                                         reason:[NSString stringWithFormat:@"Signal %d was raised.", signal]
+                         

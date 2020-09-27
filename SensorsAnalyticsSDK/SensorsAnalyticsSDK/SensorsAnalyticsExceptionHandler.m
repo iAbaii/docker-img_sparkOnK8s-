@@ -108,4 +108,11 @@ void SASignalHandler(int signal, struct __siginfo *info, void *context) {
             prev_action.sa_sigaction(signal, info, context);
         }
     } else if (prev_action.sa_handler) {
-        prev_action.sa_h
+        prev_action.sa_handler(signal);
+    }
+}
+
+void SAHandleException(NSException *exception) {
+    SensorsAnalyticsExceptionHandler *handler = [SensorsAnalyticsExceptionHandler sharedHandler];
+    
+    int32_t exceptionCount = O

@@ -97,4 +97,15 @@ void SASignalHandler(int signal, struct __siginfo *info, void *context) {
         NSDictionary *userInfo = @{UncaughtExceptionHandlerSignalKey: @(signal)};
         NSException *exception = [NSException exceptionWithName:UncaughtExceptionHandlerSignalExceptionName
                                                          reason:[NSString stringWithFormat:@"Signal %d was raised.", signal]
-                         
+                                                       userInfo:userInfo];
+        
+        [handler sa_handleUncaughtException:exception];
+    }
+    
+    struct sigaction prev_action = handler.prev_signal_handlers[signal];
+    if (prev_action.sa_flags & SA_SIGINFO) {
+        if (prev_action.sa_sigaction) {
+            prev_action.sa_sigaction(signal, info, context);
+        }
+    } else if (prev_action.sa_handler) {
+        prev_action.sa_h

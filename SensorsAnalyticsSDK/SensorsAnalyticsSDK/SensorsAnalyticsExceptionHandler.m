@@ -115,4 +115,10 @@ void SASignalHandler(int signal, struct __siginfo *info, void *context) {
 void SAHandleException(NSException *exception) {
     SensorsAnalyticsExceptionHandler *handler = [SensorsAnalyticsExceptionHandler sharedHandler];
     
-    int32_t exceptionCount = O
+    int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
+    if (exceptionCount <= UncaughtExceptionMaximum) {
+        [handler sa_handleUncaughtException:exception];
+    }
+    
+    if (handler.defaultExceptionHandler) {
+        handler.default

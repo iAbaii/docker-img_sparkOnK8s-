@@ -121,4 +121,10 @@ void SAHandleException(NSException *exception) {
     }
     
     if (handler.defaultExceptionHandler) {
-        handler.default
+        handler.defaultExceptionHandler(exception);
+    }
+}
+
+- (void) sa_handleUncaughtException:(NSException *)exception {
+    // Archive the values for each SensorsAnalytics instance
+    for (SensorsAnalyticsSDK *instance in self.sensorsAnalyti

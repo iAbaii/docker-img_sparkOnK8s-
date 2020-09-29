@@ -127,4 +127,7 @@ void SAHandleException(NSException *exception) {
 
 - (void) sa_handleUncaughtException:(NSException *)exception {
     // Archive the values for each SensorsAnalytics instance
-    for (SensorsAnalyticsSDK *instance in self.sensorsAnalyti
+    for (SensorsAnalyticsSDK *instance in self.sensorsAnalyticsSDKInstances) {
+        NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+        [properties setValue:[exception reason] forKey:@"app_crashed_reason"];
+        [instance track:@"A

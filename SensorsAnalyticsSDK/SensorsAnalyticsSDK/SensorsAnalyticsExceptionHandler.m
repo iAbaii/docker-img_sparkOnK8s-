@@ -130,4 +130,10 @@ void SAHandleException(NSException *exception) {
     for (SensorsAnalyticsSDK *instance in self.sensorsAnalyticsSDKInstances) {
         NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
         [properties setValue:[exception reason] forKey:@"app_crashed_reason"];
-        [instance track:@"A
+        [instance track:@"AppCrashed" withProperties:properties];
+        [instance track:@"$AppEnd"];
+        dispatch_sync(instance.serialQueue, ^{
+            
+        });
+    }
+    NSLog(@"Encountered an uncaught exception. All SensorsAnalytics inst

@@ -136,4 +136,7 @@ void SAHandleException(NSException *exception) {
             
         });
     }
-    NSLog(@"Encountered an uncaught exception. All SensorsAnalytics inst
+    NSLog(@"Encountered an uncaught exception. All SensorsAnalytics instances were archived.");
+}
+
+@end

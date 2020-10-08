@@ -400,3 +400,243 @@ typedef NS_OPTIONS(NSInteger, SensorsAnalyticsNetworkType) {
  * 获取匿名id
  *
  * @return anonymousId 匿名id
+ */
+- (NSString *)anonymousId;
+
+/**
+ * @abstract
+ * 重置默认匿名id
+ */
+- (void)resetAnonymousId;
+
+/**
+ * @abstract
+ * 自动收集 App Crash 日志，该功能默认是关闭的
+ */
+- (void)trackAppCrash;
+
+/**
+ * @property
+ *
+ * @abstract
+ * 打开 SDK 自动追踪,默认只追踪App 启动 / 关闭、进入页面
+ *
+ * @discussion
+ * 该功能自动追踪 App 的一些行为，例如 SDK 初始化、App 启动 / 关闭、进入页面 等等，具体信息请参考文档:
+ *   https://sensorsdata.cn/manual/ios_sdk.html
+ * 该功能默认关闭
+ */
+- (void)enableAutoTrack __attribute__((deprecated("已过时，请参考enableAutoTrack:(SensorsAnalyticsAutoTrackEventType)eventType")));
+
+/**
+ * @property
+ *
+ * @abstract
+ * 打开 SDK 自动追踪,默认只追踪App 启动 / 关闭、进入页面、元素点击
+ *
+ * @discussion
+ * 该功能自动追踪 App 的一些行为，例如 SDK 初始化、App 启动 / 关闭、进入页面 等等，具体信息请参考文档:
+ *   https://sensorsdata.cn/manual/ios_sdk.html
+ * 该功能默认关闭
+ */
+- (void)enableAutoTrack:(SensorsAnalyticsAutoTrackEventType)eventType;
+
+/**
+ * @abstract
+ * 是否开启 AutoTrack
+ *
+ * @return YES:开启 AutoTrack; NO:关闭 AutoTrack
+ */
+- (BOOL)isAutoTrackEnabled;
+
+/**
+ * @abstract
+ * 判断某个 AutoTrack 事件类型是否被忽略
+ *
+ * @param eventType SensorsAnalyticsAutoTrackEventType 要判断的 AutoTrack 事件类型
+ *
+ * @return YES:被忽略; NO:没有被忽略
+ */
+- (BOOL)isAutoTrackEventTypeIgnored:(SensorsAnalyticsAutoTrackEventType)eventType;
+
+/**
+ * @abstract
+ * 忽略某一类型的 View
+ *
+ * @param aClass View 对应的 Class
+ */
+- (void)ignoreViewType:(Class)aClass;
+
+/**
+ * @abstract
+ * 判断某个 View 类型是否被忽略
+ *
+ * @param aClass Class View 对应的 Class
+ *
+ * @return YES:被忽略; NO:没有被忽略
+ */
+- (BOOL)isViewTypeIgnored:(Class)aClass;
+
+/**
+ * @abstract
+ * 判断某个 ViewController 是否被忽略
+ *
+ * @param viewController UIViewController
+ *
+ * @return YES:被忽略; NO:没有被忽略
+ */
+- (BOOL)isViewControllerIgnored:(UIViewController*)viewController;
+
+/**
+ * @abstract
+ * 判断某个 ViewController 是否被忽略
+ *
+ * @param viewController UIViewController
+ *
+ * @return YES:被忽略; NO:没有被忽略
+ */
+- (BOOL)isViewControllerStringIgnored:(NSString*)viewController;
+
+/**
+ * @abstract
+ * 过滤掉 AutoTrack 的某个事件类型
+ *
+ * @param eventType SensorsAnalyticsAutoTrackEventType 要忽略的 AutoTrack 事件类型
+ */
+- (void)ignoreAutoTrackEventType:(SensorsAnalyticsAutoTrackEventType)eventType __attribute__((deprecated("已过时，请参考enableAutoTrack:(SensorsAnalyticsAutoTrackEventType)eventType")));
+
+/**
+ * @abstract
+ * 设置是否显示 debugInfoView，对于 iOS，是 UIAlertView／UIAlertController
+ *
+ * @discussion
+ * 设置是否显示 debugInfoView，默认显示
+ *
+ * @param show             是否显示
+ */
+- (void)showDebugInfoView:(BOOL)show;
+
+- (NSString *)getUIViewControllerTitle:(UIViewController *)controller;
+
+/**
+ * @abstract
+ * 设置当前用户的distinctId
+ *
+ * @discussion
+ * 一般情况下，如果是一个注册用户，则应该使用注册系统内的user_id
+ * 如果是个未注册用户，则可以选择一个不会重复的匿名ID，如设备ID等
+ * 如果客户没有设置indentify，则使用SDK自动生成的匿名ID
+ * SDK会自动将设置的distinctId保存到文件中，下次启动时会从中读取
+ *
+ * @param distinctId 当前用户的distinctId
+ */
+- (void)identify:(NSString *)distinctId;
+
+/**
+ * @abstract
+ * 调用track接口，追踪一个带有属性的event
+ *
+ * @discussion
+ * propertyDict是一个Map。
+ * 其中的key是Property的名称，必须是<code>NSString</code>
+ * value则是Property的内容，只支持 <code>NSString</code>,<code>NSNumber</code>,<code>NSSet</code>,<code>NSDate</code>这些类型
+ * 特别的，<code>NSSet</code>类型的value中目前只支持其中的元素是<code>NSString</code>
+ *
+ * @param event             event的名称
+ * @param propertyDict     event的属性
+ */
+- (void)track:(NSString *)event withProperties:(nullable NSDictionary *)propertyDict;
+
+/**
+ * @abstract
+ * 调用track接口，追踪一个无私有属性的event
+ *
+ * @param event event的名称
+ */
+- (void)track:(NSString *)event;
+
+/**
+ * @abstract
+ * 初始化事件的计时器。
+ *
+ * @discussion
+ * 若需要统计某个事件的持续时间，先在事件开始时调用 trackTimer:"Event" 记录事件开始时间，该方法并不会真正发
+ * 送事件；随后在事件结束时，调用 track:"Event" withProperties:properties，SDK 会追踪 "Event" 事件，并自动将事件持续时
+ * 间记录在事件属性 "event_duration" 中。
+ *
+ * 默认时间单位为毫秒，若需要以其他时间单位统计时长，请使用 trackTimer:withTimeUnit
+ *
+ * 多次调用 trackTimer:"Event" 时，事件 "Event" 的开始时间以最后一次调用时为准。
+ *
+ * @param event             event的名称
+ */
+- (void)trackTimer:(NSString *)event;
+
+/**
+ * @abstract
+ * 初始化事件的计时器。
+ *
+ * @discussion
+ * 若需要统计某个事件的持续时间，先在事件开始时调用 trackTimer:"Event" 记录事件开始时间，该方法并不会真正发
+ * 送事件；随后在事件结束时，调用 track:"Event" withProperties:properties，SDK 会追踪 "Event" 事件，并自动将事件持续时
+ * 间记录在事件属性 "event_duration" 中。
+ *
+ * 默认时间单位为毫秒，若需要以其他时间单位统计时长，请使用 trackTimer:withTimeUnit
+ *
+ * 多次调用 trackTimer:"Event" 时，事件 "Event" 的开始时间以最后一次调用时为准。
+ *
+ * @param event             event的名称
+ */
+- (void)trackTimerBegin:(NSString *)event;
+
+/**
+ * @abstract
+ * 初始化事件的计时器，允许用户指定计时单位。
+ *
+ * @discussion
+ * 请参考 trackTimer
+ *
+ * @param event             event的名称
+ * @param timeUnit          计时单位，毫秒/秒/分钟/小时
+ */
+- (void)trackTimer:(NSString *)event withTimeUnit:(SensorsAnalyticsTimeUnit)timeUnit;
+
+/**
+ * @abstract
+ * 初始化事件的计时器，允许用户指定计时单位。
+ *
+ * @discussion
+ * 请参考 trackTimer
+ *
+ * @param event             event的名称
+ * @param timeUnit          计时单位，毫秒/秒/分钟/小时
+ */
+- (void)trackTimerBegin:(NSString *)event withTimeUnit:(SensorsAnalyticsTimeUnit)timeUnit;
+
+- (void)trackTimerEnd:(NSString *)event withProperties:(nullable NSDictionary *)propertyDict;
+
+- (void)trackTimerEnd:(NSString *)event;
+
+- (UIViewController *_Nullable)currentViewController;
+
+/**
+ * @abstract
+ * 清除所有事件计时器
+ */
+- (void)clearTrackTimer;
+
+/**
+ * @abstract
+ * 提供一个接口，用来在用户注册的时候，用注册ID来替换用户以前的匿名ID
+ *
+ * @discussion
+ * 这个接口是一个较为复杂的功能，请在使用前先阅读相关说明: http://www.sensorsdata.cn/manual/track_signup.html，并在必要时联系我们的技术支持人员。
+ *
+ * @param newDistinctId     用户完成注册后生成的注册ID
+ * @param propertyDict     event的属性
+ */
+- (void)trackSignUp:(NSString *)newDistinctId withProperties:(nullable NSDictionary *)propertyDict __attribute__((deprecated("已过时，请参考login")));
+
+/**
+ * @abstract
+ * 不带私有属性的trackSignUp，用来在用户注册的时候，用注册ID来替换用户以前的匿名ID

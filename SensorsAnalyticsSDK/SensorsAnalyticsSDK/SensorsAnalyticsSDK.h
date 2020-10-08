@@ -640,3 +640,222 @@ typedef NS_OPTIONS(NSInteger, SensorsAnalyticsNetworkType) {
 /**
  * @abstract
  * 不带私有属性的trackSignUp，用来在用户注册的时候，用注册ID来替换用户以前的匿名ID
+ *
+ * @discussion
+ * 这个接口是一个较为复杂的功能，请在使用前先阅读相关说明: http://www.sensorsdata.cn/manual/track_signup.html，并在必要时联系我们的技术支持人员。
+ *
+ * @param newDistinctId     用户完成注册后生成的注册ID
+ */
+- (void)trackSignUp:(NSString *)newDistinctId __attribute__((deprecated("已过时，请参考login")));
+
+/**
+ * @abstract
+ * 用于在 App 首次启动时追踪渠道来源，并设置追踪渠道事件的属性。SDK会将渠道值填入事件属性 $utm_ 开头的一系列属性中。
+ *
+ * @discussion
+ * propertyDict是一个Map。
+ * 其中的key是Property的名称，必须是<code>NSString</code>
+ * value则是Property的内容，只支持 <code>NSString</code>,<code>NSNumber</code>,<code>NSSet</code>,<code>NSDate</code>这些类型
+ * 特别的，<code>NSSet</code>类型的value中目前只支持其中的元素是<code>NSString</code>
+ *
+ * 这个接口是一个较为复杂的功能，请在使用前先阅读相关说明: https://sensorsdata.cn/manual/track_installation.html，并在必要时联系我们的技术支持人员。
+ *
+ * @param event             event的名称
+ * @param propertyDict     event的属性
+ */
+- (void)trackInstallation:(NSString *)event withProperties:(nullable NSDictionary *)propertyDict;
+
+/**
+ * @abstract
+ * 用于在 App 首次启动时追踪渠道来源，并设置追踪渠道事件的属性。SDK会将渠道值填入事件属性 $utm_ 开头的一系列属性中。
+ *
+ * @discussion
+ * propertyDict是一个Map。
+ * 其中的key是Property的名称，必须是<code>NSString</code>
+ * value则是Property的内容，只支持 <code>NSString</code>,<code>NSNumber</code>,<code>NSSet</code>,<code>NSDate</code>这些类型
+ * 特别的，<code>NSSet</code>类型的value中目前只支持其中的元素是<code>NSString</code>
+ *
+ * 这个接口是一个较为复杂的功能，请在使用前先阅读相关说明: https://sensorsdata.cn/manual/track_installation.html，并在必要时联系我们的技术支持人员。
+ *
+ * @param event             event的名称
+ * @param propertyDict     event的属性
+ * @param disableCallback     是否关闭这次渠道匹配的回调请求
+ */
+- (void)trackInstallation:(NSString *)event withProperties:(nullable NSDictionary *)propertyDict disableCallback:(BOOL)disableCallback;
+
+/**
+ * @abstract
+ * 用于在 App 首次启动时追踪渠道来源，SDK会将渠道值填入事件属性 $utm_ 开头的一系列属性中
+ * 使用该接口
+ *
+ * @discussion
+ * 这个接口是一个较为复杂的功能，请在使用前先阅读相关说明: https://sensorsdata.cn/manual/track_installation.html，并在必要时联系我们的技术支持人员。
+ *
+ * @param event             event的名称
+ */
+- (void)trackInstallation:(NSString *)event;
+
+- (void)trackFromH5WithEvent:(NSString *)eventInfo;
+
+/**
+ * @abstract
+ * 在AutoTrack时，用户可以设置哪些controlls不被AutoTrack
+ *
+ * @param controllers   controller‘字符串’数组
+ */
+- (void)ignoreAutoTrackViewControllers:(NSArray *)controllers;
+
+/**
+ * @abstract
+ * 获取LastScreenUrl
+ *
+ * @return LastScreenUrl
+ */
+- (NSString *)getLastScreenUrl;
+
+/**
+ * @abstract
+ * App 退出或进到后台时清空 referrer，默认情况下不清空
+ */
+- (void)clearReferrerWhenAppEnd;
+
+/**
+ * @abstract
+ * 获取LastScreenTrackProperties
+ *
+ * @return LastScreenTrackProperties
+ */
+- (NSDictionary *)getLastScreenTrackProperties;
+
+- (void)addWebViewUserAgentSensorsDataFlag;
+
+- (SensorsAnalyticsDebugMode)debugMode;
+
+/**
+ * @abstract
+ * 通过代码触发 UIView 的 $AppClick 事件
+ *
+ * @param view UIView
+ */
+- (void)trackViewAppClick:(nonnull UIView *)view;
+
+/**
+ * @abstract
+ * 通过代码触发 UIViewController 的 $AppViewScreen 事件
+ *
+ * @param viewController 当前的 UIViewController
+ */
+- (void)trackViewScreen:(UIViewController *)viewController;
+
+/**
+ * @abstract
+ * 通过代码触发 UIView 的 $AppClick 事件
+ *
+ * @param view UIView
+ * @param properties 自定义属性
+ */
+- (void)trackViewAppClick:(nonnull UIView *)view withProperties:(nullable NSDictionary *)properties;
+
+/**
+ * @abstract
+ * Track $AppViewScreen事件
+ *
+ * @param url 当前页面url
+ * @param properties 用户扩展属性
+ */
+- (void)trackViewScreen:(NSString *)url withProperties:(NSDictionary *)properties;
+
+/**
+ * @abstract
+ * 用来设置每个事件都带有的一些公共属性
+ *
+ * @discussion
+ * 当track的Properties，superProperties和SDK自动生成的automaticProperties有相同的key时，遵循如下的优先级：
+ *    track.properties > superProperties > automaticProperties
+ * 另外，当这个接口被多次调用时，是用新传入的数据去merge先前的数据，并在必要时进行merger
+ * 例如，在调用接口前，dict是@{@"a":1, @"b": "bbb"}，传入的dict是@{@"b": 123, @"c": @"asd"}，则merge后的结果是
+ * @{"a":1, @"b": 123, @"c": @"asd"}，同时，SDK会自动将superProperties保存到文件中，下次启动时也会从中读取
+ *
+ * @param propertyDict 传入merge到公共属性的dict
+ */
+- (void)registerSuperProperties:(NSDictionary *)propertyDict;
+
+/**
+ * @abstract
+ * 从superProperty中删除某个property
+ *
+ * @param property 待删除的property的名称
+ */
+- (void)unregisterSuperProperty:(NSString *)property;
+
+/**
+ * @abstract
+ * 删除当前所有的superProperty
+ */
+- (void)clearSuperProperties;
+
+/**
+ * @abstract
+ * 拿到当前的superProperty的副本
+ *
+ * @return 当前的superProperty的副本
+ */
+- (NSDictionary *)currentSuperProperties;
+
+/**
+ * @abstract
+ * 得到SDK的版本
+ *
+ * @return SDK的版本
+ */
+- (NSString *)libVersion;
+
+/**
+ * @abstract
+ * 强制试图把数据传到对应的SensorsAnalytics服务器上
+ *
+ * @discussion
+ * 主动调用flush接口，则不论flushInterval和网络类型的限制条件是否满足，都尝试向服务器上传一次数据
+ */
+- (void)flush;
+
+/**
+ * @abstract
+ * 直接设置用户的一个或者几个Profiles
+ *
+ * @discussion
+ * 这些Profile的内容用一个<code>NSDictionary</code>来存储
+ * 其中的key是Profile的名称，必须是<code>NSString</code>
+ * Value则是Profile的内容，只支持 <code>NSString</code>,<code>NSNumber</code>,<code>NSSet</code>,
+ *                              <code>NSDate</code>这些类型
+ * 特别的，<code>NSSet</code>类型的value中目前只支持其中的元素是<code>NSString</code>
+ * 如果某个Profile之前已经存在了，则这次会被覆盖掉；不存在，则会创建
+ *
+ * @param profileDict 要替换的那些Profile的内容
+ */
+- (void)set:(NSDictionary *)profileDict;
+
+/**
+ * @abstract
+ * 首次设置用户的一个或者几个Profiles
+ *
+ * @discussion
+ * 与set接口不同的是，如果该用户的某个Profile之前已经存在了，会被忽略；不存在，则会创建
+ *
+ * @param profileDict 要替换的那些Profile的内容
+ */
+- (void)setOnce:(NSDictionary *)profileDict;
+
+/**
+ * @abstract
+ * 设置用户的单个Profile的内容
+ *
+ * @discussion
+ * 如果这个Profile之前已经存在了，则这次会被覆盖掉；不存在，则会创建
+ *
+ * @param profile Profile的名称
+ * @param content Profile的内容
+ */
+- (void)set:(NSString *) profile to:(id)content;
+
+/**

@@ -22,4 +22,11 @@
 #import "SADesignerEventBindingMessage.h"
 #import "SADesignerSessionCollection.h"
 #import "SAEventBinding.h"
-#import "SALogger.h
+#import "SALogger.h"
+#import "SAReachability.h"
+#import "SASwizzler.h"
+#import "SensorsAnalyticsSDK.h"
+#import "JSONUtil.h"
+#import "UIApplication+AutoTrack.h"
+#import "UIViewController+AutoTrack.h"
+#import "SASwizzle.

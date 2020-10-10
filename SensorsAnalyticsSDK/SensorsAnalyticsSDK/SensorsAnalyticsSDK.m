@@ -29,4 +29,16 @@
 #import "JSONUtil.h"
 #import "UIApplication+AutoTrack.h"
 #import "UIViewController+AutoTrack.h"
-#import "SASwizzle.
+#import "SASwizzle.h"
+#import "AutoTrackUtils.h"
+#import "NSString+HashCode.h"
+#import "SensorsAnalyticsExceptionHandler.h"
+#define VERSION @"1.8.12"
+
+#import "UIWindow+SASnapshotImage.h"
+
+#define PROPERTY_LENGTH_LIMITATION 819100
+
+
+
+//

@@ -41,4 +41,10 @@
 
 
 
-//
+// 自动追踪相关事件及属性
+// App 启动或激活
+NSString* const APP_START_EVENT = @"$AppStart";
+// App 退出或进入后台
+NSString* const APP_END_EVENT = @"$AppEnd";
+// App 浏览页面
+NSString* const APP_VIEW_SCREEN_EVENT = @"$AppViewSc

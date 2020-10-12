@@ -53,4 +53,11 @@ NSString* const APP_FIRST_START_PROPERTY = @"$is_first_time";
 // App 是否从后台恢复
 NSString* const RESUME_FROM_BACKGROUND_PROPERTY = @"$resume_from_background";
 // App 浏览页面名称
-NSString
+NSString* const SCREEN_NAME_PROPERTY = @"$screen_name";
+// App 浏览页面 Url
+NSString* const SCREEN_URL_PROPERTY = @"$url";
+// App 浏览页面 Referrer Url
+NSString* const SCREEN_REFERRER_URL_PROPERTY = @"$referrer";
+
+// APP 截屏行为
+NSString*

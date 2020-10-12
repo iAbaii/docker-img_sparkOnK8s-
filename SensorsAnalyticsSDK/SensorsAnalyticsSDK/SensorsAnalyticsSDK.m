@@ -47,4 +47,10 @@ NSString* const APP_START_EVENT = @"$AppStart";
 // App 退出或进入后台
 NSString* const APP_END_EVENT = @"$AppEnd";
 // App 浏览页面
-NSString* const APP_VIEW_SCREEN_EVENT = @"$AppViewSc
+NSString* const APP_VIEW_SCREEN_EVENT = @"$AppViewScreen";
+// App 首次启动
+NSString* const APP_FIRST_START_PROPERTY = @"$is_first_time";
+// App 是否从后台恢复
+NSString* const RESUME_FROM_BACKGROUND_PROPERTY = @"$resume_from_background";
+// App 浏览页面名称
+NSString

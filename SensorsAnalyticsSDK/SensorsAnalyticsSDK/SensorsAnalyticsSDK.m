@@ -60,4 +60,13 @@ NSString* const SCREEN_URL_PROPERTY = @"$url";
 NSString* const SCREEN_REFERRER_URL_PROPERTY = @"$referrer";
 
 // APP 截屏行为
-NSString*
+NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
+
+
+@implementation SensorsAnalyticsDebugException
+
+@end
+
+@implementation UIImage (SensorsAnalytics)
+- (NSString *)sensorsAnalyticsImageName {
+    return obj

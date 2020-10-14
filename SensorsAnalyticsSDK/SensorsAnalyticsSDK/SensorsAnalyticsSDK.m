@@ -69,4 +69,8 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 
 @implementation UIImage (SensorsAnalytics)
 - (NSString *)sensorsAnalyticsImageName {
-    return obj
+    return objc_getAssociatedObject(self, @"sensorsAnalyticsImageName");
+}
+
+- (void)setSensorsAnalyticsImageName:(NSString *)sensorsAnalyticsImageName {
+    objc_setAssociatedObject(self, @"sensorsAnalyticsImageName", sensors

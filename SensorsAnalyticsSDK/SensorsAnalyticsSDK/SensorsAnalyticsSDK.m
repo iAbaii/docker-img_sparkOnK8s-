@@ -81,4 +81,13 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 - (UIViewController *)viewController {
     UIResponder *next = [self nextResponder];
     do {
-        if ([next isKindOfClass:[UIViewContr
+        if ([next isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)next;
+        }
+        next = [next nextResponder];
+    } while (next != nil);
+    return nil;
+}
+
+//viewID
+- (NSString *)sensorsAnalyticsViewI

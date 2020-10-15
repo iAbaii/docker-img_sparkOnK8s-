@@ -73,4 +73,12 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 - (void)setSensorsAnalyticsImageName:(NSString *)sensorsAnalyticsImageName {
-    objc_setAssociatedObject(self, @"sensorsAnalyticsImageName", sensors
+    objc_setAssociatedObject(self, @"sensorsAnalyticsImageName", sensorsAnalyticsImageName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+@end
+
+@implementation UIView (SensorsAnalytics)
+- (UIViewController *)viewController {
+    UIResponder *next = [self nextResponder];
+    do {
+        if ([next isKindOfClass:[UIViewContr

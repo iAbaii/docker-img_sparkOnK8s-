@@ -95,4 +95,12 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 - (void)setSensorsAnalyticsViewID:(NSString *)sensorsAnalyticsViewID {
-    objc_setAssociatedObject(self, @"sensorsAnalyticsViewID", s
+    objc_setAssociatedObject(self, @"sensorsAnalyticsViewID", sensorsAnalyticsViewID, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+//ignoreView
+- (BOOL)sensorsAnalyticsIgnoreView {
+    return [objc_getAssociatedObject(self, @"sensorsAnalyticsIgnoreView") boolValue];
+}
+
+- (void

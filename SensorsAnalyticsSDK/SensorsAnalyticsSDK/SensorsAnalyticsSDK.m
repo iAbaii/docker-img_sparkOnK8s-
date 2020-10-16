@@ -90,4 +90,9 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 //viewID
-- (NSString *)sensorsAnalyticsViewI
+- (NSString *)sensorsAnalyticsViewID {
+    return objc_getAssociatedObject(self, @"sensorsAnalyticsViewID");
+}
+
+- (void)setSensorsAnalyticsViewID:(NSString *)sensorsAnalyticsViewID {
+    objc_setAssociatedObject(self, @"sensorsAnalyticsViewID", s

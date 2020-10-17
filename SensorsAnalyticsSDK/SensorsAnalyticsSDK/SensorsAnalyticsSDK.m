@@ -103,4 +103,8 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     return [objc_getAssociatedObject(self, @"sensorsAnalyticsIgnoreView") boolValue];
 }
 
-- (void
+- (void)setSensorsAnalyticsIgnoreView:(BOOL)sensorsAnalyticsIgnoreView {
+    objc_setAssociatedObject(self, @"sensorsAnalyticsIgnoreView", [NSNumber numberWithBool:sensorsAnalyticsIgnoreView], OBJC_ASSOCIATION_ASSIGN);
+}
+
+//

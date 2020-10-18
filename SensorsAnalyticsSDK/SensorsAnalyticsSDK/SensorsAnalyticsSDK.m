@@ -107,4 +107,9 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     objc_setAssociatedObject(self, @"sensorsAnalyticsIgnoreView", [NSNumber numberWithBool:sensorsAnalyticsIgnoreView], OBJC_ASSOCIATION_ASSIGN);
 }
 
-//
+//afterSendAction
+- (BOOL)sensorsAnalyticsAutoTrackAfterSendAction {
+    return [objc_getAssociatedObject(self, @"sensorsAnalyticsAutoTrackAfterSendAction") boolValue];
+}
+
+- (void)setSensorsAnalyticsAutoTrackAfterSendA

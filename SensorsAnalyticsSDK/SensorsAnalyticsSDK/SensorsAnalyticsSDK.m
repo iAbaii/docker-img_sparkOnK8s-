@@ -113,4 +113,13 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 - (void)setSensorsAnalyticsAutoTrackAfterSendAction:(BOOL)sensorsAnalyticsAutoTrackAfterSendAction {
-    objc_setAssociatedObject(self, @"sensorsAnalyticsAutoTrackAfterSendAction", [NSNumber numberWithBool:sensorsAnalyticsAutoTrackAfterSendAction], OBJC_ASSOCIATION_ASSI
+    objc_setAssociatedObject(self, @"sensorsAnalyticsAutoTrackAfterSendAction", [NSNumber numberWithBool:sensorsAnalyticsAutoTrackAfterSendAction], OBJC_ASSOCIATION_ASSIGN);
+}
+
+
+//viewProperty
+- (NSDictionary *)sensorsAnalyticsViewProperties {
+    return objc_getAssociatedObject(self, @"sensorsAnalyticsViewProperties");
+}
+
+- (void)setSensorsAnalyticsViewProperties:(NSDictionary *)sens

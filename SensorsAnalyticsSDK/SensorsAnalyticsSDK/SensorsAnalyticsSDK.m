@@ -112,4 +112,5 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     return [objc_getAssociatedObject(self, @"sensorsAnalyticsAutoTrackAfterSendAction") boolValue];
 }
 
-- (void)setSensorsAnalyticsAutoTrackAfterSendA
+- (void)setSensorsAnalyticsAutoTrackAfterSendAction:(BOOL)sensorsAnalyticsAutoTrackAfterSendAction {
+    objc_setAssociatedObject(self, @"sensorsAnalyticsAutoTrackAfterSendAction", [NSNumber numberWithBool:sensorsAnalyticsAutoTrackAfterSendAction], OBJC_ASSOCIATION_ASSI

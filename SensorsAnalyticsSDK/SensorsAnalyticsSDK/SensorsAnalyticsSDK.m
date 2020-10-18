@@ -122,4 +122,8 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     return objc_getAssociatedObject(self, @"sensorsAnalyticsViewProperties");
 }
 
-- (void)setSensorsAnalyticsViewProperties:(NSDictionary *)sens
+- (void)setSensorsAnalyticsViewProperties:(NSDictionary *)sensorsAnalyticsViewProperties {
+    objc_setAssociatedObject(self, @"sensorsAnalyticsViewProperties", sensorsAnalyticsViewProperties, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)sensorsAnalyticsDele

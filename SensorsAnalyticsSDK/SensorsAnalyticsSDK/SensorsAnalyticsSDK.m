@@ -151,4 +151,11 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 @property (nonatomic, strong) dispatch_queue_t serialQueue;
 
 @property (atomic, strong) NSDictionary *automaticProperties;
-@property (atomic, strong) N
+@property (atomic, strong) NSDictionary *superProperties;
+@property (nonatomic, strong) NSMutableDictionary *trackTimer;
+
+@property (nonatomic, strong) NSPredicate *regexTestName;
+
+@property (atomic, strong) MessageQueueBySqlite *messageQueue;
+
+@proper

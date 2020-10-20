@@ -140,4 +140,10 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 // 在内部，重新声明成可读写的
 @property (atomic, strong) SensorsAnalyticsPeople *people;
 
-@property (atomic, copy) NSString *
+@property (atomic, copy) NSString *serverURL;
+@property (atomic, copy) NSString *configureURL;
+@property (atomic, copy) NSString *vtrackServerURL;
+
+@property (atomic, copy) NSString *distinctId;
+@property (atomic, copy) NSString *originalId;
+@property (atomic, copy

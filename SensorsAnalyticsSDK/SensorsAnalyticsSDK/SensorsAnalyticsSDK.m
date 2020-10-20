@@ -131,4 +131,13 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 - (void)setSensorsAnalyticsDelegate:(id)sensorsAnalyticsDelegate {
-    objc_setAssociatedObject(self, @"sensorsAnalytic
+    objc_setAssociatedObject(self, @"sensorsAnalyticsDelegate", sensorsAnalyticsDelegate, OBJC_ASSOCIATION_ASSIGN);
+}
+@end
+
+@interface SensorsAnalyticsSDK()
+
+// 在内部，重新声明成可读写的
+@property (atomic, strong) SensorsAnalyticsPeople *people;
+
+@property (atomic, copy) NSString *

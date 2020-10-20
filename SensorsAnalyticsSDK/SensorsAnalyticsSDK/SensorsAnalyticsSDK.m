@@ -146,4 +146,9 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 
 @property (atomic, copy) NSString *distinctId;
 @property (atomic, copy) NSString *originalId;
-@property (atomic, copy
+@property (atomic, copy) NSString *loginId;
+@property (atomic, copy) NSString *firstDay;
+@property (nonatomic, strong) dispatch_queue_t serialQueue;
+
+@property (atomic, strong) NSDictionary *automaticProperties;
+@property (atomic, strong) N

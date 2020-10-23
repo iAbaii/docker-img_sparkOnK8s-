@@ -164,4 +164,11 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 @property (assign, nonatomic) BOOL safariRequestInProgress;
 
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomi
+@property (nonatomic, strong) NSTimer *vtrackConnectorTimer;
+
+//用户设置的不被AutoTrack的Controllers
+@property (nonatomic, strong) NSMutableArray *ignoredViewControllers;
+
+@property (nonatomic, strong) NSMutableArray *ignoredViewTypeList;
+
+// 用于 SafariViewCon

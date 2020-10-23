@@ -158,4 +158,10 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 
 @property (atomic, strong) MessageQueueBySqlite *messageQueue;
 
-@proper
+@property (nonatomic, strong) id abtestDesignerConnection;
+@property (atomic, strong) NSSet *eventBindings;
+
+@property (assign, nonatomic) BOOL safariRequestInProgress;
+
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomi

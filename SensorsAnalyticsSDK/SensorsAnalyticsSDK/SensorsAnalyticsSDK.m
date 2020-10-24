@@ -176,4 +176,11 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 
 - (instancetype)initWithServerURL:(NSString *)serverURL
                   andConfigureURL:(NSString *)configureURL
-               andVTrackServerURL:(NSString *)vtrack
+               andVTrackServerURL:(NSString *)vtrackServerURL
+                     andDebugMode:(SensorsAnalyticsDebugMode)debugMode;
+
+@end
+
+@implementation SensorsAnalyticsSDK {
+    SensorsAnalyticsDebugMode _debugMode;
+    UInt64 _flushBulkSize;

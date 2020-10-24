@@ -184,3 +184,9 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 @implementation SensorsAnalyticsSDK {
     SensorsAnalyticsDebugMode _debugMode;
     UInt64 _flushBulkSize;
+    UInt64 _flushInterval;
+    UInt64 _maxCacheSize;
+    UIWindow *_vtrackWindow;
+    NSDateFormatter *_dateFormatter;
+    BOOL _autoTrack;                    // 自动采集事件
+    BOOL _appRelaunched;              

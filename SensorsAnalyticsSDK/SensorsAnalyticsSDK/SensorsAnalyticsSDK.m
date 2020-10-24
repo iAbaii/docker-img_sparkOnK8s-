@@ -171,4 +171,9 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 
 @property (nonatomic, strong) NSMutableArray *ignoredViewTypeList;
 
-// 用于 SafariViewCon
+// 用于 SafariViewController
+@property (strong, nonatomic) UIWindow *secondWindow;
+
+- (instancetype)initWithServerURL:(NSString *)serverURL
+                  andConfigureURL:(NSString *)configureURL
+               andVTrackServerURL:(NSString *)vtrack

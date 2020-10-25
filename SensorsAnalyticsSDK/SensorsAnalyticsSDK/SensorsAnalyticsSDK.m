@@ -205,4 +205,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (void)userDidTakeScreenShort:(NSNotification*)notification {
     SADebug(@"用户产生截屏操作");
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
-    UIImage *snapsh
+    UIImage *snapshotImage = [window snapshotImage];
+    NSData *snapshotImage_data = [NSData dataWithData:UIImageJPEGRepresentation(snapshotImage, 0.5)];
+    NSString *snapshotImage_data_base64 = [snapshotImage_data sa_base64EncodedStrin

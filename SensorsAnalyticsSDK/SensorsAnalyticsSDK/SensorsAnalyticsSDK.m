@@ -195,4 +195,10 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     NSString *_referrerScreenUrl;
     NSDictionary *_lastScreenTrackProperties;
     BOOL _applicationWillResignActive;
-    BOOL _clearRe
+    BOOL _clearReferrerWhenAppEnd;
+	SensorsAnalyticsAutoTrackEventType _autoTrackEventType;
+    SensorsAnalyticsNetworkType _networkTypePolicy;
+}
+
+static SensorsAnalyticsSDK *sharedInstance = nil;
+#pragma mark UIApplicatio

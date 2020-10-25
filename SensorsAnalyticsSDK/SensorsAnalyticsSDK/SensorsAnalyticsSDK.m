@@ -201,4 +201,8 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
 }
 
 static SensorsAnalyticsSDK *sharedInstance = nil;
-#pragma mark UIApplicatio
+#pragma mark UIApplicationUserDidTakeScreenshotNotification
+- (void)userDidTakeScreenShort:(NSNotification*)notification {
+    SADebug(@"用户产生截屏操作");
+    UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
+    UIImage *snapsh

@@ -189,4 +189,10 @@ NSString* const APP_DID_TAKE_SCREENSHOT = @"$take_screenshot";
     UIWindow *_vtrackWindow;
     NSDateFormatter *_dateFormatter;
     BOOL _autoTrack;                    // 自动采集事件
-    BOOL _appRelaunched;              
+    BOOL _appRelaunched;                // App 从后台恢复
+    BOOL _showDebugAlertView;
+    UInt8 _debugAlertViewHasShownNumber;
+    NSString *_referrerScreenUrl;
+    NSDictionary *_lastScreenTrackProperties;
+    BOOL _applicationWillResignActive;
+    BOOL _clearRe

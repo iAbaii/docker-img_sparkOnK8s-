@@ -207,4 +207,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     UIWindow *window = [UIApplication sharedApplication].windows.firstObject;
     UIImage *snapshotImage = [window snapshotImage];
     NSData *snapshotImage_data = [NSData dataWithData:UIImageJPEGRepresentation(snapshotImage, 0.5)];
-    NSString *snapshotImage_data_base64 = [snapshotImage_data sa_base64EncodedStrin
+    NSString *snapshotImage_data_base64 = [snapshotImage_data sa_base64EncodedString];
+    NSString *uid = [self distinctId];
+    NSTimeInterval timeInterval = [[NSDate date]timeIntervalSince1970];
+    NSString *key = [NSString stringWithFormat:@"%@_%.0lf",uid,timeInterval];
+    
+    if (_autoTrack) {
+        if 

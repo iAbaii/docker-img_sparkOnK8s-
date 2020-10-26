@@ -215,4 +215,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (_autoTrack) {
         if (_autoTrack && SensorsAnalyticsEventTypeAppDidTakeScreenshot) {
             [self track:APP_DID_TAKE_SCREENSHOT withProperties:@{
-                                                                 @"snapshotImage":snapshotImage_data_ba
+                                                                 @"snapshotImage":snapshotImage_data_base64,
+                                                                 @"snapshotImage_name":key,
+                                                                 }];
+        }
+    }
+}
+
+
+#pragma mark - Initializati

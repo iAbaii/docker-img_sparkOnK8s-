@@ -213,4 +213,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSString *key = [NSString stringWithFormat:@"%@_%.0lf",uid,timeInterval];
     
     if (_autoTrack) {
-        if 
+        if (_autoTrack && SensorsAnalyticsEventTypeAppDidTakeScreenshot) {
+            [self track:APP_DID_TAKE_SCREENSHOT withProperties:@{
+                                                                 @"snapshotImage":snapshotImage_data_ba

@@ -235,4 +235,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 
-+ (SensorsAnalyticsSDK *)sharedInstanceWithServerU
++ (SensorsAnalyticsSDK *)sharedInstanceWithServerURL:(NSString *)serverURL
+                                     andConfigureURL:(NSString *)configureURL
+                                  andVTrackServerURL:(NSString *)vtrackServerURL
+                                 

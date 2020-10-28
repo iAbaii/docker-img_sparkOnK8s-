@@ -223,4 +223,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 
-#pragma mark - Initializati
+#pragma mark - Initialization
+
++ (SensorsAnalyticsSDK *)sharedInstanceWithServerURL:(NSString *)serverURL
+                                     andConfigureURL:(NSString *)configureURL
+       

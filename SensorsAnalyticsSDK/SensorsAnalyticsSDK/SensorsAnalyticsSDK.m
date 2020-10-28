@@ -229,4 +229,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                      andConfigureURL:(NSString *)configureURL
                                         andDebugMode:(SensorsAnalyticsDebugMode)debugMode {
     return [SensorsAnalyticsSDK sharedInstanceWithServerURL:serverURL
-                                            andConfigureURL:config
+                                            andConfigureURL:configureURL
+                                         andVTrackServerURL:nil
+                                               andDebugMode:debugMode];
+}
+
+
++ (SensorsAnalyticsSDK *)sharedInstanceWithServerU

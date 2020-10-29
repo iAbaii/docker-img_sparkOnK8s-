@@ -242,4 +242,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[super alloc] initWithServerURL:serverURL
-                                          an
+                                          andConfigureURL:configureURL
+                                       andVTrackServerURL:vtrackServerURL
+                                             andDebugMode:debugMode];
+    });
+    return sharedInstance;
+}

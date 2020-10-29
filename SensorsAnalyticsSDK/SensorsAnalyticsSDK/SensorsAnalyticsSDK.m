@@ -258,4 +258,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return time;
 }
 
-+ (NSString *)getUniqueHardwareId
++ (NSString *)getUniqueHardwareId:(BOOL *)isReal {
+    NSString *distinctId = NULL;
+
+    // 宏 SENSORS_ANALYTICS_IDFA 定义时，优先使用IDFA
+#if defined(SENSORS_ANALYTICS_IDFA)
+    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (ASIdentifier

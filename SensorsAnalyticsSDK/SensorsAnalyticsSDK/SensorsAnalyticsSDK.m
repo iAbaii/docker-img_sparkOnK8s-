@@ -248,3 +248,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     });
     return sharedInstance;
 }
+
++ (SensorsAnalyticsSDK *)sharedInstance {
+    return sharedInstance;
+}
+
++ (UInt64)getCurrentTime {
+    UInt64 time = [[NSDate date] timeIntervalSince1970] * 1000;
+    return time;
+}
+
++ (NSString *)getUniqueHardwareId

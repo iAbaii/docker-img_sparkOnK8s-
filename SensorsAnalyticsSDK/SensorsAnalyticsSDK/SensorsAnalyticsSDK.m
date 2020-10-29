@@ -238,4 +238,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 + (SensorsAnalyticsSDK *)sharedInstanceWithServerURL:(NSString *)serverURL
                                      andConfigureURL:(NSString *)configureURL
                                   andVTrackServerURL:(NSString *)vtrackServerURL
-                                 
+                                        andDebugMode:(SensorsAnalyticsDebugMode)debugMode {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[super alloc] initWithServerURL:serverURL
+                                          an

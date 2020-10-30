@@ -271,4 +271,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
         distinctId = [uuid UUIDString];
         // 在 iOS 10.0 以后，当用户开启限制广告跟踪，advertisingIdentifier 的值将是全零
-        // 0000000
+        // 00000000-0000-0000-0000-000000000000
+        if (distinctId && ![distinctId hasPrefix:@"00000000"]) {
+            *isReal = YES;
+        } else{
+            distinctId = NULL;
+        }
+    }
+#endif
+    
+    // 没有IDFA，则

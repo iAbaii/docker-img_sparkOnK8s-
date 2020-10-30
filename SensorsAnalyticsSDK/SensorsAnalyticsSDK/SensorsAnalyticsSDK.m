@@ -264,4 +264,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     // 宏 SENSORS_ANALYTICS_IDFA 定义时，优先使用IDFA
 #if defined(SENSORS_ANALYTICS_IDFA)
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (ASIdentifier
+    if (ASIdentifierManagerClass) {
+        SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+        id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedMana

@@ -288,4 +288,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     // 没有IDFV，则使用UUID
     if (!distinctId) {
-        SADebu
+        SADebug(@"%@ error getting device identifier: falling back to uuid", self);
+        distinctId = [[NSUUID UUID] UUIDString];
+        *isReal = NO;
+    }
+    
+    return distinctId;
+}
+
+- (BOOL)shouldTrackClass:(Class

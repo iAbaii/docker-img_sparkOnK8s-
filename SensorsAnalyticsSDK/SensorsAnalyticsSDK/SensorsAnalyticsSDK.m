@@ -280,4 +280,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 #endif
     
-    // 没有IDFA，则
+    // 没有IDFA，则使用IDFV
+    if (!distinctId && NSClassFromString(@"UIDevice")) {
+        distinctId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+        *isReal = YES;
+    }
+    
+    // 没有IDFV，则使用UUID
+    if (!distinctId) {
+        SADebu

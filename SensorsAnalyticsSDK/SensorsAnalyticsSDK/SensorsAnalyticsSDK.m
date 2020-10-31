@@ -296,4 +296,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return distinctId;
 }
 
-- (BOOL)shouldTrackClass:(Class
+- (BOOL)shouldTrackClass:(Class)aClass {
+    static NSSet *blacklistedClasses = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray *_blacklistedViewControllerClassNames = @[@"SFBrowserRemoteViewController",
+         

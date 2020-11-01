@@ -301,4 +301,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSArray *_blacklistedViewControllerClassNames = @[@"SFBrowserRemoteViewController",
-         
+                                                          @"SFSafariViewController",
+                                                          @"UIAlertController",
+                         

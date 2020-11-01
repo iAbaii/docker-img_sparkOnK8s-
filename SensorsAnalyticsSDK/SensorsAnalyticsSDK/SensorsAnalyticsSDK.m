@@ -303,4 +303,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSArray *_blacklistedViewControllerClassNames = @[@"SFBrowserRemoteViewController",
                                                           @"SFSafariViewController",
                                                           @"UIAlertController",
-                         
+                                                          @"UIInputWindowController",
+                                                          @"UINavigationController",
+                                                          @

@@ -305,4 +305,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"UIAlertController",
                                                           @"UIInputWindowController",
                                                           @"UINavigationController",
-                                                          @
+                                                          @"UIKeyboardCandidateGridCollectionViewController",
+                                                          @"UICompatibilityInputViewController",
+                                                          @"UIAppl

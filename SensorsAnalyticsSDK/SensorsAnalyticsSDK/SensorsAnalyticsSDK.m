@@ -310,4 +310,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"UIApplicationRotationFollowingController",
                                                           @"UIApplicationRotationFollowingControllerNoTouches",
                                                           @"AVPlayerViewController",
-    
+                                                          @"UIActivityGroupViewController",
+                                                          @"UIReferenceLibraryViewController",
+                            

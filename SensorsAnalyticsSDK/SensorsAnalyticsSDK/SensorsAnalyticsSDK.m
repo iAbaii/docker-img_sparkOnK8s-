@@ -312,4 +312,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"AVPlayerViewController",
                                                           @"UIActivityGroupViewController",
                                                           @"UIReferenceLibraryViewController",
-                            
+                                                          @"UIKeyboardCandidateRowViewController",
+                                                          @"UIKeyboardHiddenViewController",
+                                          

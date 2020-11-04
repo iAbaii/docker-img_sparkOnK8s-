@@ -316,4 +316,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"UIKeyboardHiddenViewController",
                                                           @"_UIAlertControllerTextFieldViewController",
                                                           @"_UILongDefinitionViewController",
-                                                          @"_UIResilientRemoteVie
+                                                          @"_UIResilientRemoteViewContainerViewController",
+                                                          @"_UIShareExtensionRemoteViewController",
+                                                          @"_UIRemoteDict

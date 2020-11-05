@@ -321,4 +321,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"_UIRemoteDictionaryViewController",
                                                           @"UISystemKeyboardDockController",
                                                           @"_UINoDefinitionViewController",
-              
+                                                          @"UIImagePickerController",
+                                                          @"_UIActivityGroupListViewController",
+                                     

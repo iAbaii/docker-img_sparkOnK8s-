@@ -327,4 +327,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"_UIFallbackPresentationViewController",
                                                           @"_UIDocumentPickerRemoteViewController",
                                                           @"_UIAlertShimPresentingViewController",
-                                                          @"_U
+                                                          @"_UIWaitingForRemoteViewContainerViewController",
+                                                          @"UIAlertController",
+                                                          @"UIDocumentMenuViewController",
+                 

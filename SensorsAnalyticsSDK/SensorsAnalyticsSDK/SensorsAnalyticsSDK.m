@@ -334,4 +334,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"_UIActivityUserDefaultsViewController",
                                                           @"_UIActivityViewControllerContentController",
                                                           @"_UIRemoteInputViewController",
-                                
+                                                          @"UIViewController",
+                                                          @"UITableViewController",
+                                                          @"_UIUserDefaultsActivityNavigatio

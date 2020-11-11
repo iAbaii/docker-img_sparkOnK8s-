@@ -344,4 +344,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"CKSMSComposeController",
                                                           @"DDParsecLoadingViewController",
                                                           @"PLUIPrivacyViewController",
-        
+                                                          @"PLUICameraViewController",
+                                                          @"SLRemoteComposeViewController",
+                            

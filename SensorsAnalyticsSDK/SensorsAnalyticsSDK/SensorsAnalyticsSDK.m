@@ -341,4 +341,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"WKActionSheet",
                                                           @"DDSafariViewController",
                                                           @"SFAirDropActivityViewController",
-                                                
+                                                          @"CKSMSComposeController",
+                                                          @"DDParsecLoadingViewController",
+                                                          @"PLUIPrivacyViewController",
+        

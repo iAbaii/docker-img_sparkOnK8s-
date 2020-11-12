@@ -348,4 +348,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"SLRemoteComposeViewController",
                                                           @"CAMViewfinderViewController",
                                                           @"DDParsecNoDataViewController",
-                                                        
+                                                          @"CAMPreviewViewController",
+                                                          @"DDParsecCollectionViewController",
+                                                          @"SLComposeViewController",
+            

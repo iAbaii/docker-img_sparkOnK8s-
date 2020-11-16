@@ -355,4 +355,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"AVFullScreenPlaybackControlsViewController",
                                                           @"PLPhotoTileViewController",
                                                           @"AVFullScreenViewController",
-                                   
+                                                          @"CAMImagePickerCameraViewController",
+                                                          @"CKSMSComposeRemoteViewController",
+                                             

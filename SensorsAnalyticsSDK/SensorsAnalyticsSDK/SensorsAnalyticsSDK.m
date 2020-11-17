@@ -364,4 +364,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"PUUIMomentsGridViewController",
                                                           @"SFPasswordRemoteViewController",
                                                           ];
-        NSMutableSet *transformedClasses = [NSM
+        NSMutableSet *transformedClasses = [NSMutableSet setWithCapacity:_blacklistedViewControllerClassNames.count];
+        for (NSString *className in _blacklistedViewControllerClassNames) {
+            if (NSClassFromString(className) != ni

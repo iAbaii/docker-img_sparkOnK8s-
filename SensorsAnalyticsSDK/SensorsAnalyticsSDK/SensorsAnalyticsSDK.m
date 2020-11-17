@@ -361,4 +361,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"PUUIAlbumListViewController",
                                                           @"PUUIPhotosAlbumViewController",
                                                           @"SFAppAutoFillPasswordViewController",
-                                                          @"PUUIMomentsGridViewCo
+                                                          @"PUUIMomentsGridViewController",
+                                                          @"SFPasswordRemoteViewController",
+                                                          ];
+        NSMutableSet *transformedClasses = [NSM

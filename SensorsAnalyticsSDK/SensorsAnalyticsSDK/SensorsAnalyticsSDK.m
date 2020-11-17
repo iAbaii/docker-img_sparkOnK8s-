@@ -359,4 +359,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           @"CKSMSComposeRemoteViewController",
                                                           @"PUPhotoPickerHostViewController",
                                                           @"PUUIAlbumListViewController",
-                                                          @"
+                                                          @"PUUIPhotosAlbumViewController",
+                                                          @"SFAppAutoFillPasswordViewController",
+                                                          @"PUUIMomentsGridViewCo

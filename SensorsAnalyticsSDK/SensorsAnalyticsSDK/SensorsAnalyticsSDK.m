@@ -366,4 +366,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                           ];
         NSMutableSet *transformedClasses = [NSMutableSet setWithCapacity:_blacklistedViewControllerClassNames.count];
         for (NSString *className in _blacklistedViewControllerClassNames) {
-            if (NSClassFromString(className) != ni
+            if (NSClassFromString(className) != nil) {
+                [transformedClasses addObject:NSClassFromString(className)];
+            }
+        }
+        blacklistedClasses = [transformedClasses copy];
+    });
+
+    return ![blacklistedClasses containsObject:aC

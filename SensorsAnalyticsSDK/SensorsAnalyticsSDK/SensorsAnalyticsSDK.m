@@ -373,4 +373,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         blacklistedClasses = [transformedClasses copy];
     });
 
-    return ![blacklistedClasses containsObject:aC
+    return ![blacklistedClasses containsObject:aClass];
+}
+
+- (instancetype)initWithServerURL:(NSString *)serverURL
+                  andConfigureURL:(NSString *)configureURL
+               andVTrackServerURL:(NSString *)vtrackServerURL
+                

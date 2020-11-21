@@ -384,4 +384,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (self = [self init]) {
         if (serverURL == nil || [serverURL length] == 0) {
             if (_debugMode != SensorsAnalyticsDebugOff) {
-           
+                @throw [NSException exceptionWithName:@"InvalidArgumentException"
+                                               reason:@"serverURL is nil"
+                                             userInfo:nil];
+    

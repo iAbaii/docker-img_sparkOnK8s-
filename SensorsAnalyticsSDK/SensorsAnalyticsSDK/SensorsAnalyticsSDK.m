@@ -379,4 +379,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (instancetype)initWithServerURL:(NSString *)serverURL
                   andConfigureURL:(NSString *)configureURL
                andVTrackServerURL:(NSString *)vtrackServerURL
-                
+                     andDebugMode:(SensorsAnalyticsDebugMode)debugMode {
+    
+    if (self = [self init]) {
+        if (serverURL == nil || [serverURL length] == 0) {
+            if (_debugMode != SensorsAnalyticsDebugOff) {
+           

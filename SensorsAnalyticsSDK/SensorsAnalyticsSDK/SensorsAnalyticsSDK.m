@@ -398,4 +398,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             serverURL = [url absoluteString];
         }
 
-        _autoTrackEventType = SensorsAnalyticsEvent
+        _autoTrackEventType = SensorsAnalyticsEventTypeNone;
+        _networkTypePolicy = SensorsAnalyticsNetworkType3G | SensorsAnalyticsNetworkType4G | SensorsAnalyticsNetworkTypeWIFI;
+
+        // 将 Configure URI Path 末尾补齐 iOS.conf
+        NSURL *url = [NSURL URLWithString:

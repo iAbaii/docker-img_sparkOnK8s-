@@ -387,4 +387,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 @throw [NSException exceptionWithName:@"InvalidArgumentException"
                                                reason:@"serverURL is nil"
                                              userInfo:nil];
-    
+            } else {
+                SAError(@"serverURL is nil");
+            }
+        }
+
+        if (debugMode != SensorsAnalyticsDebugOff) {
+            // 将 Server URI Path 替换成 Debug 模式的 '/debug'
+            NSURL *url = [[[NS

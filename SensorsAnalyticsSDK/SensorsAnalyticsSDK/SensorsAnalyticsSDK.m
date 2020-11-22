@@ -402,4 +402,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _networkTypePolicy = SensorsAnalyticsNetworkType3G | SensorsAnalyticsNetworkType4G | SensorsAnalyticsNetworkTypeWIFI;
 
         // 将 Configure URI Path 末尾补齐 iOS.conf
-        NSURL *url = [NSURL URLWithString:
+        NSURL *url = [NSURL URLWithString:configureURL];
+        if ([[url lastPathComponent] isEqualToString:@"config"]) {
+            url = [url URLByAppendingPathComponent:@"iOS.conf"];
+        }
+        configureURL = [url absoluteString];
+
+        self.people = 

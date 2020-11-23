@@ -408,4 +408,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
         configureURL = [url absoluteString];
 
-        self.people = 
+        self.people = [[SensorsAnalyticsPeople alloc] initWithSDK:self];
+        
+        self.serverURL = serverURL;
+        self.configureURL = configureURL;
+        self.vtrackServerURL = vtrackServerURL;
+        _debugMode = deb

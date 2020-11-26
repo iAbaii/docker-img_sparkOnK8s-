@@ -413,4 +413,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         self.serverURL = serverURL;
         self.configureURL = configureURL;
         self.vtrackServerURL = vtrackServerURL;
-        _debugMode = deb
+        _debugMode = debugMode;
+        
+        _flushInterval = 15 * 1000;
+        _flushBulkSize = 100;
+        _maxCacheSize = 10000;
+        _vtrackWindow = nil;
+        _autoTrack = NO;
+        _appRelaunched

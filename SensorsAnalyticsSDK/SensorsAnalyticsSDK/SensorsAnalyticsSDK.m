@@ -431,4 +431,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _ignoredViewControllers = [[NSMutableArray alloc] init];
         _ignoredViewTypeList = [[NSMutableArray alloc] init];
         _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDa
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        
+        self.checkForEventBindingsOnActive = YES;
+        self.flushBeforeEnterBackground = YES;
+        
+        self.safariRequestInProgress = NO;
+#warning 获取配置
+        self.messageQueue

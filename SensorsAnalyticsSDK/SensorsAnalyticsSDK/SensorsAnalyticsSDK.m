@@ -420,4 +420,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _maxCacheSize = 10000;
         _vtrackWindow = nil;
         _autoTrack = NO;
-        _appRelaunched
+        _appRelaunched = NO;
+        _showDebugAlertView = YES;
+        _debugAlertViewHasShownNumber = 0;
+        _referrerScreenUrl = nil;
+        _lastScreenTrackProperties = nil;
+        _applicationWillResignActive = NO;
+        _clear

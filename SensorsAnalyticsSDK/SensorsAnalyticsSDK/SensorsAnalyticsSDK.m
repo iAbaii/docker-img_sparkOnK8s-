@@ -426,4 +426,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _referrerScreenUrl = nil;
         _lastScreenTrackProperties = nil;
         _applicationWillResignActive = NO;
-        _clear
+        _clearReferrerWhenAppEnd = NO;
+        
+        _ignoredViewControllers = [[NSMutableArray alloc] init];
+        _ignoredViewTypeList = [[NSMutableArray alloc] init];
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDa

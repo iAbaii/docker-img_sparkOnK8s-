@@ -440,4 +440,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #warning 获取配置
         self.messageQueue = [[MessageQueueBySqlite alloc] initWithFilePath:[self filePathForData:@"message-v2" type:@"db"]];
         if (self.messageQueue == nil) {
-            SADebug(@"SqliteException: init Message Queue in Sqlite
+            SADebug(@"SqliteException: init Message Queue in Sqlite fail");
+        }
+
+        // 取上一次进程退出时保存的distinctId、loginId、superProperties和eventBindings
+        [self unarchive];
+        
+        if (self.firstDay == nil) {
+            NSDateFormatter *dateFormatter = [[NSDateFormat

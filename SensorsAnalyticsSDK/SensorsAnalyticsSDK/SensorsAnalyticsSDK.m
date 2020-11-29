@@ -438,4 +438,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         self.safariRequestInProgress = NO;
 #warning 获取配置
-        self.messageQueue
+        self.messageQueue = [[MessageQueueBySqlite alloc] initWithFilePath:[self filePathForData:@"message-v2" type:@"db"]];
+        if (self.messageQueue == nil) {
+            SADebug(@"SqliteException: init Message Queue in Sqlite

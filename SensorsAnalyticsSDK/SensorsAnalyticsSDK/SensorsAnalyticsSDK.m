@@ -447,4 +447,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [self unarchive];
         
         if (self.firstDay == nil) {
-            NSDateFormatter *dateFormatter = [[NSDateFormat
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            self.firstDay = [dateFormatter stringFromDate:[NSDate date]];
+            [self archiveFirstDay];
+        }
+
+        self.automaticProperti

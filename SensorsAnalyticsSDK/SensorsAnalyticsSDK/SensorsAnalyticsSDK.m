@@ -453,4 +453,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [self archiveFirstDay];
         }
 
-        self.automaticProperti
+        self.automaticProperties = [self collectAutomaticProperties];
+        self.trackTimer = [NSMutableDictionary dictionary];
+        
+        NSString *namePattern = @"^((?!^distinct_id$|^original_id$|^time$|^event$|^properties$|^id$|^first_id$|^second

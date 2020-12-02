@@ -456,4 +456,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         self.automaticProperties = [self collectAutomaticProperties];
         self.trackTimer = [NSMutableDictionary dictionary];
         
-        NSString *namePattern = @"^((?!^distinct_id$|^original_id$|^time$|^event$|^properties$|^id$|^first_id$|^second
+        NSString *namePattern = @"^((?!^distinct_id$|^original_id$|^time$|^event$|^properties$|^id$|^first_id$|^second_id$|^users$|^events$|^event$|^user_id$|^date$|^datetime$)[a-zA-Z_$][a-zA-Z\\d_$]{0,99})$";
+        self.regexTestName = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", namePattern];
+       

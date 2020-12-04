@@ -472,4 +472,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // XXX: App Active 的时候会启动计时器，此处不需要启动
 //        [self startFlushTimer];
 
-        SAError(@"%@ initialized the instance of Sensors Analytics SDK with server url '%@', configure url '%@', debugMode: '%@'
+        SAError(@"%@ initialized the instance of Sensors Analytics SDK with server url '%@', configure url '%@', debugMode: '%@'",
+                self, serverURL, configureURL, [self debugModeToString:debugMode]);
+
+        //打开debug模式，弹出提示
+#ifndef SENSORS_ANALYTICS_DISABLE_DEBUG_WARNING
+        if (_debugMode != Senso

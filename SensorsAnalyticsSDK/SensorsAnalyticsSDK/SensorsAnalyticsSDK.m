@@ -462,4 +462,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSString *label = [NSString stringWithFormat:@"com.sensorsdata.%@.%p", @"test", self];
         self.serialQueue = dispatch_queue_create([label UTF8String], DISPATCH_QUEUE_SERIAL);
         
-        [self setUpLi
+        [self setUpListeners];
+        
+#ifndef SENSORS_ANALYTICS_DISABLE_VTRACK
+        [self executeEventBindings:self.eventBindings];
+#endif
+        // XXX: App Active 的时候会获取配置，此处不需要获取
+//        [self checkForC

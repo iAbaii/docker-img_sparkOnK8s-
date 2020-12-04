@@ -468,4 +468,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [self executeEventBindings:self.eventBindings];
 #endif
         // XXX: App Active 的时候会获取配置，此处不需要获取
-//        [self checkForC
+//        [self checkForConfigure];
+        // XXX: App Active 的时候会启动计时器，此处不需要启动
+//        [self startFlushTimer];
+
+        SAError(@"%@ initialized the instance of Sensors Analytics SDK with server url '%@', configure url '%@', debugMode: '%@'

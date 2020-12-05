@@ -477,4 +477,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         //打开debug模式，弹出提示
 #ifndef SENSORS_ANALYTICS_DISABLE_DEBUG_WARNING
-        if (_debugMode != Senso
+        if (_debugMode != SensorsAnalyticsDebugOff) {
+            NSString *alertMessage = nil;
+            if (_debugMode == SensorsAnalyticsDebugOnly) {
+                alertMessage = @"现在您打开了'DEBUG_ONLY'模式，此模式下只校验数据但不导入数据，数据出错时会以提示框的方式提示开发者，请上线前一

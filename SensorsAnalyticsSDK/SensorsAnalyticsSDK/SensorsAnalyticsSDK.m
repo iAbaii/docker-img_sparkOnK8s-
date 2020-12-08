@@ -494,4 +494,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return self;
 }
 
-- (NSString *)debugModeToString:(SensorsAnalyticsDebugMode)debug
+- (NSString *)debugModeToString:(SensorsAnalyticsDebugMode)debugMode {
+    switch (debugMode) {
+        case SensorsAnalyticsDebugOff:
+            return @"DebugOff";
+            break;
+
+        case SensorsAnalyticsDebugAndTrack:
+            return @"DebugAndTrack

@@ -501,4 +501,17 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             break;
 
         case SensorsAnalyticsDebugAndTrack:
-            return @"DebugAndTrack
+            return @"DebugAndTrack";
+            break;
+
+        case SensorsAnalyticsDebugOnly:
+            return @"DebugOnly";
+            break;
+
+        default:
+            return @"Unknown";
+            break;
+    }
+}
+
+- (voi

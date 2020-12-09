@@ -514,4 +514,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 }
 
-- (voi
+- (void)showDebugModeWarning:(NSString *)message withNoMoreButton:(BOOL)showNoMore {
+#ifndef SENSORS_ANALYTICS_DISABLE_DEBUG_WARNING
+    if (_debugMode == SensorsAnalyticsDebugOff) {
+        return;
+    }
+
+    if (!_showDebugAlert

@@ -528,4 +528,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (_debugAlertViewHasShownNumber >= 3) {
                 return;
             }
-            _debugAlertViewHasShownNumber +=
+            _debugAlertViewHasShownNumber += 1;
+#warning alter
+            NSString *alertTitle = @"神策重要提示";
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                UIAlertController *connectAlert = 

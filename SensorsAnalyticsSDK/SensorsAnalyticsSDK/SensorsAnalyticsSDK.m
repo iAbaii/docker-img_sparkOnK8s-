@@ -520,4 +520,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
 
-    if (!_showDebugAlert
+    if (!_showDebugAlertView) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @try {
+            if (_debugAlertViewHasShownNumber >= 3) {
+                return;
+            }
+            _debugAlertViewHasShownNumber +=

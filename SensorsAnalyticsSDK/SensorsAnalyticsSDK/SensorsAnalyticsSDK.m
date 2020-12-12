@@ -532,4 +532,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #warning alter
             NSString *alertTitle = @"神策重要提示";
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-                UIAlertController *connectAlert = 
+                UIAlertController *connectAlert = [UIAlertController
+                                                   alertControllerWithTitle:alertTitle
+                                                   message:message
+                                                   preferredStyle:UIAl

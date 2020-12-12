@@ -535,4 +535,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 UIAlertController *connectAlert = [UIAlertController
                                                    alertControllerWithTitle:alertTitle
                                                    message:message
-                                                   preferredStyle:UIAl
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+
+                [connectAlert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    _debugAler

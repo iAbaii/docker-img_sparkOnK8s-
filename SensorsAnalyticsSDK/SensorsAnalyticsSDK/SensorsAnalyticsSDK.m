@@ -546,4 +546,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }]];
                 }
 
-                UIWindow *alertWindow = [[UIWindow alloc] initWit
+                UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                alertWindow.rootViewController = [[UIViewController alloc] init];
+                alertWindow.windowLevel = UIWindowLevelAlert + 1;
+          

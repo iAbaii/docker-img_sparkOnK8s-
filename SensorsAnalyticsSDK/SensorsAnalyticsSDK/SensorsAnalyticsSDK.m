@@ -541,4 +541,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     _debugAlertViewHasShownNumber -= 1;
                 }]];
                 if (showNoMore) {
-                    [connectAlert addAction:[UIAlertAction actionWithTitle:@"不再显示" style:UIAlertActionStyleDefault h
+                    [connectAlert addAction:[UIAlertAction actionWithTitle:@"不再显示" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        _showDebugAlertView = NO;
+                    }]];
+                }
+
+                UIWindow *alertWindow = [[UIWindow alloc] initWit

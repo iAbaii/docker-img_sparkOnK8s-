@@ -549,4 +549,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
                 alertWindow.rootViewController = [[UIViewController alloc] init];
                 alertWindow.windowLevel = UIWindowLevelAlert + 1;
-          
+                [alertWindow makeKeyAndVisible];
+                [alertWindow.rootViewController presentViewController:connectAlert animated:YES completion:nil];
+            } else {
+                UIAlertView *

@@ -538,4 +538,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                    preferredStyle:UIAlertControllerStyleAlert];
 
                 [connectAlert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    _debugAler
+                    _debugAlertViewHasShownNumber -= 1;
+                }]];
+                if (showNoMore) {
+                    [connectAlert addAction:[UIAlertAction actionWithTitle:@"不再显示" style:UIAlertActionStyleDefault h

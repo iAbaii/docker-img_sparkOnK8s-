@@ -552,4 +552,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [alertWindow makeKeyAndVisible];
                 [alertWindow.rootViewController presentViewController:connectAlert animated:YES completion:nil];
             } else {
-                UIAlertView *
+                UIAlertView *connectAlert = nil;
+                if (showNoMore) {
+                    connectAlert = [[UIAlertView alloc] initWithTitle:alertTitle message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不再显示"

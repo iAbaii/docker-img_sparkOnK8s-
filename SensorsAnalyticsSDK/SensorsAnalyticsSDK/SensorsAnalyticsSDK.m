@@ -557,4 +557,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     connectAlert = [[UIAlertView alloc] initWithTitle:alertTitle message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不再显示",nil, nil];
                 } else {
                     connectAlert = [[UIAlertView alloc] initWithTitle:alertTitle message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            
+                }
+                [connectAlert show];
+            }
+        } @catch (NSException *exception) {
+        } @finally {
+        }
+    });
+#endif
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIn

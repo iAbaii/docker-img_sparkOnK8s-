@@ -567,4 +567,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIn
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        _showDebugAlertView = NO;
+    } else if (buttonIndex == 0) {
+        _debugAlertViewHasShownNumber -= 1;
+    }
+}
+
+- (void)enableEditingVTrack {
+#ifndef SENSORS_ANALYTI

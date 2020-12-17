@@ -576,4 +576,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)enableEditingVTrack {
-#ifndef SENSORS_ANALYTI
+#ifndef SENSORS_ANALYTICS_DISABLE_VTRACK
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 5 秒
+        self.vtrackConnectorTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                

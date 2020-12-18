@@ -582,4 +582,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         self.vtrackConnectorTimer = [NSTimer scheduledTimerWithTimeInterval:10
                                                                      target:self
                                                                    selector:@selector(connectToVTrackDesigner)
-                                                                   userI
+                                                                   userInfo:nil
+                                                                    repeats:YES];
+    });
+#endif
+}
+
+- (BOOL)isFirstDay {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFo

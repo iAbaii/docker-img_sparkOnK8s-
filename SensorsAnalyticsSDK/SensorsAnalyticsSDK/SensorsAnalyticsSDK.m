@@ -580,4 +580,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         // 5 秒
         self.vtrackConnectorTimer = [NSTimer scheduledTimerWithTimeInterval:10
-                
+                                                                     target:self
+                                                                   selector:@selector(connectToVTrackDesigner)
+                                                                   userI

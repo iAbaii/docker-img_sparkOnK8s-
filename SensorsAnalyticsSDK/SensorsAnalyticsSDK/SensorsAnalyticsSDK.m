@@ -590,4 +590,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (BOOL)isFirstDay {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFo
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *current = [dateFormatter stringFromDate:[NSDate date]];
+
+    return [[self firstDay] isEqualToString:current];
+}
+
+- (void)setFlushNetworkPolicy:(SensorsAnalyticsNetworkType)networ

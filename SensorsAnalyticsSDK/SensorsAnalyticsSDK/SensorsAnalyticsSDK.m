@@ -596,4 +596,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return [[self firstDay] isEqualToString:current];
 }
 
-- (void)setFlushNetworkPolicy:(SensorsAnalyticsNetworkType)networ
+- (void)setFlushNetworkPolicy:(SensorsAnalyticsNetworkType)networkType {
+    _networkTypePolicy = networkType;
+}
+
+- (SensorsAnalyticsNetworkType)toNetworkType:(NSString *)networkType {
+    if ([@"NULL" isEqualToString:networkType]) {
+        return SensorsAnalyticsNetworkTypeALL;
+    } else

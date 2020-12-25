@@ -603,4 +603,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (SensorsAnalyticsNetworkType)toNetworkType:(NSString *)networkType {
     if ([@"NULL" isEqualToString:networkType]) {
         return SensorsAnalyticsNetworkTypeALL;
-    } else
+    } else if ([@"WIFI" isEqualToString:networkType]) {
+        return SensorsAnalyticsNetworkTypeWIFI;
+    } else if ([@"2G" isEqualToString:networkType]) {
+        return SensorsAnalyticsNetworkType2G;
+    }   else if ([@"3

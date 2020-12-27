@@ -618,4 +618,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (UIViewController *)currentViewController {
     @try {
         UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-        if (root
+        if (rootViewController != nil) {
+            UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+            return currentVC;
+        }
+    } @catch (NSException *exceptio

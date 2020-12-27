@@ -622,4 +622,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
             return currentVC;
         }
-    } @catch (NSException *exceptio
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+    return nil;
+}
+
+- (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC {
+    @try {
+        UIViewController *currentVC;
+        if ([rootVC 

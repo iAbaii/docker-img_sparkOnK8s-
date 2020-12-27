@@ -612,4 +612,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }   else if ([@"4G" isEqualToString:networkType]) {
         return SensorsAnalyticsNetworkType4G;
     }
-    return SensorsAnalyti
+    return SensorsAnalyticsNetworkTypeNONE;
+}
+
+- (UIViewController *)currentViewController {
+    @try {
+        UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+        if (root

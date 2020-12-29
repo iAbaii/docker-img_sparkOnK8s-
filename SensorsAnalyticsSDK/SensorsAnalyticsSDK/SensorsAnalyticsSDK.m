@@ -631,4 +631,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC {
     @try {
         UIViewController *currentVC;
-        if ([rootVC 
+        if ([rootVC presentedViewController]) {
+            // 视图是被presented出来的
+            rootVC = [rootVC presentedViewController];
+        }
+        
+        if ([rootVC isKindOfClass:[UITabBarController class]]) {
+  

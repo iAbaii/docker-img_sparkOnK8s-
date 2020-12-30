@@ -654,3 +654,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)trackFromH5WithEvent:(NSString *)eventInfo {
+    dispatch_async(self.serialQueue, ^{
+        @try {
+            if (eventInfo == nil) {
+                return;
+            }
+
+            NSData *jsonData = [eventInfo dataUsingEncoding:NSUTF8StringEncoding];
+  

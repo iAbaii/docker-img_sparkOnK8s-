@@ -644,4 +644,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
         } else {
             // 根视图为非导航类
-            
+            currentVC = rootVC;
+        }
+        
+        return currentVC;
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+- (void)trackFromH5WithEvent:(NSString *)eventInfo {

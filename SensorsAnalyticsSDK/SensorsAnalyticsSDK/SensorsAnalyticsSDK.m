@@ -637,4 +637,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
         
         if ([rootVC isKindOfClass:[UITabBarController class]]) {
-  
+            // 根视图为UITabBarController
+            currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
+        } else if ([rootVC isKindOfClass:[UINavigationController cla

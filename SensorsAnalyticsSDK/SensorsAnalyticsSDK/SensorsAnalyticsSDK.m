@@ -664,4 +664,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSError *err;
             NSMutableDictionary *eventDict = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                              options:NSJSONReadingMutableContainers
-              
+                                                                               error:&err];
+            if(err) {
+                return;
+            }
+
+            if (!eventDict) {
+                return;
+            }
+

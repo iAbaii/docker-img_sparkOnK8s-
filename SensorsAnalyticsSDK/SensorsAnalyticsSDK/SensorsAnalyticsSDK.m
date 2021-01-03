@@ -661,4 +661,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             NSData *jsonData = [eventInfo dataUsingEncoding:NSUTF8StringEncoding];
-  
+            NSError *err;
+            NSMutableDictionary *eventDict = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                             options:NSJSONReadingMutableContainers
+              

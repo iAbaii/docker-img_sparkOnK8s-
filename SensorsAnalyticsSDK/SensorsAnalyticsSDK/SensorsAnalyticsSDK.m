@@ -678,4 +678,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if ([self loginId] != nil) {
                 bestId = [self loginId];
             } else{
-                bestId = [self dis
+                bestId = [self distinctId];
+            }
+
+            if (bestId == nil) {
+                [self resetAnonymousId];
+                bestId = [self anonymousId];
+            }
+
+            [eventDict setValue:@([[self class] getCurrentTime]) forKey:@

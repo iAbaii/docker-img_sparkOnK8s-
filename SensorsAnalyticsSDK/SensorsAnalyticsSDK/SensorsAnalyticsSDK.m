@@ -673,3 +673,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 return;
             }
 
+            NSString *type = [eventDict valueForKey:@"type"];
+            NSString *bestId;
+            if ([self loginId] != nil) {
+                bestId = [self loginId];
+            } else{
+                bestId = [self dis

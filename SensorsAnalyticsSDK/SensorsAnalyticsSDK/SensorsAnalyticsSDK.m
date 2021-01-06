@@ -686,4 +686,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 bestId = [self anonymousId];
             }
 
-            [eventDict setValue:@([[self class] getCurrentTime]) forKey:@
+            [eventDict setValue:@([[self class] getCurrentTime]) forKey:@"time"];
+
+            if([type isEqualToString:@"track_signup"]){
+                [eventDict setValue:bestId forKey:@"original_id"];
+            } else {
+                [eventDict setValue:bestId forKey:@"distinct_id"];
+      

@@ -692,4 +692,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [eventDict setValue:bestId forKey:@"original_id"];
             } else {
                 [eventDict setValue:bestId forKey:@"distinct_id"];
-      
+            }
+            [eventDict setValue:@(rand()) forKey:@"_track_id"];
+
+            NSDictionary *libDict = [eventDict objectForKey:@"lib"];
+            id app_version = [_automaticProperties objectForKe

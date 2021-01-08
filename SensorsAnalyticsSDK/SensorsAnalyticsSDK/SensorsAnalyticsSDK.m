@@ -702,4 +702,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             //update lib $app_version from super properties
-            
+            app_version = [_superProperties objectForKey:@"$app_version"];
+            if (app_version) {
+                [libDict setValue:app_version forKey:@"$app_version"];
+            }
+
+           

@@ -696,4 +696,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [eventDict setValue:@(rand()) forKey:@"_track_id"];
 
             NSDictionary *libDict = [eventDict objectForKey:@"lib"];
-            id app_version = [_automaticProperties objectForKe
+            id app_version = [_automaticProperties objectForKey:@"$app_version"];
+            if (app_version) {
+                [libDict setValue:app_version forKey:@"$app_version"];
+            }
+
+            //update lib $app_version from super properties
+            

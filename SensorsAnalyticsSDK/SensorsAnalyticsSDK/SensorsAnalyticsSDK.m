@@ -707,4 +707,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [libDict setValue:app_version forKey:@"$app_version"];
             }
 
-           
+            NSMutableDictionary *automaticPropertiesCopy = [NSMutableDictionary dictionaryWithDictionary:_automaticProperties];
+            [automaticPropertiesCopy removeObjectForKey:@"$lib"];
+            [automaticPropertiesC

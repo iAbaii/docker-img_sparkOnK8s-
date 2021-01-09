@@ -709,4 +709,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
             NSMutableDictionary *automaticPropertiesCopy = [NSMutableDictionary dictionaryWithDictionary:_automaticProperties];
             [automaticPropertiesCopy removeObjectForKey:@"$lib"];
-            [automaticPropertiesC
+            [automaticPropertiesCopy removeObjectForKey:@"$lib_version"];
+
+            NSMutableDictionary *propertiesDict = [eventDict objectForKey:@"properties"];
+            if([type isEqualToString:@"track"] || [type isEqualToString:@"track_signup"]){
+    

@@ -713,4 +713,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
             NSMutableDictionary *propertiesDict = [eventDict objectForKey:@"properties"];
             if([type isEqualToString:@"track"] || [type isEqualToString:@"track_signup"]){
-    
+                [propertiesDict addEntriesFromDictionary:automaticPropertiesCopy];
+                [propertiesDict addEntriesFromDictionary:_superProperties];
+
+                // 每次 track 时手机网络状态
+            

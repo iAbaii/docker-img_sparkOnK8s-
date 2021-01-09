@@ -717,4 +717,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [propertiesDict addEntriesFromDictionary:_superProperties];
 
                 // 每次 track 时手机网络状态
-            
+                NSString *networkType = [SensorsAnalyticsSDK getNetWorkStates];
+                [propertiesDict setObject:networkType forKey:@"$network_type"];
+                if ([networkType isEqualToString:@"WIFI"]) {
+   

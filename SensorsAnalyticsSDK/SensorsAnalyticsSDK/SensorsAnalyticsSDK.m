@@ -730,4 +730,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     if ([self isFirstDay]) {
                         [propertiesDict setObject:@YES forKey:@"$is_first_day"];
                     } else {
-                        [prop
+                        [propertiesDict setObject:@NO forKey:@"$is_first_day"];
+                    }
+                }
+
+                [propertiesDict removeObjectForKey:@"$is_first_time"];
+                [propertiesDict 

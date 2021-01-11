@@ -720,4 +720,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSString *networkType = [SensorsAnalyticsSDK getNetWorkStates];
                 [propertiesDict setObject:networkType forKey:@"$network_type"];
                 if ([networkType isEqualToString:@"WIFI"]) {
-   
+                    [propertiesDict setObject:@YES forKey:@"$wifi"];
+                } else {
+                    [propertiesDict setObject:@NO forKey:@"$wifi"];
+                }
+
+                //  是否首日访问
+            

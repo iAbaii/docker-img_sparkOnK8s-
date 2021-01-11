@@ -726,4 +726,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
 
                 //  是否首日访问
-            
+                if([type isEqualToString:@"track"]) {
+                    if ([self isFirstDay]) {
+                        [propertiesDict setObject:@YES forKey:@"$is_first_day"];
+                    } else {
+                        [prop

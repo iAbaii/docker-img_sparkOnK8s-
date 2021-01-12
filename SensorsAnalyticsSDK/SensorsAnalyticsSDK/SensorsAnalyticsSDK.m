@@ -740,4 +740,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
             if([type isEqualToString:@"track_signup"]) {
                 NSString *newLoginId = [eventDict objectForKey:@"distinct_id"];
-                if (![newLoginId isEqu
+                if (![newLoginId isEqualToString:[self loginId]]) {
+                    self.loginId = newLoginId;
+                    [self archiveLoginId];
+                    if (![newLoginId isEqualToString:[self distinctId]]) {
+                        self.orig

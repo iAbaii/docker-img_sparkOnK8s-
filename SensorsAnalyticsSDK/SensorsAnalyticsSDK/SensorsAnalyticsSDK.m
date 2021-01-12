@@ -735,4 +735,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
 
                 [propertiesDict removeObjectForKey:@"$is_first_time"];
-                [propertiesDict 
+                [propertiesDict removeObjectForKey:@"_nocache"];
+            }
+
+            if([type isEqualToString:@"track_signup"]) {
+                NSString *newLoginId = [eventDict objectForKey:@"distinct_id"];
+                if (![newLoginId isEqu

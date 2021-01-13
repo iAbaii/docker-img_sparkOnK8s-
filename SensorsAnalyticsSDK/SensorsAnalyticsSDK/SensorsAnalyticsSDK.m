@@ -749,4 +749,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                 }
             } else {
-                [self enqueueWithType:type andEvent:[eventD
+                [self enqueueWithType:type andEvent:[eventDict copy]];
+            }
+        } @catch (NSException *exception) {
+            SAError(@"%@: %@", self, exception);
+        }
+    });
+}
+
+- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *

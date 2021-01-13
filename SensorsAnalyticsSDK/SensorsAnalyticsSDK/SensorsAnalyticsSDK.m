@@ -744,4 +744,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     self.loginId = newLoginId;
                     [self archiveLoginId];
                     if (![newLoginId isEqualToString:[self distinctId]]) {
-                        self.orig
+                        self.originalId = [self distinctId];
+                        [self enqueueWithType:type andEvent:[eventDict copy]];
+                    }
+                }
+            } else {
+                [self enqueueWithType:type andEvent:[eventD

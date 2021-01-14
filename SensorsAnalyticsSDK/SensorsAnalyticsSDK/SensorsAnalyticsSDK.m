@@ -757,4 +757,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     });
 }
 
-- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *
+- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *)request {
+    return [self showUpWebView:webView WithRequest:request andProperties:nil];
+}
+
+- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *)request andProperties:(NSDictionary

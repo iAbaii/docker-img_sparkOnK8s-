@@ -761,4 +761,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return [self showUpWebView:webView WithRequest:request andProperties:nil];
 }
 
-- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *)request andProperties:(NSDictionary
+- (BOOL)showUpWebView:(id)webView WithRequest:(NSURLRequest *)request andProperties:(NSDictionary *)propertyDict {
+    SADebug(@"showUpWebView");
+    if (webView == nil) {
+        SADebug(@"showUpWebView == nil");
+        return NO;
+    }
+
+    if (request == nil) {
+        SADebug(@"request == 

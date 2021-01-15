@@ -769,4 +769,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 
     if (request == nil) {
-        SADebug(@"request == 
+        SADebug(@"request == nil");
+        return NO;
+    }
+
+    JSONUtil *_jsonUtil = [[JSONUtil alloc] init];
+
+    NSDictionary *bridgeCallbackInfo = [self webViewJavascriptBridgeCallbackInfo];
+    NSMutableDictionary *properties = [[NSMutableDictionary alloc]

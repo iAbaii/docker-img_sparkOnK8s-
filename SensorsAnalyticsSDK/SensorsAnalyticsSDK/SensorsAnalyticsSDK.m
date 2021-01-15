@@ -776,4 +776,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     JSONUtil *_jsonUtil = [[JSONUtil alloc] init];
 
     NSDictionary *bridgeCallbackInfo = [self webViewJavascriptBridgeCallbackInfo];
-    NSMutableDictionary *properties = [[NSMutableDictionary alloc]
+    NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+    if (bridgeCallbackInfo) {
+        [properties addEntriesFromDictionary:bridgeCallbackInfo];
+    }
+    if (propertyDict) {
+        [properties addEntriesFromDictionary:propertyDict];
+    }
+    NSData* jsonData = [_jsonUtil JSO

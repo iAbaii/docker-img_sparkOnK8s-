@@ -783,4 +783,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (propertyDict) {
         [properties addEntriesFromDictionary:propertyDict];
     }
-    NSData* jsonData = [_jsonUtil JSO
+    NSData* jsonData = [_jsonUtil JSONSerializeObject:properties];
+    NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    NSString *scheme = @"sensorsanalytics://getAppInfo";
+    NSString *js = [

@@ -787,4 +787,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
     NSString *scheme = @"sensorsanalytics://getAppInfo";
-    NSString *js = [
+    NSString *js = [NSString stringWithFormat:@"sensorsdata_app_js_bridge_call_js('%@')", jsonString];
+
+    NSString *trackEventScheme = @"sensorsanalytics://trackEvent";
+
+    //判断系统是否支持WKWebView
+    Class wkWebViewClass = NSClassFromString

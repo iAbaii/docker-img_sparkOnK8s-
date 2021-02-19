@@ -792,4 +792,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSString *trackEventScheme = @"sensorsanalytics://trackEvent";
 
     //判断系统是否支持WKWebView
-    Class wkWebViewClass = NSClassFromString
+    Class wkWebViewClass = NSClassFromString(@"WKWebView");
+
+    NSString *urlstr = request.URL.absoluteString;
+    if (urlstr == nil) {
+        return NO;
+    }
+    NSArray *urlArray = [urlstr componentsSeparatedByString:@"?"];
+    if (urlArray == nil) {
+        re

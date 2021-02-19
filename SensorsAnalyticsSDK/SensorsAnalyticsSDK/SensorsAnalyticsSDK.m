@@ -800,4 +800,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     NSArray *urlArray = [urlstr componentsSeparatedByString:@"?"];
     if (urlArray == nil) {
-        re
+        return NO;
+    }
+    //解析参数
+    NSMutableDictionary *paramsDic = [[NSMutableDictionary alloc] init];
+    //判读是否有参数
+    if (urlArray.count > 1) {
+        //这里解析参数,将参数放入字典中
+        NSArray *p

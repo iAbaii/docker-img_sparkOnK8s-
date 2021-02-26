@@ -818,4 +818,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
     if ([webView isKindOfClass:[UIWebView class]] == YES) {//UIWebView
         SADebug(@"showUpWebView: UIWebView");
-        if ([u
+        if ([urlstr rangeOfString:scheme].location != NSNotFound) {
+            [webView stringByEvaluatingJavaScriptFromString:js];
+            return YES;
+        } else if ([urlstr rangeOfString:trackEventScheme].location != NSNotFou

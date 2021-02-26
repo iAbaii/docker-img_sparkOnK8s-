@@ -811,4 +811,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         for (NSString *param in paramsArray) {
             NSArray *keyValue = [param componentsSeparatedByString:@"="];
             if (keyValue.count == 2) {
-    
+                [paramsDic setObject:keyValue[1] forKey:keyValue[0]];
+            }
+        }
+    }
+
+    if ([webView isKindOfClass:[UIWebView class]] == YES) {//UIWebView
+        SADebug(@"showUpWebView: UIWebView");
+        if ([u

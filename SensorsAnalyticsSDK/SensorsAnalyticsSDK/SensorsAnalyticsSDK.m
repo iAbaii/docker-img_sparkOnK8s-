@@ -807,4 +807,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     //判读是否有参数
     if (urlArray.count > 1) {
         //这里解析参数,将参数放入字典中
-        NSArray *p
+        NSArray *paramsArray = [urlArray[1] componentsSeparatedByString:@"&"];
+        for (NSString *param in paramsArray) {
+            NSArray *keyValue = [param componentsSeparatedByString:@"="];
+            if (keyValue.count == 2) {
+    

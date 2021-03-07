@@ -821,4 +821,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if ([urlstr rangeOfString:scheme].location != NSNotFound) {
             [webView stringByEvaluatingJavaScriptFromString:js];
             return YES;
-        } else if ([urlstr rangeOfString:trackEventScheme].location != NSNotFou
+        } else if ([urlstr rangeOfString:trackEventScheme].location != NSNotFound) {
+            if ([paramsDic count] > 0) {
+                NSString *eventInfo = [paramsDic objectForKey:@"event"];
+                if (eventInfo != nil) {
+                    NSString* encodedString =

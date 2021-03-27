@@ -830,4 +830,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
             }
             return YES;
- 
+        }
+        return NO;
+    } else if(wkWebViewClass && [webView isKindOfClass:wkWebViewClass] == YES) {//WKWebView
+        SADebug(@"showUpWebView: WKWebView");
+        if ([urlstr ran

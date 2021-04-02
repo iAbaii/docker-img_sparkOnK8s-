@@ -834,4 +834,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return NO;
     } else if(wkWebViewClass && [webView isKindOfClass:wkWebViewClass] == YES) {//WKWebView
         SADebug(@"showUpWebView: WKWebView");
-        if ([urlstr ran
+        if ([urlstr rangeOfString:scheme].location != NSNotFound) {
+            typedef void(^Myblock)(id,NSError *);
+            Myblock myBlock = ^(id _Nullable response, NSError * _Nullable error){
+                NSLog(@"response: %@ error: %@"

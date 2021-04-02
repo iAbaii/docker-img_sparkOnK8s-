@@ -837,4 +837,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if ([urlstr rangeOfString:scheme].location != NSNotFound) {
             typedef void(^Myblock)(id,NSError *);
             Myblock myBlock = ^(id _Nullable response, NSError * _Nullable error){
-                NSLog(@"response: %@ error: %@"
+                NSLog(@"response: %@ error: %@", response, error);
+            };
+            SEL sharedManagerSelector = NSSelectorFromString(@"evaluateJavaScript:completionHandler:");
+            if (sharedManagerSelector) {
+       

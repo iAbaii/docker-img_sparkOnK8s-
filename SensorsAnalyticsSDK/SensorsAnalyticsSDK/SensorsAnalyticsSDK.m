@@ -841,4 +841,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             };
             SEL sharedManagerSelector = NSSelectorFromString(@"evaluateJavaScript:completionHandler:");
             if (sharedManagerSelector) {
-       
+                ((void (*)(id, SEL, NSString *, Myblock))[webView methodForSelector:sharedManagerSelector])(webView, sharedManagerSelector, js, myBlock);
+            }
+            return YES;
+        } else if ([urls

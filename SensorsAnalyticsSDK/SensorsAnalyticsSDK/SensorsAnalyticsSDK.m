@@ -844,4 +844,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 ((void (*)(id, SEL, NSString *, Myblock))[webView methodForSelector:sharedManagerSelector])(webView, sharedManagerSelector, js, myBlock);
             }
             return YES;
-        } else if ([urls
+        } else if ([urlstr rangeOfString:trackEventScheme].location != NSNotFound) {
+            if ([paramsDic count] > 0) {
+                NSString *eventInfo = [paramsDic objectForKey:@"event"];
+                if (eventInfo != nil) 

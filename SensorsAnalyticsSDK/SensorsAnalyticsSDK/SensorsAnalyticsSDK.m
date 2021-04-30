@@ -847,4 +847,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         } else if ([urlstr rangeOfString:trackEventScheme].location != NSNotFound) {
             if ([paramsDic count] > 0) {
                 NSString *eventInfo = [paramsDic objectForKey:@"event"];
-                if (eventInfo != nil) 
+                if (eventInfo != nil) {
+                    NSString* encodedString = [eventInfo stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    [self trackFromH5WithEvent:encodedString];
+        

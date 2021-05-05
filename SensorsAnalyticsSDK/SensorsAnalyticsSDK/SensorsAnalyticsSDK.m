@@ -850,4 +850,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 if (eventInfo != nil) {
                     NSString* encodedString = [eventInfo stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     [self trackFromH5WithEvent:encodedString];
-        
+                }
+            }
+            return YES;
+        }
+        return NO;
+    } else{
+        SADebug(@"showUpWebView: not UIWebView or WKWebView");
+        return NO;
+    }
+}
+
+- (void)setM

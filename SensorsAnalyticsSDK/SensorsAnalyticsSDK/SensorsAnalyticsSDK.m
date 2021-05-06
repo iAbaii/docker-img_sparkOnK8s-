@@ -861,4 +861,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 }
 
-- (void)setM
+- (void)setMaxCacheSize:(UInt64)maxCacheSize {
+    if (maxCacheSize > 0) {
+        _maxCacheSize = maxCacheSize;
+    }
+}
+
+- (UInt64)getMaxCacheSize {
+    return _maxCacheSize;
+}
+
+- (NSMutableDictionary *)webViewJavascriptBridgeCallback

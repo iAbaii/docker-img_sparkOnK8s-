@@ -871,4 +871,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return _maxCacheSize;
 }
 
-- (NSMutableDictionary *)webViewJavascriptBridgeCallback
+- (NSMutableDictionary *)webViewJavascriptBridgeCallbackInfo {
+    NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] init];
+    [libProperties setValue:@"iOS" forKey:@"type"];
+    if ([self loginId] != nil) {
+        [libProperties setValue:[self lo

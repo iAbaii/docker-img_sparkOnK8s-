@@ -879,4 +879,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [libProperties setValue:[NSNumber numberWithBool:YES] forKey:@"is_login"];
     } else{
         [libProperties setValue:[self distinctId] forKey:@"distinct_id"];
-       
+        [libProperties setValue:[NSNumber numberWithBool:NO] forKey:@"is_login"];
+    }
+    return [libProperties copy];
+}
+
+- (void)login:(NSString *)loginId {
+    if (loginId == nil || loginId.leng

@@ -875,4 +875,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] init];
     [libProperties setValue:@"iOS" forKey:@"type"];
     if ([self loginId] != nil) {
-        [libProperties setValue:[self lo
+        [libProperties setValue:[self loginId] forKey:@"distinct_id"];
+        [libProperties setValue:[NSNumber numberWithBool:YES] forKey:@"is_login"];
+    } else{
+        [libProperties setValue:[self distinctId] forKey:@"distinct_id"];
+       

@@ -885,4 +885,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)login:(NSString *)loginId {
-    if (loginId == nil || loginId.leng
+    if (loginId == nil || loginId.length == 0) {
+        SAError(@"%@ cannot login blank login_id: %@", self, loginId);
+        return;
+    }
+    if (loginId.length > 255) {
+        SAError(@"%@ max length of login_id is 255, login_id: %@", self, loginId)

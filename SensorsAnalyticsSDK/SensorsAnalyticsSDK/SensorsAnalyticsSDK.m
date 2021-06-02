@@ -890,4 +890,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
     if (loginId.length > 255) {
-        SAError(@"%@ max length of login_id is 255, login_id: %@", self, loginId)
+        SAError(@"%@ max length of login_id is 255, login_id: %@", self, loginId);
+        return;
+    }
+    if (![loginId isEqualToString:[self loginId]]) {
+        self.loginId = loginId;
+        [self archiveLoginId];
+        if (![loginId isEqualToString:

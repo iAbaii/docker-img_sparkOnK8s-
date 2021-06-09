@@ -905,4 +905,17 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)logout {
     self.loginId = NULL;
-    [self 
+    [self archiveLoginId];
+}
+
+- (NSString *)anonymousId {
+    return _distinctId;
+}
+
+- (void)resetAnonymousId {
+    BOOL isReal;
+    self.distinctId = [[self class] getUniqueHardwareId:&isReal];
+    [self archiveDistinctId];
+}
+
+- (v

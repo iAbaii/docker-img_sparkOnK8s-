@@ -896,4 +896,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (![loginId isEqualToString:[self loginId]]) {
         self.loginId = loginId;
         [self archiveLoginId];
-        if (![loginId isEqualToString:
+        if (![loginId isEqualToString:[self distinctId]]) {
+            self.originalId = [self distinctId];
+            [self track:@"$SignUp" withProperties:nil withType:@"track_signup"];
+        }
+    }
+}
+
+- (void)logout {
+    self.loginId = NULL;
+    [self 

@@ -918,4 +918,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self archiveDistinctId];
 }
 
-- (v
+- (void)trackAppCrash {
+    // Install uncaught exception handlers first
+    [[SensorsAnalyticsExceptionHandler sharedHandler] addSensorsAnalyticsInstance:self];
+}
+
+- (void)enableAutoTrack {
+    [self enableAutoTrack:SensorsAnalyticsE

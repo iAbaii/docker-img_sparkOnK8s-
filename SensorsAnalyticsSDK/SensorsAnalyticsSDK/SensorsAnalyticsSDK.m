@@ -938,4 +938,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (BOOL)isAutoTrackEventTypeIgnored:(SensorsAnalyticsAutoTrackEventType)eventType {
-    return !(_autoTrackE
+    return !(_autoTrackEventType & eventType);
+}
+
+- (void)ignoreViewType:(Class)aClass {
+    [_ignoredViewTypeList addObject:aClass];
+}
+
+- (BOOL)isViewTypeIgnored:(Class)aClass {
+    return [_ignoredViewTypeList containsObje

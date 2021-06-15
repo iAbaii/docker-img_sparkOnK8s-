@@ -924,4 +924,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)enableAutoTrack {
-    [self enableAutoTrack:SensorsAnalyticsE
+    [self enableAutoTrack:SensorsAnalyticsEventTypeAppStart | SensorsAnalyticsEventTypeAppEnd | SensorsAnalyticsEventTypeAppViewScreen];
+}
+
+- (void)enableAutoTrack:(SensorsAnalyticsAutoTrackEventType)eventType {
+    _autoTrackEventType |= eventType;
+    _autoT

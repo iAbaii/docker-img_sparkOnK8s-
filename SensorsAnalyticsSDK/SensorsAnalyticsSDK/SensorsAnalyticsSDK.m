@@ -946,4 +946,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (BOOL)isViewTypeIgnored:(Class)aClass {
-    return [_ignoredViewTypeList containsObje
+    return [_ignoredViewTypeList containsObject:aClass];
+}
+
+- (BOOL)isViewControllerIgnored:(UIViewController *)viewController {
+    if (viewController == nil) {
+        return false;
+    }
+    NSString *screenName = NSStringFromClass([viewController c

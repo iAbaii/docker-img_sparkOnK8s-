@@ -953,4 +953,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (viewController == nil) {
         return false;
     }
-    NSString *screenName = NSStringFromClass([viewController c
+    NSString *screenName = NSStringFromClass([viewController class]);
+    if (_ignoredViewControllers != nil && _ignoredViewControllers.count > 0) {
+        if ([_ignoredViewControllers containsObject:screenName]) {
+            return true;
+        }
+    }
+    return 

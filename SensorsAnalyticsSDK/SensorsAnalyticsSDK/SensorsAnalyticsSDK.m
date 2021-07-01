@@ -959,4 +959,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return true;
         }
     }
-    return 
+    return false;
+}
+
+- (BOOL)isViewControllerStringIgnored:(NSString *)viewControllerString {
+    if (viewControllerString == nil) {
+        return false;
+    }
+
+    if (_ignoredViewControllers != nil && _ignored

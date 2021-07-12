@@ -983,4 +983,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     _showDebugAlertView = show;
 }
 
-- (void)flushByType:(NSString *)type withSize:(int)flushSize an
+- (void)flushByType:(NSString *)type withSize:(int)flushSize andFlushMethod:(BOOL (^)(NSArray *, NSString *))flushMethod {
+    while (true) {
+        NSArray *recordArray = [self.messageQueue getFirstRecords:flushSize withType:type];
+        if (recordArray == nil) {
+            SAError(@"Fa

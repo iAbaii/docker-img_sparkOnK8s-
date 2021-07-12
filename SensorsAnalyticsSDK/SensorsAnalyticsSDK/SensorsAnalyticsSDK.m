@@ -975,4 +975,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return false;
 }
 
-- (void)ignoreAutoTrackEventType:(SensorsAnalyticsAut
+- (void)ignoreAutoTrackEventType:(SensorsAnalyticsAutoTrackEventType)eventType {
+    _autoTrackEventType = _autoTrackEventType ^ eventType;
+}
+
+- (void)showDebugInfoView:(BOOL)show {
+    _showDebugAlertView = show;
+}
+
+- (void)flushByType:(NSString *)type withSize:(int)flushSize an

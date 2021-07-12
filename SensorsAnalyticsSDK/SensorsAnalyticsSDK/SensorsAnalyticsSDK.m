@@ -967,4 +967,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return false;
     }
 
-    if (_ignoredViewControllers != nil && _ignored
+    if (_ignoredViewControllers != nil && _ignoredViewControllers.count > 0) {
+        if ([_ignoredViewControllers containsObject:viewControllerString]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+- (void)ignoreAutoTrackEventType:(SensorsAnalyticsAut

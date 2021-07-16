@@ -987,4 +987,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     while (true) {
         NSArray *recordArray = [self.messageQueue getFirstRecords:flushSize withType:type];
         if (recordArray == nil) {
-            SAError(@"Fa
+            SAError(@"Failed to get records from SQLite.");
+            break;
+        }
+        
+        if ([recordArray count] == 0 || !flushMethod(recordArray, type)) {
+            break;
+        }
+        
+        if (![self.messag

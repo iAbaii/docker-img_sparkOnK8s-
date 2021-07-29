@@ -1009,4 +1009,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
     // 使用 Post 发送数据
-    BOOL (^flushByPost)(NSArray 
+    BOOL (^flushByPost)(NSArray *, NSString *) = ^(NSArray *recordArray, NSString *type) {
+        NSString *jsonString;
+        NSData *zippedData;
+        NSString *b64String;
+        NSString *postBody;
+        @try {
+            // 1. 先完成这一系列Json字符串的拼接

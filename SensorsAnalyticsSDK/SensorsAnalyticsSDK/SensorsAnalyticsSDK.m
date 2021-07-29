@@ -995,4 +995,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             break;
         }
         
-        if (![self.messag
+        if (![self.messageQueue removeFirstRecords:flushSize withType:type]) {
+            SAError(@"Failed to remove records from SQLite.");
+            break;
+        }
+    }
+}
+#warning url_request
+- (void)_flush:(BOOL) vacuumAfterFlushing {
+    // 判断当前网络类型是否符

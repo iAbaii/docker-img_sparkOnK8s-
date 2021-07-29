@@ -1003,4 +1003,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 #warning url_request
 - (void)_flush:(BOOL) vacuumAfterFlushing {
-    // 判断当前网络类型是否符
+    // 判断当前网络类型是否符合同步数据的网络策略
+    NSString *networkType = [SensorsAnalyticsSDK getNetWorkStates];
+    if (!([self toNetworkType:networkType] & _networkTypePolicy)) {
+        return;
+    }
+    // 使用 Post 发送数据
+    BOOL (^flushByPost)(NSArray 

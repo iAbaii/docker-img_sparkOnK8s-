@@ -1022,4 +1022,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             // 3. base64
             b64String = [zippedData sa_base64EncodedString];
             int hashCode = [b64String sensorsdata_hashCode];
-            b64String = (id)CFBridgingRelease(CF
+            b64String = (id)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                  (CFStringRef)b64String,
+                                                            

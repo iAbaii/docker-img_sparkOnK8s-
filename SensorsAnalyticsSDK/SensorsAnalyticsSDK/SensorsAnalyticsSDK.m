@@ -1016,3 +1016,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSString *postBody;
         @try {
             // 1. 先完成这一系列Json字符串的拼接
+            jsonString = [NSString stringWithFormat:@"[%@]",[recordArray componentsJoinedByString:@","]];
+            // 2. 使用gzip进行压缩
+            zippedData = [SAGzipUtility gzipData:[jsonString dataUsingEncod

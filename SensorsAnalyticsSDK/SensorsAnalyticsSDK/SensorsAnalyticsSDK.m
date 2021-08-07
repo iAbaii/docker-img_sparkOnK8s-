@@ -1024,4 +1024,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             int hashCode = [b64String sensorsdata_hashCode];
             b64String = (id)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                   (CFStringRef)b64String,
-                                                            
+                                                                                  NULL,
+                                                                                  CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                  

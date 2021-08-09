@@ -1030,4 +1030,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
             postBody = [NSString stringWithFormat:@"gzip=1&data_list=%@&crc=%d", b64String, hashCode];
         } @catch (NSException *exception) {
-            SAError(@"%@ flushByPost format 
+            SAError(@"%@ flushByPost format data error: %@", self, exception);
+            return YES;
+        }
+#warning body url
+        NSURL *URL = [NSURL URLWithString:self.serverURL];
+        NSMutableURLRequest *request = [NSMutable

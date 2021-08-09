@@ -1026,4 +1026,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                                                   (CFStringRef)b64String,
                                                                                   NULL,
                                                                                   CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                  
+                                                                                  kCFStringEncodingUTF8));
+        
+            postBody = [NSString stringWithFormat:@"gzip=1&data_list=%@&crc=%d", b64String, hashCode];
+        } @catch (NSException *exception) {
+            SAError(@"%@ flushByPost format 

@@ -1035,4 +1035,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
 #warning body url
         NSURL *URL = [NSURL URLWithString:self.serverURL];
-        NSMutableURLRequest *request = [NSMutable
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
+        if ([type isEqualToString:@

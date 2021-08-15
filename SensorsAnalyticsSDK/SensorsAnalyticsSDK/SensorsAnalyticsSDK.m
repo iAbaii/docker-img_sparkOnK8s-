@@ -1038,4 +1038,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
         [request setHTTPMethod:@"POST"];
         [request setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
-        if ([type isEqualToString:@
+        if ([type isEqualToString:@"SFSafariViewController"]) {
+            // 渠道追踪请求，需要从 UserAgent 中解析 OS 信息用于模糊匹配
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                UIWebView* webView = [[UIWebView alloc] initWithF

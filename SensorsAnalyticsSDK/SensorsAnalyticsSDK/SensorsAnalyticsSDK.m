@@ -1041,4 +1041,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if ([type isEqualToString:@"SFSafariViewController"]) {
             // 渠道追踪请求，需要从 UserAgent 中解析 OS 信息用于模糊匹配
             dispatch_sync(dispatch_get_main_queue(), ^{
-                UIWebView* webView = [[UIWebView alloc] initWithF
+                UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+                NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+                [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+          

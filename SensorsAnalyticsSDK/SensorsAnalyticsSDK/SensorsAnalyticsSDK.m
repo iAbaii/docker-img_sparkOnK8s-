@@ -1044,4 +1044,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
                 NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
                 [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
-          
+            });
+        } else {
+            // 普通事件请求，使用标准 UserAgent
+            [request setValue:@"SensorsAnalytics iOS SDK" forHTTPHeaderField:@"User-Agent"];
+        }
+        if (_debugMode == 

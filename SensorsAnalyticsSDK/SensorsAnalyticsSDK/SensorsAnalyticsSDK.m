@@ -1054,4 +1054,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
         
         dispatch_semaphore_t flushSem = dispatch_semaphore_create(0);
-        __bl
+        __block BOOL flushSucc = YES;
+        
+        void (^block)(NSData*, NSURLResponse*, NSError*) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ![response isKindOfClass:[NSHTTPURLRespo

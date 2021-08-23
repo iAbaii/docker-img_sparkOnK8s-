@@ -1049,4 +1049,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             // 普通事件请求，使用标准 UserAgent
             [request setValue:@"SensorsAnalytics iOS SDK" forHTTPHeaderField:@"User-Agent"];
         }
-        if (_debugMode == 
+        if (_debugMode == SensorsAnalyticsDebugOnly) {
+            [request setValue:@"true" forHTTPHeaderField:@"Dry-Run"];
+        }
+        
+        dispatch_semaphore_t flushSem = dispatch_semaphore_create(0);
+        __bl

@@ -1057,4 +1057,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         __block BOOL flushSucc = YES;
         
         void (^block)(NSData*, NSURLResponse*, NSError*) = ^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error || ![response isKindOfClass:[NSHTTPURLRespo
+            if (error || ![response isKindOfClass:[NSHTTPURLResponse class]]) {
+                SAError(@"%@", [NSString stringWithFormat:@"%@ network failure: %@", self, error ? error : @"Unknown error"]);
+                flushSucc = NO;
+                dispatch_semaphore_signal(flushSe

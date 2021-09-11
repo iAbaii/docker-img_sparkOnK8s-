@@ -1060,4 +1060,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (error || ![response isKindOfClass:[NSHTTPURLResponse class]]) {
                 SAError(@"%@", [NSString stringWithFormat:@"%@ network failure: %@", self, error ? error : @"Unknown error"]);
                 flushSucc = NO;
-                dispatch_semaphore_signal(flushSe
+                dispatch_semaphore_signal(flushSem);
+                return;
+            }
+            
+            NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = [urlResponse statusCode];
+#warning statusC

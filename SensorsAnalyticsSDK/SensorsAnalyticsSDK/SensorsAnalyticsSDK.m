@@ -1066,4 +1066,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             
             NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse*)response;
             NSInteger statusCode = [urlResponse statusCode];
-#warning statusC
+#warning statusCode = 200;
+            statusCode = 200;
+            if(statusCode != 200) {
+                NSString *urlResponseContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncod

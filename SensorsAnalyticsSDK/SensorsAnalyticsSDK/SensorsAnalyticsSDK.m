@@ -1069,4 +1069,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #warning statusCode = 200;
             statusCode = 200;
             if(statusCode != 200) {
-                NSString *urlResponseContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncod
+                NSString *urlResponseContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSString *errMsg = [NSString stringWithFormat:@"%@ flush failure with response '%@'.", self, urlResponseContent];
+                if (_debugMode != SensorsAnalyticsDebugOff) {
+             

@@ -1072,4 +1072,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSString *urlResponseContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSString *errMsg = [NSString stringWithFormat:@"%@ flush failure with response '%@'.", self, urlResponseContent];
                 if (_debugMode != SensorsAnalyticsDebugOff) {
-             
+                    SAError(@"==========================================================================");
+                    @try {
+                        #if (defined DEBUG) || (defined SENSORS_ANALYTICS_ENABLE_LOG)
+            

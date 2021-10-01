@@ -1075,4 +1075,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     SAError(@"==========================================================================");
                     @try {
                         #if (defined DEBUG) || (defined SENSORS_ANALYTICS_ENABLE_LOG)
-            
+                        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableCont

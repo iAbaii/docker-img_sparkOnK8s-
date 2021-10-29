@@ -1078,4 +1078,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
                         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
                         NSString *logString=[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-                 
+                        SAError(@"%@ invalid message: %@", self, logString);
+                        #endif
+                    } @catch (NSException *exception) {
+                        SAError(@"%@: %@", self, exception);
+                    }
+                

@@ -1091,4 +1091,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                 } else {
                     SAError(@"%@", errMsg);
-            
+                    if (statusCode  >= 300) {
+                        flushSucc = NO;
+                    }
+                }
+            } else {
+                if (_debugMode != SensorsAnalyticsDebugOff) {
+                    SAError(@"

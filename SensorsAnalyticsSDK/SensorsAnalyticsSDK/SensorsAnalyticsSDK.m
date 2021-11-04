@@ -1083,4 +1083,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     } @catch (NSException *exception) {
                         SAError(@"%@: %@", self, exception);
                     }
-                
+                    SAError(@"%@ ret_code: %ld", self, [urlResponse statusCode]);
+                    SAError(@"%@ ret_content: %@", self, urlResponseContent);
+                    
+                    if

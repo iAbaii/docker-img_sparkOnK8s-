@@ -1086,4 +1086,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     SAError(@"%@ ret_code: %ld", self, [urlResponse statusCode]);
                     SAError(@"%@ ret_content: %@", self, urlResponseContent);
                     
-                    if
+                    if (statusCode >= 300) {
+                        [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+                    }
+                } else {
+                    SAError(@"%@", errMsg);
+            

@@ -1097,4 +1097,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
             } else {
                 if (_debugMode != SensorsAnalyticsDebugOff) {
-                    SAError(@"
+                    SAError(@"==========================================================================");
+                    @try {
+                        #if (defined DEBUG) || (defined SENSORS_ANALYTICS_ENABLE_LOG)
+                        NSData *jsonDa

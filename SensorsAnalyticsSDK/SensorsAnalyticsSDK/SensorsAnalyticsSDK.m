@@ -1107,4 +1107,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         #endif
                     } @catch (NSException *exception) {
                         SAError(@"%@: %@", self, exception);
-             
+                    }
+                }
+            }
+            
+            dispatch_semaphore_signal(flushSem);
+        };
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        NSURLSession *session

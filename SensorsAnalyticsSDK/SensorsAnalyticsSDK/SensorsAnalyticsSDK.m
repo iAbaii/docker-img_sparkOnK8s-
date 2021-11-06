@@ -1115,4 +1115,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         };
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-        NSURLSession *session
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:block];
+        
+        [task resume];
+#else
+        [NSURLConnection sendAsynchronousReq

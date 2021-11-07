@@ -1122,4 +1122,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #else
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
          ^(NSURLResponse *response, NSData* data, NSError *error) {
-             return block(data, response, erro
+             return block(data, response, error);
+        }];
+#endif
+        
+        dispatch_semaphore_wait(flushSem, DISPATCH_TIME_FOREVER);
+        
+        return flushSucc;
+    };
+    
+    [self flushByType:@"Post" withSize:(_debugMode == SensorsAnalyticsD

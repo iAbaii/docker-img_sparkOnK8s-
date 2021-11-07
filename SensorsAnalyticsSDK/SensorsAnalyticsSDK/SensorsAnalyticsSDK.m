@@ -1131,4 +1131,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return flushSucc;
     };
     
-    [self flushByType:@"Post" withSize:(_debugMode == SensorsAnalyticsD
+    [self flushByType:@"Post" withSize:(_debugMode == SensorsAnalyticsDebugOff ? 50 : 1) andFlushMethod:flushByPost];
+#ifdef SENSORS_ANALYTICS_IOS_MATCHING_WITH_COOKIE
+    // 使用 SFSafariViewController 发送数据 (>= iOS 9.0)
+    BOOL (^flushBySafariVC)(NSArray *, NSString *) = ^(NSArray *recordArray, 

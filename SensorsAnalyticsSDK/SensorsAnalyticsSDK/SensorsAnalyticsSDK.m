@@ -1120,4 +1120,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         [task resume];
 #else
-        [NSURLConnection sendAsynchronousReq
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+         ^(NSURLResponse *response, NSData* data, NSError *error) {
+             return block(data, response, erro

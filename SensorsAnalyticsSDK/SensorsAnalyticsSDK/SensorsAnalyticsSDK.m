@@ -1141,4 +1141,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         self.safariRequestInProgress = YES;
         
-        Class SFSafariViewControllerClass = NSClassFromString(@"
+        Class SFSafariViewControllerClass = NSClassFromString(@"SFSafariViewController");
+        if (!SFSafariViewControllerClass) {
+            SAError(@"Cannot use cookie-based installation tracking. Please import the SafariService.framework.");
+            self.safari

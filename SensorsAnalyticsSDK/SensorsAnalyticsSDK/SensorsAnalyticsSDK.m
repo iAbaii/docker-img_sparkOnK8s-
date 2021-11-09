@@ -1154,4 +1154,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSData *zippedData = [LFCGzipUtility gzipData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
         // 3. base64
         NSString *b64String = [zippedData sa_base64EncodedString];
-        int hashCode = [b
+        int hashCode = [b64String sensorsdata_hashCode];
+        b64String = (id)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                  (

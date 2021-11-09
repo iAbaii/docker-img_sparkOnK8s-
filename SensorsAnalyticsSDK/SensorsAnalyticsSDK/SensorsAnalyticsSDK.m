@@ -1150,4 +1150,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         // 1. 先完成这一系列Json字符串的拼接
         NSString *jsonString = [NSString stringWithFormat:@"[%@]",[recordArray componentsJoinedByString:@","]];
-        
+        // 2. 使用gzip进行压缩
+        NSData *zippedData = [LFCGzipUtility gzipData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+        // 3. base64
+        NSString *b64String = [zippedData sa_base64EncodedString];
+        int hashCode = [b

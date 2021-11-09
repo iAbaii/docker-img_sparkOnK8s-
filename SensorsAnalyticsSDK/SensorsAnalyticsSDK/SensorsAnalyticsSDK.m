@@ -1144,4 +1144,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         Class SFSafariViewControllerClass = NSClassFromString(@"SFSafariViewController");
         if (!SFSafariViewControllerClass) {
             SAError(@"Cannot use cookie-based installation tracking. Please import the SafariService.framework.");
-            self.safari
+            self.safariRequestInProgress = NO;
+            return YES;
+        }
+        
+        // 1. 先完成这一系列Json字符串的拼接
+        NSString *jsonString = [NSString stringWithFormat:@"[%@]",[recordArray componentsJoinedByString:@","]];
+        

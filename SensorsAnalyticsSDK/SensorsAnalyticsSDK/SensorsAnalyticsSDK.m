@@ -1167,4 +1167,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *urlQuery = [[NSString alloc] initWithFormat:@"%@&gzip=1&data_list=%@&crc=%d", components.percentEncodedQuery, b64String, hashCode];
             components.percentEncodedQuery = urlQuery;
         } else {
-            NSString *urlQuery = [[NSString alloc] initWithFormat
+            NSString *urlQuery = [[NSString alloc] initWithFormat:@"gzip=1&data_list=%@&crc=%d", b64String, hashCode];
+            components.percentEncodedQuery = urlQuery;
+        }
+
+        NSURL *postUrl = [components URL];
+        
+        // Must be on next run loop to avoid a war

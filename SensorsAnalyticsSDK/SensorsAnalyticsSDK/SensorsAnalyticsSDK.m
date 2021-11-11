@@ -1162,4 +1162,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                                                   kCFStringEncodingUTF8));
         
         NSURL *url = [NSURL URLWithString:self.serverURL];
-        NSURLC
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+        if (components.query.length > 0) {
+            NSString *urlQuery = [[NSString alloc] initWithFormat:@"%@&g

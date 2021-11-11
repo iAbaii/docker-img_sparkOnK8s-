@@ -1164,4 +1164,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSURL *url = [NSURL URLWithString:self.serverURL];
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
         if (components.query.length > 0) {
-            NSString *urlQuery = [[NSString alloc] initWithFormat:@"%@&g
+            NSString *urlQuery = [[NSString alloc] initWithFormat:@"%@&gzip=1&data_list=%@&crc=%d", components.percentEncodedQuery, b64String, hashCode];
+            components.percentEncodedQuery = urlQuery;
+        } else {
+            NSString *urlQuery = [[NSString alloc] initWithFormat

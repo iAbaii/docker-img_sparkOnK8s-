@@ -1158,4 +1158,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         b64String = (id)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                   (CFStringRef)b64String,
                                                                                   NULL,
-                                                                                  CFSTR("!*'();:@&=+$,/?%#[]
+                                                                                  CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                                                  kCFStringEncodingUTF8));
+        
+        NSURL *url = [NSURL URLWithString:self.serverURL];
+        NSURLC

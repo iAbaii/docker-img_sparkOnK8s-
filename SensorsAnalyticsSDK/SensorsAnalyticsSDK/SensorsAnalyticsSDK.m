@@ -1181,4 +1181,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             UIViewController *windowRootController = [[UIViewController alloc] init];
             
             if (self.vtrackWindow == nil) {
-                self.secondWindow = [[UIWindow alloc] initWithFrame:[[[[UIApplication sharedApplication] delegate] window] boun
+                self.secondWindow = [[UIWindow alloc] initWithFrame:[[[[UIApplication sharedApplication] delegate] window] bounds]];
+            } else {
+                self.secondWindow = [[UIWindow alloc] initWithFrame:[self.vtrackWindow bounds]];
+            }
+            self.secondWindow.rootViewController = windowRootController;
+            self.secondWindo

@@ -1186,4 +1186,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 self.secondWindow = [[UIWindow alloc] initWithFrame:[self.vtrackWindow bounds]];
             }
             self.secondWindow.rootViewController = windowRootController;
-            self.secondWindo
+            self.secondWindow.windowLevel = UIWindowLevelNormal - 1;
+            [self.secondWindow setHidden:NO];
+            [self.secondWindow setAlpha:0];
+            
+            // Add the safari view controller using view controller containm

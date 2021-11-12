@@ -1173,4 +1173,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         NSURL *postUrl = [components URL];
         
-        // Must be on next run loop to avoid a war
+        // Must be on next run loop to avoid a warning
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIViewController *safController = [[SFSafariViewControllerClass alloc] initWithURL:postUrl];
+            
+            UIViewControll

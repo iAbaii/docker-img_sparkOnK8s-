@@ -1178,4 +1178,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             
             UIViewController *safController = [[SFSafariViewControllerClass alloc] initWithURL:postUrl];
             
-            UIViewControll
+            UIViewController *windowRootController = [[UIViewController alloc] init];
+            
+            if (self.vtrackWindow == nil) {
+                self.secondWindow = [[UIWindow alloc] initWithFrame:[[[[UIApplication sharedApplication] delegate] window] boun

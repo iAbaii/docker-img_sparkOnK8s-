@@ -1190,4 +1190,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [self.secondWindow setHidden:NO];
             [self.secondWindow setAlpha:0];
             
-            // Add the safari view controller using view controller containm
+            // Add the safari view controller using view controller containment
+            [windowRootController addChildViewController:safController];
+            [windowRootController.view addSubview:safController.view];
+            [safController didMoveToParentViewController:windowRootController];
+            
+            // Give

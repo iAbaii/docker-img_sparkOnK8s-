@@ -1197,4 +1197,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             
             // Give a little bit of time for safari to load the request.
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                // Remove the
+                // Remove the safari view controller from view controller containment
+                [safController willMoveToParentViewController:nil];
+                [safController.view removeFromSuperview];
+                [safController r

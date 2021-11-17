@@ -1200,4 +1200,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 // Remove the safari view controller from view controller containment
                 [safController willMoveToParentViewController:nil];
                 [safController.view removeFromSuperview];
-                [safController r
+                [safController removeFromParentViewController];
+                
+                // Remove the window and release it's strong reference. This is important to ensure that
+                // applications u

@@ -1203,4 +1203,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [safController removeFromParentViewController];
                 
                 // Remove the window and release it's strong reference. This is important to ensure that
-                // applications u
+                // applications using view controller based status bar appearance are restored.
+                [self.secondWindow removeFromSuperview];
+                self.secondWindow = nil;
+                
+              

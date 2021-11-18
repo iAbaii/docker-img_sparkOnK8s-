@@ -1207,4 +1207,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [self.secondWindow removeFromSuperview];
                 self.secondWindow = nil;
                 
-              
+                self.safariRequestInProgress = NO;
+                
+                if (_debugMode != SensorsAnalyticsDebugOff) {
+                    SAError(@"%@ The validation in DEBUG mode is unavailable

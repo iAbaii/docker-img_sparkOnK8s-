@@ -1210,4 +1210,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 self.safariRequestInProgress = NO;
                 
                 if (_debugMode != SensorsAnalyticsDebugOff) {
-                    SAError(@"%@ The validation in DEBUG mode is unavailable
+                    SAError(@"%@ The validation in DEBUG mode is unavailable while using track_installtion. Please check the result with 'debug_data_viewer'.", self);
+                    SAError(@"%@ 使用 track_installation 时无法直接获得 Debug 模式数据校验结果，请登录 Sensors Analytics 并进入 '数据接入辅助

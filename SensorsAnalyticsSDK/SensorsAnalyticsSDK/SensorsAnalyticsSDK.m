@@ -1237,4 +1237,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     });
 }
 
-- (BOOL) isValidNa
+- (BOOL) isValidName : (NSString *) name {
+    return [self.regexTestName evaluateWithObject:name];
+}
+
+- (NSString *)filePathForData:(NSString *)data {
+    return [self filePathForData:data type:@"plist"];
+}
+
+- (NSString *)filePathForData:(NSS

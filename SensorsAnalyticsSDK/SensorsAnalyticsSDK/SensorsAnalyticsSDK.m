@@ -1223,4 +1223,18 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
     
     if (vacuumAfterFlushing) {
-        if (!
+        if (![self.messageQueue vacuum]) {
+            SAError(@"failed to VACUUM SQLite.");
+        }
+    }
+    
+    SADebug(@"events flushed.");
+}
+
+- (void)flush {
+    dispatch_async(self.serialQueue, ^{
+        [self _flush:NO];
+    });
+}
+
+- (BOOL) isValidNa

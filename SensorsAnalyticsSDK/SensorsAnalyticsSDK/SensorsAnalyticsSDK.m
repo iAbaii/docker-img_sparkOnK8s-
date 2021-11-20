@@ -1211,4 +1211,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 
                 if (_debugMode != SensorsAnalyticsDebugOff) {
                     SAError(@"%@ The validation in DEBUG mode is unavailable while using track_installtion. Please check the result with 'debug_data_viewer'.", self);
-                    SAError(@"%@ 使用 track_installation 时无法直接获得 Debug 模式数据校验结果，请登录 Sensors Analytics 并进入 '数据接入辅助
+                    SAError(@"%@ 使用 track_installation 时无法直接获得 Debug 模式数据校验结果，请登录 Sensors Analytics 并进入 '数据接入辅助工具' 查看校验结果。", self);
+                }
+            });
+        });
+        return YES;
+    };
+    [self flushByType:@"SFSafariViewController" withSize:(_debugMode == SensorsAnalyticsDebugOff ? 50 : 1) andFlushMetho

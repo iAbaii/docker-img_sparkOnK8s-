@@ -1217,4 +1217,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         });
         return YES;
     };
-    [self flushByType:@"SFSafariViewController" withSize:(_debugMode == SensorsAnalyticsDebugOff ? 50 : 1) andFlushMetho
+    [self flushByType:@"SFSafariViewController" withSize:(_debugMode == SensorsAnalyticsDebugOff ? 50 : 1) andFlushMethod:flushBySafariVC];
+#else
+    [self flushByType:@"SFSafariViewController" withSize:(_debugMode == SensorsAnalyticsDebugOff ? 50 : 1) andFlushMethod:flushByPost];
+#endif
+    
+    if (vacuumAfterFlushing) {
+        if (!

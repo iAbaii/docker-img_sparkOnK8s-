@@ -1245,4 +1245,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return [self filePathForData:data type:@"plist"];
 }
 
-- (NSString *)filePathForData:(NSS
+- (NSString *)filePathForData:(NSString *)data
+                         type:(NSString*)type {
+    NSString *filename = [NSString stringWithFormat:@"sensorsanalytics-%@.%@", data,type];
+    NSString *filepath = [[NSSearchPathForDirectoriesInDomain

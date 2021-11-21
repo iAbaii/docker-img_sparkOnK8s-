@@ -1257,4 +1257,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 
 
--
+- (void)enqueueWithType:(NSString *)type andEvent:(NSDictionary *)e {
+    NSMutableDictionary *event = [[NSMutableDictionary alloc] initWithDictionary:e];
+    NSMutableDictionary *properties = [[NSMutableDictionary

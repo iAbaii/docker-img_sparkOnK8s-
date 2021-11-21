@@ -1248,4 +1248,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (NSString *)filePathForData:(NSString *)data
                          type:(NSString*)type {
     NSString *filename = [NSString stringWithFormat:@"sensorsanalytics-%@.%@", data,type];
-    NSString *filepath = [[NSSearchPathForDirectoriesInDomain
+    NSString *filepath = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
+                          stringByAppendingPathComponent:filename];
+    SADebug(@"filepath for %@ is %@", data, filepath);
+    return filepath;
+
+}
+
+
+
+-

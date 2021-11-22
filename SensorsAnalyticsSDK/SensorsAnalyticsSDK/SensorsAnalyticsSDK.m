@@ -1272,4 +1272,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         NSString *binding_trigger_id = [[properties objectForKey:@"$binding_trigger_id"] stringValue];
         
-        NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] initWithDictionary:[event o
+        NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] initWithDictionary:[event objectForKey:@"lib"]];
+        
+        [libProperties setValue:@"vtrack" forKey:@"$lib_method"];
+        [libProperties setValue:binding_trigger_id forKey:@"$lib_detail"];
+        
+        [properties removeO

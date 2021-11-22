@@ -1262,4 +1262,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSMutableDictionary *properties = [[NSMutableDictionary alloc] initWithDictionary:[event objectForKey:@"properties"]];
     
     NSString *from_vtrack = [properties objectForKey:@"$from_vtrack"];
-    if (from_vtrack != nil 
+    if (from_vtrack != nil && [from_vtrack length] > 0) {
+        // 来自可视化埋点的事件
+        BOOL binding_depolyed = [[properties objectForKey:@"$binding_depolyed"] boolValue];
+        if (!binding_depolyed) {
+            // 未部署的事件，不发送正式的track
+            return;
+  

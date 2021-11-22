@@ -1268,4 +1268,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if (!binding_depolyed) {
             // 未部署的事件，不发送正式的track
             return;
-  
+        }
+        
+        NSString *binding_trigger_id = [[properties objectForKey:@"$binding_trigger_id"] stringValue];
+        
+        NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] initWithDictionary:[event o

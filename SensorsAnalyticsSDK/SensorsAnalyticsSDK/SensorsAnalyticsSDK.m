@@ -1277,4 +1277,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [libProperties setValue:@"vtrack" forKey:@"$lib_method"];
         [libProperties setValue:binding_trigger_id forKey:@"$lib_detail"];
         
-        [properties removeO
+        [properties removeObjectsForKeys:@[@"$binding_depolyed", @"$binding_path", @"$binding_trigger_id"]];
+        
+        [event setObject:properties forKey:@"properties"];
+        [event setObject:libProperties forKey:@"lib"];
+    }
+ 

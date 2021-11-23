@@ -1282,4 +1282,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [event setObject:properties forKey:@"properties"];
         [event setObject:libProperties forKey:@"lib"];
     }
- 
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+    if ([properties objectForKey:@"$ios_install_source"]) {
+        [self.messageQueue addObejct:event withType:@"SFSafariViewController"];
+    } else {
+#endif
+    

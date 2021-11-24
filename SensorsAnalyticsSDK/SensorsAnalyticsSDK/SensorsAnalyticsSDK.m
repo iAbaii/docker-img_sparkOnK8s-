@@ -1294,4 +1294,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
 }
 
-- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDict withType:(
+- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDict withType:(NSString *)type {
+    // 对于type是track数据，它们的event名称是有意义的
+    if ([type isEqualToString:@"track"]) {
+        if (event == nil || [event length] == 0) {
+            NSString *errMsg = @"SensorsAnalytics track called wi

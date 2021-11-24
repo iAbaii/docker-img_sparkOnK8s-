@@ -1288,4 +1288,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [self.messageQueue addObejct:event withType:@"SFSafariViewController"];
     } else {
 #endif
-    
+        [self.messageQueue addObejct:event withType:@"Post"];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+    }
+#endif
+}
+
+- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDict withType:(

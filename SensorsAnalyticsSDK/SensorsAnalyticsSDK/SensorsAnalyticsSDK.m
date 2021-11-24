@@ -1298,4 +1298,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     // 对于type是track数据，它们的event名称是有意义的
     if ([type isEqualToString:@"track"]) {
         if (event == nil || [event length] == 0) {
-            NSString *errMsg = @"SensorsAnalytics track called wi
+            NSString *errMsg = @"SensorsAnalytics track called with empty event parameter";
+            SAError(@"%@", errMsg);
+            if (_debugMode != SensorsAnalyticsDebugOff) {
+                [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+            }
+ 

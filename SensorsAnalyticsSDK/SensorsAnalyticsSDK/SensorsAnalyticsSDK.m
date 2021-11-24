@@ -1303,4 +1303,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (_debugMode != SensorsAnalyticsDebugOff) {
                 [self showDebugModeWarning:errMsg withNoMoreButton:YES];
             }
- 
+            return;
+        }
+        if (![self isValidName:event]) {
+            NSString *errMsg = [NSString stringWithFormat:@"Event name[%@] not valid", event];
+            SAError(@"%@", errMsg);
+            if (_debu

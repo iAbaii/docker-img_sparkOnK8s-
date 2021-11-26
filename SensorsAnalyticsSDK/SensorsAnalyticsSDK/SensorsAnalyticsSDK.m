@@ -1327,4 +1327,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] init];
     
     [libProperties setValue:[_automaticProperties objectForKey:@"$lib"] forKey:@"$lib"];
-    [libProperties setValue:[_automaticProperties objectForKey:@"$lib
+    [libProperties setValue:[_automaticProperties objectForKey:@"$lib_version"] forKey:@"$lib_version"];
+    
+    id app_version = [_automaticProperties objectForKey:@"$app_version"];
+    if (app_version) {
+        [libProperties setValue:app_version forKey:@"$app_version"];
+    }

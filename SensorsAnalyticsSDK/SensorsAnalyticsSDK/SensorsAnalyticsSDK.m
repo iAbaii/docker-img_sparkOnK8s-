@@ -1316,4 +1316,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     
     if (propertieDict) {
-        if (![self assertPropertyT
+        if (![self assertPropertyTypes:[propertieDict copy] withEventType:type]) {
+            SAError(@"%@ failed to track event.", self);
+            return;
+        }
+    }
+    
+    NSNumber *timeStamp = @([[self class] getCurrentTime]);
+    
+    NSMutab

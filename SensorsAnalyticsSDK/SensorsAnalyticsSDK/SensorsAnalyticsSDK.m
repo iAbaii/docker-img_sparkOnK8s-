@@ -1324,4 +1324,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     NSNumber *timeStamp = @([[self class] getCurrentTime]);
     
-    NSMutab
+    NSMutableDictionary *libProperties = [[NSMutableDictionary alloc] init];
+    
+    [libProperties setValue:[_automaticProperties objectForKey:@"$lib"] forKey:@"$lib"];
+    [libProperties setValue:[_automaticProperties objectForKey:@"$lib

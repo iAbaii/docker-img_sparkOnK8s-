@@ -1339,4 +1339,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSString *lib_detail = nil;
     if (_autoTrack && propertieDict) {
         if ([event isEqualToString:@"$AppClick"]) {
-            if (_aut
+            if (_autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
+                lib_detail = [NSString stringWithFormat:@"%@######", [propertieDict objectForKey:@"$screen_name"]];
+            }
+        } else if ([event isEqualTo

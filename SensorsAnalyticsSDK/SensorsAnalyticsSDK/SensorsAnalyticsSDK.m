@@ -1333,3 +1333,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (app_version) {
         [libProperties setValue:app_version forKey:@"$app_version"];
     }
+    
+    [libProperties setValue:@"code" forKey:@"$lib_method"];
+
+    NSString *lib_detail = nil;
+    if (_autoTrack && propertieDict) {
+        if ([event isEqualToString:@"$AppClick"]) {
+            if (_aut

@@ -1342,4 +1342,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (_autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
                 lib_detail = [NSString stringWithFormat:@"%@######", [propertieDict objectForKey:@"$screen_name"]];
             }
-        } else if ([event isEqualTo
+        } else if ([event isEqualToString:@"$AppViewScreen"]) {
+            if (_autoTrackEventType & SensorsAnalyticsEventTypeAppViewScreen) {
+                lib_detail = [NSString stringWithFormat:@"%@######", [propertieDict object

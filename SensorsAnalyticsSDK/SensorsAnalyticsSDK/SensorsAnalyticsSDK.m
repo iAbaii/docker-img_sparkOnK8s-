@@ -1353,4 +1353,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSArray *syms = [NSThread callStackSymbols];
     
     if ([syms count] > 2 && !lib_detail) {
-        NSString *trace = [syms 
+        NSString *trace = [syms objectAtIndex:2];
+        
+        NSRange start = [trace rangeOfString:@"["];
+        NSRange end = [trace rangeOfString:@"]"];
+        if (start.location != NSNotFound && end.location != NSNotFound && end.location > s

@@ -1344,4 +1344,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
         } else if ([event isEqualToString:@"$AppViewScreen"]) {
             if (_autoTrackEventType & SensorsAnalyticsEventTypeAppViewScreen) {
-                lib_detail = [NSString stringWithFormat:@"%@######", [propertieDict object
+                lib_detail = [NSString stringWithFormat:@"%@######", [propertieDict objectForKey:@"$screen_name"]];
+            }
+        }
+    }
+    
+#ifndef SENSORS_ANALYTICS_DISABLE_CALL_STACK
+    NSArray *syms = [NSThread callStackSymbols];
+    
+    if ([syms count] > 2 && !lib_detail) {
+        NSString *trace = [syms 

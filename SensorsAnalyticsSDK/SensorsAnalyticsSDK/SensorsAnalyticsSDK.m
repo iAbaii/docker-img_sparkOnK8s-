@@ -1357,4 +1357,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         NSRange start = [trace rangeOfString:@"["];
         NSRange end = [trace rangeOfString:@"]"];
-        if (start.location != NSNotFound && end.location != NSNotFound && end.location > s
+        if (start.location != NSNotFound && end.location != NSNotFound && end.location > start.location) {
+            NSString *trace_info = [trace substringWithRange:NSMakeRange(start.location+1, end.location-(start.location+1))];
+            NSRange split = [trace_info rangeOfString:@" "];
+            NSString *class = [trace_info 

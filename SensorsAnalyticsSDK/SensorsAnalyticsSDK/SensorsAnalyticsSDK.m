@@ -1363,4 +1363,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *class = [trace_info substringWithRange:NSMakeRange(0, split.location)];
             NSString *function = [trace_info substringWithRange:NSMakeRange(split.location + 1, trace_info.length-(split.location + 1))];
             
-            lib_detail = [NSString string
+            lib_detail = [NSString stringWithFormat:@"%@##%@####", class, function];
+        }
+    }
+#endif
+
+    if (lib_detail) {
+        [libProperties setValue:lib_detail forKey:@"$lib_detail"];
+    }
+
+    dispatch_async(self.serialQueue, ^{
+     

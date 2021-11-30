@@ -1373,4 +1373,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 
     dispatch_async(self.serialQueue, ^{
-     
+        NSMutableDictionary *p = [NSMutableDictionary dictionary];
+        if ([type isEqualToString:@"track"] || [type isEqualToString:@"track_signup"]) {
+            // track / track_signup 类型的请求，还是要加上各种公共pr

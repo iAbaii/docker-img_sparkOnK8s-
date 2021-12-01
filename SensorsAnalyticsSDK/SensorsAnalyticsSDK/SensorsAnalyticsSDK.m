@@ -1375,4 +1375,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     dispatch_async(self.serialQueue, ^{
         NSMutableDictionary *p = [NSMutableDictionary dictionary];
         if ([type isEqualToString:@"track"] || [type isEqualToString:@"track_signup"]) {
-            // track / track_signup 类型的请求，还是要加上各种公共pr
+            // track / track_signup 类型的请求，还是要加上各种公共property
+            // 这里注意下顺序，按照优先级从低到高，依次是automaticProperties, superProperties和propertieDict
+            [p addEntriesFromDictionary:_automaticProperties];
+            [p addEntriesFromDictionary:_superProperties];
+
+    

@@ -1396,3 +1396,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             NSDictionary *eventTimer = self.trackTimer[event];
+            if (eventTimer) {
+                [self.trackTimer removeObjectForKey:event];
+                NSNumber *eventBegin = [eventTimer valueForKey:@"eventBegin"];
+   

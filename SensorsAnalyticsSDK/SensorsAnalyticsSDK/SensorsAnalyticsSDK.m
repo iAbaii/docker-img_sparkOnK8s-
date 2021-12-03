@@ -1399,4 +1399,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (eventTimer) {
                 [self.trackTimer removeObjectForKey:event];
                 NSNumber *eventBegin = [eventTimer valueForKey:@"eventBegin"];
-   
+                NSNumber *eventAccumulatedDuration = [eventTimer objectForKey:@"eventAccumulatedDuration"];
+                SensorsAnalyticsTimeUnit timeUnit = [[eventTimer valueForKey:@"timeUnit"] intValue];
+                
+        

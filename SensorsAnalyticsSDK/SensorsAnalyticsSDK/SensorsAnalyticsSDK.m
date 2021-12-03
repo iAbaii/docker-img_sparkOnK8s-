@@ -1389,4 +1389,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             // 每次 track 时手机网络状态
             NSString *networkType = [SensorsAnalyticsSDK getNetWorkStates];
             [p setObject:networkType forKey:@"$network_type"];
-            if ([networkType isEqua
+            if ([networkType isEqualToString:@"WIFI"]) {
+                [p setObject:@YES forKey:@"$wifi"];
+            } else {
+                [p setObject:@NO forKey:@"$wifi"];
+            }
+
+            NSDictionary *eventTimer = self.trackTimer[event];

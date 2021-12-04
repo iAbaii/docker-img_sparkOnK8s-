@@ -1405,4 +1405,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 float eventDuration;
                 if (eventAccumulatedDuration) {
                     eventDuration = [timeStamp longValue] - [eventBegin longValue] + [eventAccumulatedDuration longValue];
- 
+                } else {
+                    eventDuration = [timeStamp longValue] - [eventBegin longValue];
+                }
+
+                if (eventDuration < 0) {
+                    eventDuration = 0

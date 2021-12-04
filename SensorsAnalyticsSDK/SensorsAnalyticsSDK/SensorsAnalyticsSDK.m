@@ -1402,4 +1402,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSNumber *eventAccumulatedDuration = [eventTimer objectForKey:@"eventAccumulatedDuration"];
                 SensorsAnalyticsTimeUnit timeUnit = [[eventTimer valueForKey:@"timeUnit"] intValue];
                 
-        
+                float eventDuration;
+                if (eventAccumulatedDuration) {
+                    eventDuration = [timeStamp longValue] - [eventBegin longValue] + [eventAccumulatedDuration longValue];
+ 

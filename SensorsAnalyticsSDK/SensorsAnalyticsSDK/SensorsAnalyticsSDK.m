@@ -1416,3 +1416,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 if (eventDuration > 0 && eventDuration < 24 * 60 * 60 * 1000) {
                     switch (timeUnit) {
                         case SensorsAnalyticsTimeUnitHours:
+                            eventDuration = eventDuration / 60.0;
+                        case SensorsAnalyticsTimeUnitMinutes:
+                            eventDuration = 

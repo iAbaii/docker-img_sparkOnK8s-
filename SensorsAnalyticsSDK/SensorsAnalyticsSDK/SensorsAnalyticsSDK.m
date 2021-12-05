@@ -1421,4 +1421,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                             eventDuration = eventDuration / 60.0;
                         case SensorsAnalyticsTimeUnitSeconds:
                             eventDuration = eventDuration / 1000.0;
-                        case SensorsAnalyticsTimeUnitMill
+                        case SensorsAnalyticsTimeUnitMilliseconds:
+                            break;
+                    }
+                    @try {
+                        [p setObject:@([[NSString stringWithFormat:@"%.3f", eventDuration] floatValue]

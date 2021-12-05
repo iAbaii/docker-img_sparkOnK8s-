@@ -1418,4 +1418,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         case SensorsAnalyticsTimeUnitHours:
                             eventDuration = eventDuration / 60.0;
                         case SensorsAnalyticsTimeUnitMinutes:
-                            eventDuration = 
+                            eventDuration = eventDuration / 60.0;
+                        case SensorsAnalyticsTimeUnitSeconds:
+                            eventDuration = eventDuration / 1000.0;
+                        case SensorsAnalyticsTimeUnitMill

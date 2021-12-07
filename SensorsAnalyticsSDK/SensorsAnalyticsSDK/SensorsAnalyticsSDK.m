@@ -1431,4 +1431,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                 }
             }
-   
+        }
+        
+        if (propertieDict) {
+            for (id key in propertieDict) {
+                NSObject *obj = propertieDict[key];
+                if ([obj isKindOfClass:[NSDate class]]) {
+         

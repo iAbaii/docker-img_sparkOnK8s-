@@ -1437,4 +1437,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             for (id key in propertieDict) {
                 NSObject *obj = propertieDict[key];
                 if ([obj isKindOfClass:[NSDate class]]) {
-         
+                    // 序列化所有 NSDate 类型
+                    NSString *dateStr = [_dateFormatter stringFromDate:(NSDate *)obj];
+                    [p setObject:dateStr forKey:key];
+                } else {
+                  

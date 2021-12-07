@@ -1425,4 +1425,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                             break;
                     }
                     @try {
-                        [p setObject:@([[NSString stringWithFormat:@"%.3f", eventDuration] floatValue]
+                        [p setObject:@([[NSString stringWithFormat:@"%.3f", eventDuration] floatValue]) forKey:@"event_duration"];
+                    } @catch (NSException *exception) {
+                        SAError(@"%@: %@", self, exception);
+                    }
+                }
+            }
+   

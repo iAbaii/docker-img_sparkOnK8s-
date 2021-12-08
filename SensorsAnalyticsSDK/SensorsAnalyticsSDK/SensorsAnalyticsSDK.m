@@ -1441,4 +1441,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     NSString *dateStr = [_dateFormatter stringFromDate:(NSDate *)obj];
                     [p setObject:dateStr forKey:key];
                 } else {
-                  
+                    [p setObject:obj forKey:key];
+                }
+            }
+        }
+        
+        NSDictionary *e;
+        NSString *bestId;
+        if ([self loginId] != nil) {
+            bestId = [self loginId];
+        } els

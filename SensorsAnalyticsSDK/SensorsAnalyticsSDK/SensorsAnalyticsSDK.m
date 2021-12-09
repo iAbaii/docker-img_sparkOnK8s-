@@ -1450,4 +1450,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSString *bestId;
         if ([self loginId] != nil) {
             bestId = [self loginId];
-        } els
+        } else{
+            bestId = [self distinctId];
+        }
+
+        if (bestId == nil) {
+            [self resetAnonymousId];
+            bestId = [self anonymousId];
+        }
+
+        if ([type isEqualToString:@"tr

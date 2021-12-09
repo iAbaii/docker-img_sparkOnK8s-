@@ -1459,4 +1459,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             bestId = [self anonymousId];
         }
 
-        if ([type isEqualToString:@"tr
+        if ([type isEqualToString:@"track_signup"]) {
+            e = @{
+                  @"event": event,
+                  @"properties": [NSDictionary dictionaryWithDictionary:p],
+                  @"distinct_id": bestId,
+                  @"original_id": s

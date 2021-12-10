@@ -1464,4 +1464,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                   @"event": event,
                   @"properties": [NSDictionary dictionaryWithDictionary:p],
                   @"distinct_id": bestId,
-                  @"original_id": s
+                  @"original_id": self.originalId,
+                  @"time": timeStamp,
+                  @"type": type,
+                  @"lib": libProperties,
+                  @"_track_id": @(rand()),
+                  };
+        } else if([type

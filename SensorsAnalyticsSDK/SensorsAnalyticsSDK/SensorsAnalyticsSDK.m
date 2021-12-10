@@ -1470,4 +1470,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                   @"lib": libProperties,
                   @"_track_id": @(rand()),
                   };
-        } else if([type
+        } else if([type isEqualToString:@"track"]){
+            //  是否首日访问
+            if ([self isFirstDay]) {
+                [p setObject:@YES forKey:@"$is_first_day"];
+            } else {
+                [p setObject:@NO forKey:@"$is_f

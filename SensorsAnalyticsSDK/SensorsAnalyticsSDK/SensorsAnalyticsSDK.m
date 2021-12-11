@@ -1481,4 +1481,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                   @"event": event,
                   @"properties": [NSDictionary dictionaryWithDictionary:p],
                   @"distinct_id": bestId,
-                  @"tim
+                  @"time": timeStamp,
+                  @"type": type,
+                  @"lib": libProperties,
+                  @"_track_id": @(rand()),
+                  };
+        } else {
+            // 此时应该都是对Profile的操作

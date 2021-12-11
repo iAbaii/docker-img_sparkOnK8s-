@@ -1492,4 +1492,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                   @"properties": [NSDictionary dictionaryWithDictionary:p],
                   @"distinct_id": bestId,
                   @"time": timeStamp,
-                  @"type": typ
+                  @"type": type,
+                  @"lib": libProperties,
+                  @"_track_id": @(rand()),
+                  };
+        }
+        
+        [self enqueueWithType:type andEvent:[e copy]];
+        
+ 

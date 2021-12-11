@@ -1488,3 +1488,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                   };
         } else {
             // 此时应该都是对Profile的操作
+            e = @{
+                  @"properties": [NSDictionary dictionaryWithDictionary:p],
+                  @"distinct_id": bestId,
+                  @"time": timeStamp,
+                  @"type": typ

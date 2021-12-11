@@ -1475,4 +1475,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if ([self isFirstDay]) {
                 [p setObject:@YES forKey:@"$is_first_day"];
             } else {
-                [p setObject:@NO forKey:@"$is_f
+                [p setObject:@NO forKey:@"$is_first_day"];
+            }
+            e = @{
+                  @"event": event,
+                  @"properties": [NSDictionary dictionaryWithDictionary:p],
+                  @"distinct_id": bestId,
+                  @"tim

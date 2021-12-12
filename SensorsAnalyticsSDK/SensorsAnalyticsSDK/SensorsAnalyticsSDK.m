@@ -1505,4 +1505,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [self _flush:NO];
         } else {
             // 否则，在满足发送条件时，发送事件
-            if ([type isEqualToStr
+            if ([type isEqualToString:@"track_signup"] || [[self messageQueue] count] >= self.flushBulkSize) {
+                [self _flush:NO];
+            }
+        }
+    });
+}
+
+- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDic

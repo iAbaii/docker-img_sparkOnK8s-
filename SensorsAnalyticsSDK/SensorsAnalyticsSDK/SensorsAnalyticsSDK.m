@@ -1500,4 +1500,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         [self enqueueWithType:type andEvent:[e copy]];
         
- 
+        if (_debugMode != SensorsAnalyticsDebugOff) {
+            // 在DEBUG模式下，直接发送事件
+            [self _flush:NO];
+        } else {
+            // 否则，在满足发送条件时，发送事件
+            if ([type isEqualToStr

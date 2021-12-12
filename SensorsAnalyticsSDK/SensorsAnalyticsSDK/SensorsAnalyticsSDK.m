@@ -1512,4 +1512,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     });
 }
 
-- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDic
+- (void)track:(NSString *)event withProperties:(NSDictionary *)propertieDict {
+    [self track:event withProperties:propertieDict withType:@"track"];
+}
+
+- (void)track:(NSString *)event {
+    [self track:event withProperties:nil withType:@"track"];
+}
+
+- (void)trackTimer:(NSString *)eve

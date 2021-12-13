@@ -1520,4 +1520,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self track:event withProperties:nil withType:@"track"];
 }
 
-- (void)trackTimer:(NSString *)eve
+- (void)trackTimer:(NSString *)event {
+    [self trackTimer:event withTimeUnit:SensorsAnalyticsTimeUnitMilliseconds];
+}
+
+- (void)trackTimerBegin:(NSString *)event {
+    [self trackTimer:event];
+}
+
+- (void)trackTimerBegin:(NSString

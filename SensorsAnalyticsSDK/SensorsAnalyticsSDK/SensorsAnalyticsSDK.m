@@ -1545,4 +1545,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSNumber *eventBegin = @([[self class] getCurrentTime]);
     
     dispatch_async(self.serialQueue, ^{
- 
+        self.trackTimer[event] = @{@"eventBegin" : eventBegin, @"eventAccumulatedDuration" : [NSNumber numberWithLong:0], @"timeUnit" : [NSNumber numberWithInt:timeUnit]};
+    });
+}
+
+- (void)trackTimerEnd:(NSString *)event {
+    [self track

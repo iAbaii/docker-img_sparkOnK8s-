@@ -1532,4 +1532,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self trackTimer:event withTimeUnit:timeUnit];
 }
 
-- (void)trackTimer:(NSString *)event withTimeUnit:(SensorsAnalyticsTimeUnit)time
+- (void)trackTimer:(NSString *)event withTimeUnit:(SensorsAnalyticsTimeUnit)timeUnit {
+    if (![self isValidName:event]) {
+        NSString *errMsg = [NSString stringWithFormat:@"Event name[%@] not valid", event];
+        SAError(@"%@", errMsg);
+        if (_debugMode != SensorsAnalyticsD

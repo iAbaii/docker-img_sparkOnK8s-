@@ -1536,4 +1536,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (![self isValidName:event]) {
         NSString *errMsg = [NSString stringWithFormat:@"Event name[%@] not valid", event];
         SAError(@"%@", errMsg);
-        if (_debugMode != SensorsAnalyticsD
+        if (_debugMode != SensorsAnalyticsDebugOff) {
+            [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+        }
+        return;
+    }
+    
+    NSNumber *eventBegin = @([[self class] getCurrentTime]);
+    
+    dispatch_async(self.serialQueue, ^{
+ 

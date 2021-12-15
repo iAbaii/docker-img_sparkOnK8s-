@@ -1570,4 +1570,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)trackSignUp:(NSString *)newDistinctId {
     [self identify:newDistinctId];
-    [self track:@"$SignUp" withProperties:nil withType:@"trac
+    [self track:@"$SignUp" withProperties:nil withType:@"track_signup"];
+}
+
+- (void)trackInstallation:(NSString *)event withProperties:(NSDictionary *)propertyDict disableCallback:(BOOL)disableCallback {
+    BOOL isFirstTrackInstallation = NO;
+    NSString *userDefaultsKey = nil;

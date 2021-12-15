@@ -1565,4 +1565,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)trackSignUp:(NSString *)newDistinctId withProperties:(NSDictionary *)propertieDict {
     [self identify:newDistinctId];
-    [self 
+    [self track:@"$SignUp" withProperties:propertieDict withType:@"track_signup"];
+}
+
+- (void)trackSignUp:(NSString *)newDistinctId {
+    [self identify:newDistinctId];
+    [self track:@"$SignUp" withProperties:nil withType:@"trac

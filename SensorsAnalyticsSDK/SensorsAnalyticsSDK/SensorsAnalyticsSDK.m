@@ -1558,4 +1558,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)clearTrackTimer {
-    dispatch_async(self.
+    dispatch_async(self.serialQueue, ^{
+        self.trackTimer = [NSMutableDictionary dictionary];
+    });
+}
+
+- (void)trackSignUp:(NSString *)newDistinctId withProperties:(NSDictionary *)propertieDict {
+    [self identify:newDistinctId];
+    [self 

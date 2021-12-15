@@ -1550,4 +1550,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)trackTimerEnd:(NSString *)event {
-    [self track
+    [self track:event];
+}
+
+- (void)trackTimerEnd:(NSString *)event withProperties:(NSDictionary *)propertyDict {
+    [self track:event withProperties:propertyDict];
+}
+
+- (void)clearTrackTimer {
+    dispatch_async(self.

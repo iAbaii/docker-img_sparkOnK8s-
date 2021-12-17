@@ -1581,4 +1581,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     } else {
         userDefaultsKey = @"HasTrackInstallation";
     }
-    if (![[NSUserDefaults standardUserDefault
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:userDefaultsKey]) {
+        isFirstTrackInstallation = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:userDefaultsKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+   

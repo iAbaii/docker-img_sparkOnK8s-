@@ -1592,4 +1592,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
         NSString *idfa = [self getIDFA];
-     
+        if (idfa != nil) {
+            [properties setValue:[NSString stringWithFormat:@"idfa=%@", idfa] forKey:@"$ios_install_source"];
+        } else {
+            [properties setValue:@"" forKey:@"$ios_install_s

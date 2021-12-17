@@ -1585,4 +1585,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         isFirstTrackInstallation = YES;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:userDefaultsKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-   
+    }
+    
+    if (isFirstTrackInstallation) {
+        // 追踪渠道是特殊功能，需要同时发送 track 和 profile_set_once
+
+        NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+        NSString *idfa = [self getIDFA];
+     

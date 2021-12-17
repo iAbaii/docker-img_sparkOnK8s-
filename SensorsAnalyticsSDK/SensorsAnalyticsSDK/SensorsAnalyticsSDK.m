@@ -1576,3 +1576,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (void)trackInstallation:(NSString *)event withProperties:(NSDictionary *)propertyDict disableCallback:(BOOL)disableCallback {
     BOOL isFirstTrackInstallation = NO;
     NSString *userDefaultsKey = nil;
+    if (disableCallback) {
+        userDefaultsKey = @"HasTrackInstallationWithDisableCallback";
+    } else {
+        userDefaultsKey = @"HasTrackInstallation";
+    }
+    if (![[NSUserDefaults standardUserDefault

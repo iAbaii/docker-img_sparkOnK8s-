@@ -1618,4 +1618,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self trackInstallation:event withProperties:propertyDict disableCallback:NO];
 }
 
-- (void)trackInsta
+- (void)trackInstallation:(NSString *)event {
+    [self trackInstallation:event withProperties:nil disableCallback:NO];
+}
+
+- (NSString  *)getIDFA {
+    NSString *idfa = nil;
+    @try {
+#if defined(SENSORS_ANAL

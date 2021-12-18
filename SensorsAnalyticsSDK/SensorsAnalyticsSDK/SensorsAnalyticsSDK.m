@@ -1603,4 +1603,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
 
         if (propertyDict != nil) {
-            [properties addEntriesFromDictionary:prop
+            [properties addEntriesFromDictionary:propertyDict];
+        }
+
+        // 先发送 track
+        [self track:event withProperties:properties withType:@"track"];
+
+        // 再发送 profile_set_once
+        [self track:nil withProperties:properties withType:@"prof

@@ -1595,4 +1595,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if (idfa != nil) {
             [properties setValue:[NSString stringWithFormat:@"idfa=%@", idfa] forKey:@"$ios_install_source"];
         } else {
-            [properties setValue:@"" forKey:@"$ios_install_s
+            [properties setValue:@"" forKey:@"$ios_install_source"];
+        }
+
+        if (disableCallback) {
+            [properties setValue:@YES forKey:@"$ios_install_disable_callback"];
+        }
+
+        if (propertyDict != nil) {
+            [properties addEntriesFromDictionary:prop

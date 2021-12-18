@@ -1610,4 +1610,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         [self track:event withProperties:properties withType:@"track"];
 
         // 再发送 profile_set_once
-        [self track:nil withProperties:properties withType:@"prof
+        [self track:nil withProperties:properties withType:@"profile_set_once"];
+    }
+}
+
+- (void)trackInstallation:(NSString *)event withProperties:(NSDictionary *)propertyDict {
+    [self trackInstallation:event withProperties:propertyDict disableCallback:NO];
+}
+
+- (void)trackInsta

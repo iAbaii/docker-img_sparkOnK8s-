@@ -1625,4 +1625,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (NSString  *)getIDFA {
     NSString *idfa = nil;
     @try {
-#if defined(SENSORS_ANAL
+#if defined(SENSORS_ANALYTICS_IDFA)
+        Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+        if (ASIdentifierManagerClass) {
+            SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+       

@@ -1646,4 +1646,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 }
 
-- (void)ignoreAutoTrackViewController
+- (void)ignoreAutoTrackViewControllers:(NSArray *)controllers {
+    if (controllers == nil || controllers.count == 0) {
+        return;
+    }
+    [_ignoredViewControllers addObjectsFromArray:controllers];
+
+    //去重
+    NSSet *set = [NSSet s

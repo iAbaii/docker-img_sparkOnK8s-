@@ -1630,4 +1630,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if (ASIdentifierManagerClass) {
             SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
             id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
-            SEL advertisingIdentifierS
+            SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
+            NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advert

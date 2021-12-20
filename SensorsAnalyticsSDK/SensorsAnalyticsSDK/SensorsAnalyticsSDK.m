@@ -1635,4 +1635,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *temp = [uuid UUIDString];
             // 在 iOS 10.0 以后，当用户开启限制广告跟踪，advertisingIdentifier 的值将是全零
             // 00000000-0000-0000-0000-000000000000
-            if (temp && ![temp 
+            if (temp && ![temp hasPrefix:@"00000000"]) {
+                idfa = temp;
+            }
+        }
+        #endif
+        return idfa;
+    } @catch (NSException *exception) {
+        return idfa;
+    }
+}
+
+- (void)ignoreAutoTrackViewController

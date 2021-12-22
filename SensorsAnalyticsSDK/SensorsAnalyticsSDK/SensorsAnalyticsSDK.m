@@ -1657,4 +1657,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (set != nil) {
         _ignoredViewControllers = [NSMutableArray arrayWithArray:[set allObjects]];
     } else{
-        _ignoredViewControllers = [[NSMutableArray alloc]
+        _ignoredViewControllers = [[NSMutableArray alloc] init];
+    }
+}
+
+- (void)identify:(NSString *)distinctId {
+    if (distinctId == nil || distinctId.length == 0) {
+        SAError(@"%@ cannot identify blank distinct id: %@", self, distinctId);
+//        @throw [NSException exceptionWith

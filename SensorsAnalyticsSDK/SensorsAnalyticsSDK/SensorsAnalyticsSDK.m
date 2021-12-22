@@ -1653,4 +1653,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [_ignoredViewControllers addObjectsFromArray:controllers];
 
     //去重
-    NSSet *set = [NSSet s
+    NSSet *set = [NSSet setWithArray:_ignoredViewControllers];
+    if (set != nil) {
+        _ignoredViewControllers = [NSMutableArray arrayWithArray:[set allObjects]];
+    } else{
+        _ignoredViewControllers = [[NSMutableArray alloc]

@@ -1676,4 +1676,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // 更新distinctId
         self.distinctId = distinctId;
         [self archiveDistinctId];
-   
+    });
+}
+
+- (NSString *)deviceModel {
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char answer[size];
+    sysctlbyname("hw.machine", answer, &size, NULL, 0);
+    NSString *results = @(an

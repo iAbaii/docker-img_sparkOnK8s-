@@ -1670,4 +1670,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         SAError(@"%@ max length of distinct_id is 255, distinct_id: %@", self, distinctId);
 //        @throw [NSException exceptionWithName:@"InvalidDataException" reason:@"SensorsAnalytics max length of distinct_id is 255" userInfo:nil];
     }
-    d
+    dispatch_async(self.serialQueue, ^{
+        // 先把之前的distinctId设为originalId
+        self.originalId = self.distinctId;
+        // 更新distinctId
+        self.distinctId = distinctId;
+        [self archiveDistinctId];
+   

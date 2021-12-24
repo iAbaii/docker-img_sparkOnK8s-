@@ -1693,4 +1693,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (BOOL)assertPropertyTypes:(NSDictionary *)properties withEventType:(NSString *)eventType {
-    for (id __unused k
+    for (id __unused k in properties) {
+        // key 必须是NSString
+        if (![k isKindOfClass: [NSString class]]) {
+            NSString *errMsg = @"Property Key should by NSString";
+            SAError(@"%@", errMsg);
+            if (_debugMode !=

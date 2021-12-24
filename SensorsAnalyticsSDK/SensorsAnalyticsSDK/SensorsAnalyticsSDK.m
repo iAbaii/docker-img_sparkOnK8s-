@@ -1684,4 +1684,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     char answer[size];
     sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    NSString *results = @(an
+    NSString *results = @(answer);
+    return results;
+}
+
+- (NSString *)libVersion {
+    return VERSION;
+}
+
+- (BOOL)assertPropertyTypes:(NSDictionary *)properties withEventType:(NSString *)eventType {
+    for (id __unused k

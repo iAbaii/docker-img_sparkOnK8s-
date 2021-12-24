@@ -1698,4 +1698,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if (![k isKindOfClass: [NSString class]]) {
             NSString *errMsg = @"Property Key should by NSString";
             SAError(@"%@", errMsg);
-            if (_debugMode !=
+            if (_debugMode != SensorsAnalyticsDebugOff) {
+                [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+            }
+            return NO;
+        }
+        
+        // key的名称必须符合要求
+        if (![self isValidName: k]) {
+      

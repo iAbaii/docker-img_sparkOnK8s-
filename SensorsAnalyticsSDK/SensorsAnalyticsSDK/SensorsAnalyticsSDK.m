@@ -1706,4 +1706,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         // key的名称必须符合要求
         if (![self isValidName: k]) {
-      
+            NSString *errMsg = [NSString stringWithFormat:@"property name[%@] is not valid", k];
+            SAError(@"%@", errMsg);
+            if (_debugMode != SensorsAnalyticsDebugOff) {
+                [self showDe

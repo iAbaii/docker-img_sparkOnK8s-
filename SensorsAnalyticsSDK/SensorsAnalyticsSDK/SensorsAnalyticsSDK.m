@@ -1709,4 +1709,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *errMsg = [NSString stringWithFormat:@"property name[%@] is not valid", k];
             SAError(@"%@", errMsg);
             if (_debugMode != SensorsAnalyticsDebugOff) {
-                [self showDe
+                [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+            }
+            return NO;
+        }
+        
+        // value的类型检查
+        if( ![properties[k] isKindOfClass:[NSString class]] &&
+           ![properties[k] isKindOfC

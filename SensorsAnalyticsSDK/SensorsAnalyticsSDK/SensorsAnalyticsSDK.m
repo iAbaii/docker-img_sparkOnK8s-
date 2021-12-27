@@ -1719,4 +1719,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
            ![properties[k] isKindOfClass:[NSNumber class]] &&
            ![properties[k] isKindOfClass:[NSNull class]] &&
            ![properties[k] isKindOfClass:[NSSet class]] &&
-           ![properties[k] isKindOfClass:
+           ![properties[k] isKindOfClass:[NSDate class]]) {
+            NSString * errMsg = [NSString stringWithFormat:@"%@ property values must be NSString, NSNumber, NSSet or NSDate. got: %@ %@", self, [properties[k] class], properties[k]];
+            SAError(@

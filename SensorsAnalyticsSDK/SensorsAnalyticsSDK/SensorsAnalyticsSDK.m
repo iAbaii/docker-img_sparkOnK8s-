@@ -1716,4 +1716,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         // value的类型检查
         if( ![properties[k] isKindOfClass:[NSString class]] &&
-           ![properties[k] isKindOfC
+           ![properties[k] isKindOfClass:[NSNumber class]] &&
+           ![properties[k] isKindOfClass:[NSNull class]] &&
+           ![properties[k] isKindOfClass:[NSSet class]] &&
+           ![properties[k] isKindOfClass:

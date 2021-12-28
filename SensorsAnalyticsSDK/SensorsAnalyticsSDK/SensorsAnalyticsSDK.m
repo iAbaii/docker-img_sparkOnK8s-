@@ -1728,4 +1728,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return NO;
         }
         
-        
+        // NSSet 类型的属性中，每个元素必须是 NSString 类型
+        if ([properties[k] isKindOfClass:[NSSet class]]) {
+            NSEnumerator *enumerator = [((NSSet *)properties[k]) objectEnumerator];
+            id o

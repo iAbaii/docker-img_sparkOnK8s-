@@ -1734,4 +1734,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             id object;
             while (object = [enumerator nextObject]) {
                 if (![object isKindOfClass:[NSString class]]) {
-                    NSString * errMsg = [NSString stringWithFormat:@"%@ value of NSSet must be
+                    NSString * errMsg = [NSString stringWithFormat:@"%@ value of NSSet must be NSString. got: %@ %@", self, [object class], object];
+                    SAError(@"%@", errMsg);
+                    if (_debugMode != SensorsAnalyticsDebugOff) {
+                        [self showDe

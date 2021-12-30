@@ -1737,4 +1737,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     NSString * errMsg = [NSString stringWithFormat:@"%@ value of NSSet must be NSString. got: %@ %@", self, [object class], object];
                     SAError(@"%@", errMsg);
                     if (_debugMode != SensorsAnalyticsDebugOff) {
-                        [self showDe
+                        [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+                    }
+                    return NO;
+                }
+                NSUInteger objLength = [((NSString *)object) lengthO

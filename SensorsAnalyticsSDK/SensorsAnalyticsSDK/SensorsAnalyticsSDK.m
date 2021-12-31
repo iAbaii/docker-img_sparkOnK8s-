@@ -1741,4 +1741,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                     return NO;
                 }
-                NSUInteger objLength = [((NSString *)object) lengthO
+                NSUInteger objLength = [((NSString *)object) lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+                if (objLength > PROPERTY_LENGTH_LIMITATION) {
+                    NSString * errMsg = [NSString stringWithFormat:@"%@ The value in NSString is too long: %

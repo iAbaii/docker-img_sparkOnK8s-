@@ -1754,4 +1754,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
         
         // NSString 检查长度，但忽略部分属性
-        if ([properties[k] isKindOfClass:[NSString class]] && ![k isEqualToString:@"$bindi
+        if ([properties[k] isKindOfClass:[NSString class]] && ![k isEqualToString:@"$binding_path"]) {
+            NSUInteger objLength = [((NSString *)properties[k]) lengthOfBytesUsingEncoding:NSUnicodeStringEncoding];
+            if (objLength > PROPERTY_LENGTH_LIMITATION) {
+             

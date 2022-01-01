@@ -1747,4 +1747,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     SAError(@"%@", errMsg);
                     if (_debugMode != SensorsAnalyticsDebugOff) {
                         [self showDebugModeWarning:errMsg withNoMoreButton:YES];
-    
+                    }
+                    return NO;
+                }
+            }
+        }
+        
+        // NSString 检查长度，但忽略部分属性
+        if ([properties[k] isKindOfClass:[NSString class]] && ![k isEqualToString:@"$bindi

@@ -1760,4 +1760,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSString * errMsg = [NSString stringWithFormat:@"%@ The value in NSString is too long: %@", self, (NSString *)properties[k]];
                 SAError(@"%@", errMsg);
                 if (_debugMode != SensorsAnalyticsDebugOff) {
-                   
+                    [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+                }
+                return NO;
+            }
+        }
+        
+        // profileIncrement的属性必须是NSNumber
+        if ([eventType isEqualToStrin

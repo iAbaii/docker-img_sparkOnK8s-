@@ -1772,4 +1772,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSString *errMsg = [NSString stringWithFormat:@"%@ profile_increment value must be NSNumber. got: %@ %@", self, [properties[k] class], properties[k]];
                 SAError(@"%@", errMsg);
                 if (_debugMode != SensorsAnalyticsDebugOff) {
-                    [self showDebugModeWarning:errMsg w
+                    [self showDebugModeWarning:errMsg withNoMoreButton:YES];
+                }
+                return NO;
+            }
+        }
+        
+        // profileAppend的属性必须是个NSSet
+        if ([eventType isEqualToString:@"profile_append

@@ -1769,4 +1769,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // profileIncrement的属性必须是NSNumber
         if ([eventType isEqualToString:@"profile_increment"]) {
             if (![properties[k] isKindOfClass:[NSNumber class]]) {
-                NSString *errMsg = [NSString stringWithFormat:@"%@ profile_increment value mu
+                NSString *errMsg = [NSString stringWithFormat:@"%@ profile_increment value must be NSNumber. got: %@ %@", self, [properties[k] class], properties[k]];
+                SAError(@"%@", errMsg);
+                if (_debugMode != SensorsAnalyticsDebugOff) {
+                    [self showDebugModeWarning:errMsg w

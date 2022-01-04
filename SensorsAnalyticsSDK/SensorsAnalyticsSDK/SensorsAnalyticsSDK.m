@@ -1781,4 +1781,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // profileAppend的属性必须是个NSSet
         if ([eventType isEqualToString:@"profile_append"]) {
             if (![properties[k] isKindOfClass:[NSSet class]]) {
-                NSString *errMsg = [NSString stringWithFormat:@"%@ profile_append value must be NSSet. got %@ %@", self, [properties[k
+                NSString *errMsg = [NSString stringWithFormat:@"%@ profile_append value must be NSSet. got %@ %@", self, [properties[k] class], properties[k]];
+                SAError(@"%@", errMsg);
+                if (_debugMode != SensorsAnalyticsDebugOff) {
+                    [self showDebugModeWarning:errMsg withNoMoreB

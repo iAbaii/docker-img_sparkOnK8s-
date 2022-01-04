@@ -1794,4 +1794,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (NSDictionary *)collectAutomaticProperties {
-    NSMutableDictionary *p = [NSMutableDic
+    NSMutableDictionary *p = [NSMutableDictionary dictionary];
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *deviceModel = [self deviceModel];
+    struct CGSize size = [UIScreen mainScreen].bounds.size;
+    CTCarrier *carrier = [[[CT

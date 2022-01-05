@@ -1800,4 +1800,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     struct CGSize size = [UIScreen mainScreen].bounds.size;
     CTCarrier *carrier = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
     // Use setValue semantics to avoid adding keys where value can be nil.
-    [p setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVe
+    [p setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"$app_version"];
+    if (carrier != nil) {
+        NSString *networkCode = [carrier mobileNetworkCode];
+        if (networkCode != nil) {
+            NSString *carrierName 

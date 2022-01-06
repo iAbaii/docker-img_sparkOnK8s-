@@ -1807,4 +1807,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *carrierName = nil;
             //中国移动
             if ([networkCode isEqualToString:@"00"] || [networkCode isEqualToString:@"02"] || [networkCode isEqualToString:@"07"] || [networkCode isEqualToString:@"08"]) {
-   
+                carrierName= @"中国移动";
+            }
+
+            //中国联通
+            if ([networkCode isEqualToString:@"01"] || [networkCode isEqualToString:@"06"] || [networkCode isEqualToString:@"09"])

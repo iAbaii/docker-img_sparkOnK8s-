@@ -1811,4 +1811,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             //中国联通
-            if ([networkCode isEqualToString:@"01"] || [networkCode isEqualToString:@"06"] || [networkCode isEqualToString:@"09"])
+            if ([networkCode isEqualToString:@"01"] || [networkCode isEqualToString:@"06"] || [networkCode isEqualToString:@"09"]) {
+                carrierName= @"中国联通";
+            }
+
+            //中国电信
+            if ([networkCode isEqualToString:@"03"] || [networkCode isEqualToString:@"05"] || [networkCode isEqualToString:@"11"]) 

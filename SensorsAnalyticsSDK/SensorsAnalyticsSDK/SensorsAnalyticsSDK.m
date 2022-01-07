@@ -1828,4 +1828,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [p setValue:[[self class] getUniqueHardwareId:&isReal] forKey:@"$device_id"];
     [p addEntriesFromDictionary:@{
                                   @"$lib": @"iOS",
-                                  @"$lib_version"
+                                  @"$lib_version": [self libVersion],
+                                  @"$manufacturer": @"Apple",
+                                  @"$os": @"iOS",
+                                  @"$os_version": [device systemVersion],
+               

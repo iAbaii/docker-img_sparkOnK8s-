@@ -1832,4 +1832,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                   @"$manufacturer": @"Apple",
                                   @"$os": @"iOS",
                                   @"$os_version": [device systemVersion],
-               
+                                  @"$model": deviceModel,
+                                  @"$screen_height": @((NSInteger)size.height),
+                                  @"$screen_width": @((NSInteger)size.width),
+     

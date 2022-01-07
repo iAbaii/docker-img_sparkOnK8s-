@@ -1825,3 +1825,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
     }
     BOOL isReal;
+    [p setValue:[[self class] getUniqueHardwareId:&isReal] forKey:@"$device_id"];
+    [p addEntriesFromDictionary:@{
+                                  @"$lib": @"iOS",
+                                  @"$lib_version"

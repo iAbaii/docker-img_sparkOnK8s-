@@ -1816,4 +1816,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             //中国电信
-            if ([networkCode isEqualToString:@"03"] || [networkCode isEqualToString:@"05"] || [networkCode isEqualToString:@"11"]) 
+            if ([networkCode isEqualToString:@"03"] || [networkCode isEqualToString:@"05"] || [networkCode isEqualToString:@"11"]) {
+                carrierName= @"中国电信";
+            }
+            if (carrierName != nil) {
+                [p setValue:carrier.carrierName forKey:@"$carrier"];
+            }
+        }
+    }
+    BOOL isReal;

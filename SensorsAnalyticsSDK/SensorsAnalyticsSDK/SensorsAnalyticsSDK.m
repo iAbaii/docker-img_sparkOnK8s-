@@ -1835,4 +1835,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                   @"$model": deviceModel,
                                   @"$screen_height": @((NSInteger)size.height),
                                   @"$screen_width": @((NSInteger)size.width),
-     
+                                      }];
+    return [p copy];
+}
+
+- (void)registerSuperProperties:(NSDictionary *)propertyDict {
+    propertyDict = [propertyDict copy];
+    if (![self assertPropertyTypes:propertyDict withEventType:@"register_sup

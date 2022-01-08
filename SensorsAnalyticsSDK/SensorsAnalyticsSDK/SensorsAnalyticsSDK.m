@@ -1841,4 +1841,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)registerSuperProperties:(NSDictionary *)propertyDict {
     propertyDict = [propertyDict copy];
-    if (![self assertPropertyTypes:propertyDict withEventType:@"register_sup
+    if (![self assertPropertyTypes:propertyDict withEventType:@"register_super_properties"]) {
+        SAError(@"%@ failed to register super properties.", self);
+        return;
+    }
+    dispatch_async(self.serialQueue, ^{
+        // 注意这里的顺序，发生冲突时是以propertyDict为准，所以它是后加入的
+        NSMuta

@@ -1847,4 +1847,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     dispatch_async(self.serialQueue, ^{
         // 注意这里的顺序，发生冲突时是以propertyDict为准，所以它是后加入的
-        NSMuta
+        NSMutableDictionary *tmp = [NSMutableDictionary dictionaryWithDictionary:_superProperties];
+        [tmp addEntriesFromDictionary:propertyDict];
+        _superProperties = [NSDictionary dictionaryWithDictionary:tmp];
+ 

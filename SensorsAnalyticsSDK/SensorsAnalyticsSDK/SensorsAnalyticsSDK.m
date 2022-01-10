@@ -1856,4 +1856,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)unregisterSuperProperty:(NSString *)property {
     dispatch_async(self.serialQueue, ^{
-        NSMutableDictionary *tmp = [NSMutableDictionary dictionaryWithDictionary:_su
+        NSMutableDictionary *tmp = [NSMutableDictionary dictionaryWithDictionary:_superProperties];
+        if (tmp[property] != nil) {
+            [tmp removeObjectForKey:property];
+        }
+        _superProperties = [NSDictionary dictionaryWithDictionary:tmp];
+        [self archiveSuperProperties];
+    });

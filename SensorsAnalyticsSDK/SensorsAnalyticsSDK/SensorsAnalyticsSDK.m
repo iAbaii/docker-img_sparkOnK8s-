@@ -1863,3 +1863,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _superProperties = [NSDictionary dictionaryWithDictionary:tmp];
         [self archiveSuperProperties];
     });
+    
+}
+
+- (void)clearSuperProperties {
+    dispatch_async(self.serialQueue, ^{
+        _superProperties = @{};
+        [self archiveSuperProperties];
+    });
+}
+
+- (NSDictionary *)currentSuperProperties {

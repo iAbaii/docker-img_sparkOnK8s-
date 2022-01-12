@@ -1884,4 +1884,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self unarchiveLoginId];
     [self unarchiveSuperProperties];
     [self unarchiveEventBindings];
- 
+    [self unarchiveFirstDay];
+}
+
+- (id)unarchiveFromFile:(NSString *)filePath {
+    id unarchivedData = nil;
+    @try {
+        unarchivedData = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    } @c

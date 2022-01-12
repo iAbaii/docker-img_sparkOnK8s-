@@ -1874,3 +1874,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (NSDictionary *)currentSuperProperties {
+    return [_superProperties copy];
+}
+
+#pragma mark - Local caches
+
+- (void)unarchive {
+    [self unarchiveDistinctId];
+    [self unarchiveLoginId];
+    [self unarchiveSuperProperties];
+    [self unarchiveEventBindings];
+ 

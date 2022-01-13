@@ -1898,4 +1898,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     return unarchivedData;
 }
 
-- (void)unarchiveDistinc
+- (void)unarchiveDistinctId {
+    NSString *archivedDistinctId = (NSString *)[self unarchiveFromFile:[self filePathForData:@"distinct_id"]];
+    if (archivedDistinctId == nil) {
+        BOOL isReal;
+        self.distinctId = [[self 

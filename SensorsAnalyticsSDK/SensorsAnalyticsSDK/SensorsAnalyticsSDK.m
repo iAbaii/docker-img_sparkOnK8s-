@@ -1891,4 +1891,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     id unarchivedData = nil;
     @try {
         unarchivedData = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    } @c
+    } @catch (NSException *exception) {
+        SAError(@"%@ unable to unarchive data in %@, starting fresh", self, filePath);
+        unarchivedData = nil;
+    }
+    return unarchivedData;
+}
+
+- (void)unarchiveDistinc

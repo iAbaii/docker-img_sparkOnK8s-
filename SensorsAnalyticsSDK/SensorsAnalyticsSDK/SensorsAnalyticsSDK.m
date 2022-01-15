@@ -1910,4 +1910,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)unarchiveLoginId {
-    NSString *archivedLoginId = (NSString *)[self 
+    NSString *archivedLoginId = (NSString *)[self unarchiveFromFile:[self filePathForData:@"login_id"]];
+    self.loginId = archivedLoginId;
+}
+
+- (void)unarchiveFirstDay {
+    NSString *archivedFirstDay = (NSString *)[self unarchiveFromFile:[self filePathForData:@"first_d

@@ -1920,4 +1920,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)unarchiveSuperProperties {
-    NSDictionary *archivedSuperProperties = (NSDictionary *)[self unarchiveFromFile:[self filePathForData:@"super_pr
+    NSDictionary *archivedSuperProperties = (NSDictionary *)[self unarchiveFromFile:[self filePathForData:@"super_properties"]];
+    if (archivedSuperProperties == nil) {
+        _superProperties = [NSDictionary dictionary];
+    } else {
+        _superProperties = [archivedSuperProperties copy];
+    }
+}
+
+- (void)unarchiveEventBindings {
+    NSSet *eve

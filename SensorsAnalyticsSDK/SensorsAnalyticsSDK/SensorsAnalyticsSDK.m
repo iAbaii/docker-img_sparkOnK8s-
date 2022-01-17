@@ -1931,4 +1931,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (void)unarchiveEventBindings {
     NSSet *eventBindings = (NSSet *)[self unarchiveFromFile:[self filePathForData:@"event_bindings"]];
     SADebug(@"%@ unarchive event bindings %@", self, eventBindings);
-    if (eventBindings == nil || ![eventBindings isKindOfC
+    if (eventBindings == nil || ![eventBindings isKindOfClass:[NSSet class]]) {
+        eventBindings = [NSSet set];
+    }
+    self.eventBindings = eventBindings;
+}
+
+- (void)archiveDistinctId {
+    NSString *filePath = [self filePathForData:@"distinct_id"];
+    

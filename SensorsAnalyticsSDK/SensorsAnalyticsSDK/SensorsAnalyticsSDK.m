@@ -1915,4 +1915,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)unarchiveFirstDay {
-    NSString *archivedFirstDay = (NSString *)[self unarchiveFromFile:[self filePathForData:@"first_d
+    NSString *archivedFirstDay = (NSString *)[self unarchiveFromFile:[self filePathForData:@"first_day"]];
+    self.firstDay = archivedFirstDay;
+}
+
+- (void)unarchiveSuperProperties {
+    NSDictionary *archivedSuperProperties = (NSDictionary *)[self unarchiveFromFile:[self filePathForData:@"super_pr

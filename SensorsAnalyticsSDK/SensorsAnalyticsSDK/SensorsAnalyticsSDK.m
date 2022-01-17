@@ -1929,4 +1929,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)unarchiveEventBindings {
-    NSSet *eve
+    NSSet *eventBindings = (NSSet *)[self unarchiveFromFile:[self filePathForData:@"event_bindings"]];
+    SADebug(@"%@ unarchive event bindings %@", self, eventBindings);
+    if (eventBindings == nil || ![eventBindings isKindOfC

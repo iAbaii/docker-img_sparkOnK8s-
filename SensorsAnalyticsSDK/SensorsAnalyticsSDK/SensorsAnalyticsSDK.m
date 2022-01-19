@@ -1945,4 +1945,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[NSFileManager defaultManager] setAttributes:protection
                                      ofItemAtPath:filePath
                                             error:nil];
-    if (![NSKeyedA
+    if (![NSKeyedArchiver archiveRootObject:[[self distinctId] copy] toFile:filePath]) {
+        SAError(@"%@ unable to archive distinctId", self);
+    }
+    SADebug(@"%@ archived distinctId", self);
+}
+
+- (void)archiveLoginId {
+    NSString

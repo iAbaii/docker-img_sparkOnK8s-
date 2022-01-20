@@ -1973,3 +1973,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[NSFileManager defaultManager] setAttributes:protection
                                      ofItemAtPath:filePath
                                             error:nil];
+    if (![NSKeyedArchiver archiveRootObject:[[self firstDay] copy] toFile:filePath]) {
+        SAError(@"%@ unable to archive firstDay", self);
+    }
+    SADebug(@"%@ archived firstDay", self);
+}
+
+- (void)archive

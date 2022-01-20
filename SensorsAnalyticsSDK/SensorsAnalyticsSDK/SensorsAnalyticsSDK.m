@@ -1969,4 +1969,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSString *filePath = [self filePathForData:@"first_day"];
     /* 为filePath文件设置保护等级 */
     NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
-                                               
+                                                           forKey:NSFileProtectionKey];
+    [[NSFileManager defaultManager] setAttributes:protection
+                                     ofItemAtPath:filePath
+                                            error:nil];

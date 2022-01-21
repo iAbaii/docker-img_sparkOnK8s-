@@ -1982,4 +1982,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 - (void)archiveSuperProperties {
     NSString *filePath = [self filePathForData:@"super_properties"];
     /* 为filePath文件设置保护等级 */
-    NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectio
+    NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
+                                                           forKey:NSFileProtectionKey];
+    [[NSFileManager defaultManager] setAttributes:protection
+                             

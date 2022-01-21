@@ -1985,4 +1985,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
                                                            forKey:NSFileProtectionKey];
     [[NSFileManager defaultManager] setAttributes:protection
-                             
+                                     ofItemAtPath:filePath
+                                            error:nil];
+    if (![NSKeyedArchiver archiveRootObject:[self.superProperties copy] toFile:filePath]) {
+        SAError(@"%@ unable to archive s

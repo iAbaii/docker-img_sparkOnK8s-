@@ -1988,4 +1988,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                      ofItemAtPath:filePath
                                             error:nil];
     if (![NSKeyedArchiver archiveRootObject:[self.superProperties copy] toFile:filePath]) {
-        SAError(@"%@ unable to archive s
+        SAError(@"%@ unable to archive super properties", self);
+    }
+    SADebug(@"%@ archive super properties data", self);
+}
+
+- (void)archiveEventBindings {
+    NSString *filePath = [self filePathForData:@"event_bindings"];
+    /* 为fil

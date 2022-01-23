@@ -1995,4 +1995,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (void)archiveEventBindings {
     NSString *filePath = [self filePathForData:@"event_bindings"];
-    /* 为fil
+    /* 为filePath文件设置保护等级 */
+    NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
+                                                           forKey:NSFileProtectionKey];
+    [[NSFileManager de

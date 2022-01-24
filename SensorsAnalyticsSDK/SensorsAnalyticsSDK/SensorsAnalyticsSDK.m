@@ -2001,4 +2001,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[NSFileManager defaultManager] setAttributes:protection
                                      ofItemAtPath:filePath
                                             error:nil];
-    if (![NSKeyedArchiver archiveRootObject:[self.ev
+    if (![NSKeyedArchiver archiveRootObject:[self.eventBindings copy] toFile:filePath]) {
+        SAError(@"%@ unable to archive tracking events data", self);
+    }
+    SADebug(@"%@ archive tracking events data, %@", self, [self.eventBindings copy]);
+}
+
+#pragma ma

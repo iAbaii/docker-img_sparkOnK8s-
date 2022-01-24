@@ -1998,4 +1998,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     /* 为filePath文件设置保护等级 */
     NSDictionary *protection = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
                                                            forKey:NSFileProtectionKey];
-    [[NSFileManager de
+    [[NSFileManager defaultManager] setAttributes:protection
+                                     ofItemAtPath:filePath
+                                            error:nil];
+    if (![NSKeyedArchiver archiveRootObject:[self.ev

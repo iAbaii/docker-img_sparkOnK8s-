@@ -2007,4 +2007,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     SADebug(@"%@ archive tracking events data, %@", self, [self.eventBindings copy]);
 }
 
-#pragma ma
+#pragma mark - Network control
+
++ (NSString *)getNetWorkStates {
+#ifdef SA_UT
+    SADebug(@"In unit test, set NetWorkStates to wifi");
+    return @"WIFI";
+#endif
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    SAReachabilit

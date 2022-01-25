@@ -2021,4 +2021,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     NSString* network = @"NULL";
     if (status == SAReachableViaWiFi) {
-        ne
+        network = @"WIFI";
+    } else if (status == SAReachableViaWWAN) {
+        CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+        if ([netinfo.currentRadioAccessTechnology 

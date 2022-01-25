@@ -2016,4 +2016,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-    SAReachabilit
+    SAReachability *reachability = [SAReachability reachabilityForInternetConnection];
+    SANetworkStatus status = [reachability currentReachabilityStatus];
+    
+    NSString* network = @"NULL";
+    if (status == SAReachableViaWiFi) {
+        ne

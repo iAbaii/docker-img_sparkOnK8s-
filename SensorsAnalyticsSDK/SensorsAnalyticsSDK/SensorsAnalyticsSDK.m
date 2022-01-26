@@ -2024,4 +2024,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         network = @"WIFI";
     } else if (status == SAReachableViaWWAN) {
         CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-        if ([netinfo.currentRadioAccessTechnology 
+        if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyGPRS]) {
+            network = @"2G";
+        } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyEdge]) {
+            n

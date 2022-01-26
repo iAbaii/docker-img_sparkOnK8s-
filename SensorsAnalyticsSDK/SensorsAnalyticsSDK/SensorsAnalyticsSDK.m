@@ -2027,4 +2027,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyGPRS]) {
             network = @"2G";
         } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyEdge]) {
-            n
+            network = @"2G";
+        } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyWCDMA]) {
+            network = @"3G";
+        } else if ([netinfo.currentRadioAccessTechnology 

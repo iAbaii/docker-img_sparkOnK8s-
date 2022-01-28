@@ -2054,4 +2054,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     UIApplication *app = [UIApplication sharedApplication];
     NSArray *children = [[[app valueForKeyPath:@"statusBar"]valueForKeyPath:@"foregroundView"]subviews];
     //获取到网络返回码
-    fo
+    for (id child in children) {
+        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+            //获取到状态栏
+            int netType = [[child valueForKeyPath:@"dataNetworkType"]i

@@ -2046,4 +2046,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             network = @"3G";
         } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyLTE]) {
             network = @"4G";
-   
+        }
+    }
+    
+    return network;
+#else
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *children = [[[app valueForKeyPath:@"statusBar"]valueForKeyPath:@"foregroundView"]subviews];
+    //获取到网络返回码
+    fo

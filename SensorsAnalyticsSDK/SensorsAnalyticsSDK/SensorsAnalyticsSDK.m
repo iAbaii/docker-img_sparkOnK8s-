@@ -2042,4 +2042,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             network = @"3G";
         } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyCDMAEVDORevB]) {
             network = @"3G";
-        } else if ([netinfo.currentRadioAccess
+        } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyeHRPD]) {
+            network = @"3G";
+        } else if ([netinfo.currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyLTE]) {
+            network = @"4G";
+   

@@ -2057,4 +2057,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     for (id child in children) {
         if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
             //获取到状态栏
-            int netType = [[child valueForKeyPath:@"dataNetworkType"]i
+            int netType = [[child valueForKeyPath:@"dataNetworkType"]intValue];
+            switch (netType) {
+                case 0:
+                    //无网模式
+                    return @"NULL"
+                case 1:
+                    return @"2G";
+                case 2:
+                    

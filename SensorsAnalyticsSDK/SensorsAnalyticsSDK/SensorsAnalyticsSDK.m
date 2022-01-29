@@ -2065,4 +2065,17 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 case 1:
                     return @"2G";
                 case 2:
-                    
+                    return @"3G";
+                case 3:
+                    return @"4G";
+                case 5:
+                    return @"WIFI";
+            }
+        }
+    }
+    return @"NULL";
+#endif
+}
+
+- (UInt64)flushInterval {
+    @synchronized(sel

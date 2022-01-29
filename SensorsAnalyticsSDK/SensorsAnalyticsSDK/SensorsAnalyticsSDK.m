@@ -2078,4 +2078,17 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (UInt64)flushInterval {
-    @synchronized(sel
+    @synchronized(self) {
+        return _flushInterval;
+    }
+}
+
+- (void)setFlushInterval:(UInt64)interval {
+    @synchronized(self) {
+        _flushInterval = interval;
+    }
+    [self flush];
+    [self startFlushTimer];
+}
+
+- (

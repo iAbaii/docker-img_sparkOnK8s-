@@ -2096,4 +2096,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self stopFlushTimer];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_flushInterval > 0) {
-            double interval = _flushInterval 
+            double interval = _flushInterval > 100 ? (double)_flushInterval / 1000.0 : 0.1f;
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                          target:self
+                                              

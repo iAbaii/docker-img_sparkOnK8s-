@@ -2116,4 +2116,16 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (UInt64)flushBulkSize {
-    @synchronized(se
+    @synchronized(self) {
+        return _flushBulkSize;
+    }
+}
+
+- (void)setFlushBulkSize:(UInt64)bulkSize {
+    @synchronized(self) {
+        _flushBulkSize = bulkSize;
+    }
+}
+
+- (UIWindow *)vtrackWindow {
+    @synchronized(self) {

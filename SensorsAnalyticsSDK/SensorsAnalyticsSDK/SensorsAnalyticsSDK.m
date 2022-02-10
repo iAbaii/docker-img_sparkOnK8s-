@@ -2106,4 +2106,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     });
 }
 
-- (void)stopFlus
+- (void)stopFlushTimer {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.timer) {
+            [self.timer invalidate];
+        }
+        self.timer = nil;
+    });
+}
+
+- (UInt64)flushBulkSize {
+    @synchronized(se

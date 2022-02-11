@@ -2129,3 +2129,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 - (UIWindow *)vtrackWindow {
     @synchronized(self) {
+        return _vtrackWindow;
+    }
+}
+
+- (void)setVtrackWindow:(UIWindow *)vtrackWindow {
+    @synchronized(self) {
+        _vtrackWindow = vtrackWindow;
+    }
+}
+
+- (NSString *)getLastScr

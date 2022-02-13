@@ -2139,4 +2139,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
 }
 
-- (NSString *)getLastScr
+- (NSString *)getLastScreenUrl {
+    return _referrerScreenUrl;
+}
+
+- (void)clearReferrerWhenAppEnd {
+    _clearReferrerWhenAppEnd = YES;
+}
+
+- (NSDictionary *)getLastScreenTrackProperties {
+    return _lastScreenTrackProp

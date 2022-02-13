@@ -2148,4 +2148,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (NSDictionary *)getLastScreenTrackProperties {
-    return _lastScreenTrackProp
+    return _lastScreenTrackProperties;
+}
+
+- (void)addWebViewUserAgentSensorsDataFlag {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @try {
+            UIWebView * tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+          

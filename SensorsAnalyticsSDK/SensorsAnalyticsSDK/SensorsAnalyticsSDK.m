@@ -2162,4 +2162,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             NSDictionary * dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
-           
+            [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } @catch (NSException *exception) {
+            SADebug(@"%@: %@", self, exce

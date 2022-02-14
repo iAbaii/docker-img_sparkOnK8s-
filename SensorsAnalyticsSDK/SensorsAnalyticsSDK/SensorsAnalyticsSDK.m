@@ -2155,4 +2155,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         @try {
             UIWebView * tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
-          
+            NSString * oldAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+            NSString * newAgent = oldAgent;
+            if (![oldAgent containsString:@"sa-sdk-ios"]){
+       

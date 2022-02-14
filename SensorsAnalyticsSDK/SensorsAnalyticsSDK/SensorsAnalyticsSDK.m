@@ -2158,4 +2158,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString * oldAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
             NSString * newAgent = oldAgent;
             if (![oldAgent containsString:@"sa-sdk-ios"]){
-       
+                newAgent = [oldAgent stringByAppendingString:@"/sa-sdk-ios"];
+            }
+
+            NSDictionary * dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
+           

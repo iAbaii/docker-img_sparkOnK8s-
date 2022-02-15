@@ -2165,4 +2165,17 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
             [[NSUserDefaults standardUserDefaults] synchronize];
         } @catch (NSException *exception) {
-            SADebug(@"%@: %@", self, exce
+            SADebug(@"%@: %@", self, exception);
+        }
+    });
+}
+
+- (SensorsAnalyticsDebugMode)debugMode {
+    return _debugMode;
+}
+
+- (void)trackViewAppClick:(UIView *)view {
+    [self trackViewAppClick:view withProperties:nil];
+}
+
+- (void)trackView

@@ -2178,4 +2178,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self trackViewAppClick:view withProperties:nil];
 }
 
-- (void)trackView
+- (void)trackViewAppClick:(UIView *)view withProperties:(NSDictionary *)p {
+    @try {
+        if (view == nil) {
+            return;
+        }
+
+        //关闭 AutoTrack
+        if (![[SensorsAnalyticsSDK sharedI

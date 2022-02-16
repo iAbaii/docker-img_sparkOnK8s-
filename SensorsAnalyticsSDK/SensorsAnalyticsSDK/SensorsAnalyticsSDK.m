@@ -2194,4 +2194,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return;
         }
 
-        if ([se
+        if ([self isViewTypeIgnored:[view class]]) {
+            return;
+        }
+
+        if (view.sensorsAnalyticsIgnoreView) {
+            return;
+        }
+
+        NSMutableDictionary *properties = [[N

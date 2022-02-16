@@ -2206,4 +2206,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         UIViewController *viewController = [self currentViewController];
         if (viewController != nil) {
-            if ([[SensorsAnalyticsSDK sharedInstance] i
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewControllerIgnored:viewController]) {
+                return;
+            }
+
+            //获取 Controller 名称($screen_name)
+            NSString *screenName = NSStringFromClass([viewController class]);
+            [propertie

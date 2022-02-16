@@ -2202,4 +2202,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return;
         }
 
-        NSMutableDictionary *properties = [[N
+        NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+
+        UIViewController *viewController = [self currentViewController];
+        if (viewController != nil) {
+            if ([[SensorsAnalyticsSDK sharedInstance] i

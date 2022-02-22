@@ -2221,4 +2221,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
             //再获取 controller.navigationItem.titleView, 并且优先级比较高
             NSString *elementContent = [self getUIViewControllerTitle:viewController];
-            if
+            if (elementContent != nil && [elementContent length] > 0) {
+                elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
+                [properties setValue:elementCon

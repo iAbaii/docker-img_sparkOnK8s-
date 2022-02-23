@@ -2232,4 +2232,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [properties setValue:view.sensorsAnalyticsViewID forKey:@"$element_id"];
         }
 
-        [properties setValue:N
+        [properties setValue:NSStringFromClass([view class]) forKey:@"$element_type"];
+
+        NSString *elementContent = [[NSString alloc] init];
+        elementContent = [AutoTrackUtils contentFromView:view];
+        if (elementContent !=

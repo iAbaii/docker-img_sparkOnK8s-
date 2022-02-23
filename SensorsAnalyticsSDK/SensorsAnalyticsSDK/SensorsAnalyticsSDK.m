@@ -2239,4 +2239,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         if (elementContent != nil && [elementContent length] > 0) {
             elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
             [properties setValue:elementContent forKey:@"$element_content"];
-    
+        }
+
+        if (p != nil) {
+            [properties addEntriesFromDictionary:p];
+        }
+
+        //View Properties
+        NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+        if (propDict != nil

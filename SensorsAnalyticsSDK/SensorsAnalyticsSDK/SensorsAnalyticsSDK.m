@@ -2247,4 +2247,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         //View Properties
         NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
-        if (propDict != nil
+        if (propDict != nil) {
+            [properties addEntriesFromDictionary:propDict];
+        }
+
+        [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
+    } @catch (NSException *exception) {
+        SAError(@

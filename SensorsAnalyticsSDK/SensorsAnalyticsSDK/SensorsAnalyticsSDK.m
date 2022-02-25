@@ -2253,4 +2253,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
     } @catch (NSException *exception) {
-        SAError(@
+        SAError(@"%@: %@", self, exception);
+    }
+}
+
+- (NSString *)getUIViewControllerTitle:(UIViewController *)controller {
+    @try {
+        if (controller == nil) {
+            return nil;
+        }
+
+        UIView *titleView = controller.na

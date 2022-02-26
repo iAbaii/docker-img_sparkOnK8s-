@@ -2263,4 +2263,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return nil;
         }
 
-        UIView *titleView = controller.na
+        UIView *titleView = controller.navigationItem.titleView;
+        if (titleView != nil) {
+            return [AutoTrackUtils contentFromView:titleView];
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@: %@", self, exceptio

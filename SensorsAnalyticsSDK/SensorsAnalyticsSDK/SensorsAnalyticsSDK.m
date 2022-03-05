@@ -2268,4 +2268,16 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return [AutoTrackUtils contentFromView:titleView];
         }
     } @catch (NSException *exception) {
-        SAError(@"%@: %@", self, exceptio
+        SAError(@"%@: %@", self, exception);
+    }
+    return nil;
+}
+
+#pragma mark - UIApplication Events
+
+- (void)setUpListeners {
+    // 监听 App 启动或结束事件
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    [notificationCenter addObserver:self
+  

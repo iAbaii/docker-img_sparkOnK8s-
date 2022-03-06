@@ -2284,4 +2284,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                name:UIApplicationWillEnterForegroundNotification
                              object:nil];
     
-    [notificationCenter
+    [notificationCenter addObserver:self
+                           selector:@selector(applicationDidBecomeActive:)
+                               name:UIApplicationDidBecomeActiveNotification
+                             object:nil];
+    
+    

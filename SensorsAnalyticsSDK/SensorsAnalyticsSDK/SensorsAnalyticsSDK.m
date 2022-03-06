@@ -2280,4 +2280,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     [notificationCenter addObserver:self
-  
+                           selector:@selector(applicationWillEnterForeground:)
+                               name:UIApplicationWillEnterForegroundNotification
+                             object:nil];
+    
+    [notificationCenter

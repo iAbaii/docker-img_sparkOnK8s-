@@ -2289,4 +2289,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                name:UIApplicationDidBecomeActiveNotification
                              object:nil];
     
-    
+    [notificationCenter addObserver:self
+                           selector:@selector(applicationWillResignActive:)
+                               name:UIApplicationWillResignActiveNotification
+                             object:nil

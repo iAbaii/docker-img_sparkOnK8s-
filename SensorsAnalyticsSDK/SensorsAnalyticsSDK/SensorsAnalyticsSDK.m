@@ -2300,4 +2300,18 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(userDidTakeScreenShort:) name:UIApplicationUserDidTakeScreenshotNotification
-                             object:
+                             object:nil];
+
+    
+    [self _enableAutoTrack];
+}
+
+- (void)trackViewScreen:(UIViewController *)controller {
+    if (!controller) {
+        return;
+    }
+    
+    Class klass = [controller class];
+    if (!klass) {
+        return;
+    }

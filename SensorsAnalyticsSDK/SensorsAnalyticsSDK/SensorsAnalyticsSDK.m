@@ -2297,4 +2297,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [notificationCenter addObserver:self
                            selector:@selector(applicationDidEnterBackground:)
                                name:UIApplicationDidEnterBackgroundNotification
-               
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(userDidTakeScreenShort:) name:UIApplicationUserDidTakeScreenshotNotification
+                             object:

@@ -2321,4 +2321,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
     
-    if ([controller isKindOfClass:NSClassFromString(@"UINavigationCont
+    if ([controller isKindOfClass:NSClassFromString(@"UINavigationController")] ||
+        [controller isKindOfClass:NSClassFromString(@"UITabBarController")]) {
+        return;
+    }
+    
+    //过滤用户设置的不被AutoTrack的Controllers
+    if (_ignoredViewControllers != nil && _

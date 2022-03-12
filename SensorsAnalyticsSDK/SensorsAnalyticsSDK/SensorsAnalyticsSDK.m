@@ -2334,4 +2334,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     
     if (_autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
-   
+        //UITableView
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UITABLEVIEW
+        void (^tableViewBlock)(id, SEL, id, id) = ^(id view, SEL command, UITableView *tableView, NSIndexPath *indexPath) {
+            [AutoTrackUtils trackAppClickWithU

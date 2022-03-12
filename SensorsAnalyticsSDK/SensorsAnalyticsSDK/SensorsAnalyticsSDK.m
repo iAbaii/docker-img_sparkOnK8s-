@@ -2315,3 +2315,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (!klass) {
         return;
     }
+    
+    NSString *screenName = NSStringFromClass(klass);
+    if (![self shouldTrackClass:klass]) {
+        return;
+    }
+    
+    if ([controller isKindOfClass:NSClassFromString(@"UINavigationCont

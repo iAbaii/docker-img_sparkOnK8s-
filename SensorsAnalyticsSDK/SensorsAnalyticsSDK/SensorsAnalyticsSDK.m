@@ -2327,4 +2327,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     
     //过滤用户设置的不被AutoTrack的Controllers
-    if (_ignoredViewControllers != nil && _
+    if (_ignoredViewControllers != nil && _ignoredViewControllers.count > 0) {
+        if ([_ignoredViewControllers containsObject:screenName]) {
+            return;
+        }
+    }
+    
+    if (_autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
+   

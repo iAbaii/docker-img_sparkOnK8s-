@@ -2340,4 +2340,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [AutoTrackUtils trackAppClickWithUITableView:tableView didSelectRowAtIndexPath:indexPath];
         };
         if ([controller respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-            [SASwizzler swizzleSelector:@selector(table
+            [SASwizzler swizzleSelector:@selector(tableView:didSelectRowAtIndexPath:) onClass:klass withBlock:tableViewBlock named:[NSString stringWithFormat:@"%@_%@", screenName, @"UITableView_AutoTrack"]];
+        }
+#endif
+        
+        //UICollectionView
+#ifn

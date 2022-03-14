@@ -2345,4 +2345,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
         
         //UICollectionView
-#ifn
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLECTIONVIEW
+        void (^collectionViewBlock)(id, SEL, id, id) = ^(id view, SEL command, UICollectionView *collectionView, NSIndexPath *indexPath) 

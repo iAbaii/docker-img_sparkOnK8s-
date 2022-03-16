@@ -2349,4 +2349,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         void (^collectionViewBlock)(id, SEL, id, id) = ^(id view, SEL command, UICollectionView *collectionView, NSIndexPath *indexPath) {
             [AutoTrackUtils trackAppClickWithUICollectionView:collectionView didSelectItemAtIndexPath:indexPath];
         };
-        if ([controller respondsToSelector:@selector(collectionView:didSelec
+        if ([controller respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
+            [SASwizzler swizzleSelector:@selector(collectionView:didSelectItemAtIndexPath:) onClass:klass withBlock:collectionViewBlock named:[NSString stringWithFormat:@"%@_%@", scree

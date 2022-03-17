@@ -2364,4 +2364,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     @try {
         //先获取 controller.navigationItem.title
-        NSString *controllerTitle = controller.navig
+        NSString *controllerTitle = controller.navigationItem.title;
+        if (controllerTitle != nil) {
+            [properties setValue:controllerTitle forKey:@"$title"];
+        }
+        
+        //再获取 controller.navigationItem.titleView, 并且优先级比较高
+        NSString *elementContent =

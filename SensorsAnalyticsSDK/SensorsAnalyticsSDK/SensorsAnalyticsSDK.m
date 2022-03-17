@@ -2359,4 +2359,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
     
-    NSMutableDictionary *properties = [[NSMutableD
+    NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+    [properties setValue:NSStringFromClass(klass) forKey:SCREEN_NAME_PROPERTY];
+    
+    @try {
+        //先获取 controller.navigationItem.title
+        NSString *controllerTitle = controller.navig

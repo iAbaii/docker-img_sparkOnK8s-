@@ -2350,4 +2350,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [AutoTrackUtils trackAppClickWithUICollectionView:collectionView didSelectItemAtIndexPath:indexPath];
         };
         if ([controller respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
-            [SASwizzler swizzleSelector:@selector(collectionView:didSelectItemAtIndexPath:) onClass:klass withBlock:collectionViewBlock named:[NSString stringWithFormat:@"%@_%@", scree
+            [SASwizzler swizzleSelector:@selector(collectionView:didSelectItemAtIndexPath:) onClass:klass withBlock:collectionViewBlock named:[NSString stringWithFormat:@"%@_%@", screenName, @"UICollectionView_AutoTrack"]];
+        }
+#endif
+    }
+    
+    if (!(_autoTrackEventType & SensorsAnalyticsEventTypeAppViewScreen)) {
+        return;
+    }
+    
+    NSMutableDictionary *properties = [[NSMutableD

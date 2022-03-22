@@ -2380,4 +2380,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     
     if ([controller conformsToProtocol:@protocol(SAAutoTracker)]) {
-        UIViewController<SAAutoTracker> *autoTrackerController = (UIViewController<SAAutoTracker> *
+        UIViewController<SAAutoTracker> *autoTrackerController = (UIViewController<SAAutoTracker> *)controller;
+        [properties addEntriesFromDictionary:[autoTrackerController getTrackProperties]];
+        _lastScreenTrackProperties = [autoTrackerController getTrackProperties];
+    }
+    
+#ifdef SENSORS_ANALYTICS_AUTOTRACT_APPVI

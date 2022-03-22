@@ -2373,4 +2373,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSString *elementContent = [self getUIViewControllerTitle:controller];
         if (elementContent != nil && [elementContent length] > 0) {
             elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
-    
+            [properties setValue:elementContent forKey:@"$title"];
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@ failed to get UIViewController's title error: %@", se

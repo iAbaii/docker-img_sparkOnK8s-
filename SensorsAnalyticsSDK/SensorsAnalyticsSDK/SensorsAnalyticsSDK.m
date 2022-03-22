@@ -2376,4 +2376,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [properties setValue:elementContent forKey:@"$title"];
         }
     } @catch (NSException *exception) {
-        SAError(@"%@ failed to get UIViewController's title error: %@", se
+        SAError(@"%@ failed to get UIViewController's title error: %@", self, exception);
+    }
+    
+    if ([controller conformsToProtocol:@protocol(SAAutoTracker)]) {
+        UIViewController<SAAutoTracker> *autoTrackerController = (UIViewController<SAAutoTracker> *

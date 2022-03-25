@@ -2385,4 +2385,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _lastScreenTrackProperties = [autoTrackerController getTrackProperties];
     }
     
-#ifdef SENSORS_ANALYTICS_AUTOTRACT_APPVI
+#ifdef SENSORS_ANALYTICS_AUTOTRACT_APPVIEWSCREEN_URL
+    [properties setValue:screenName forKey:SCREEN_URL_PROPERTY];
+    @synchronized(_referrerScreenUrl) {
+        if (_referrerScreenUrl) {
+            [properties setValue:_referrerScreenUrl forKey:S

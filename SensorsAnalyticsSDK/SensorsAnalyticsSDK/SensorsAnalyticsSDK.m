@@ -2396,4 +2396,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
     
     if ([controller conformsToProtocol:@protocol(SAScreenAutoTracker)]) {
-        UIViewController<SAScreenAutoTracker>
+        UIViewController<SAScreenAutoTracker> *screenAutoTrackerController = (UIViewController<SAScreenAutoTracker> *)controller;
+        NSString *currentScreenUrl = [screenAutoTrackerController getScreenUrl];
+        
+        [properties setValue:currentScreenUrl forKey:SCRE

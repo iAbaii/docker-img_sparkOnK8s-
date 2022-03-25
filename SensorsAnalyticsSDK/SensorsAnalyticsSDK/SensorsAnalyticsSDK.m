@@ -2389,4 +2389,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [properties setValue:screenName forKey:SCREEN_URL_PROPERTY];
     @synchronized(_referrerScreenUrl) {
         if (_referrerScreenUrl) {
-            [properties setValue:_referrerScreenUrl forKey:S
+            [properties setValue:_referrerScreenUrl forKey:SCREEN_REFERRER_URL_PROPERTY];
+        }
+        _referrerScreenUrl = screenName;
+    }
+#endif
+    
+    if ([controller conformsToProtocol:@protocol(SAScreenAutoTracker)]) {
+        UIViewController<SAScreenAutoTracker>

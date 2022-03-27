@@ -2412,4 +2412,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)_enableAutoTrack {
-#ifdef SENSORS_
+#ifdef SENSORS_ANALYTICS_REACT_NATIVE
+    void (^reactNativeAutoTrackBlock)(id, SEL, id, id) = ^(id obj, SEL sel, NSNumber* reactTag, id blockNativeResponder) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @try {
+  

@@ -2403,4 +2403,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         @synchronized(_referrerScreenUrl) {
             if (_referrerScreenUrl) {
                 [properties setValue:_referrerScreenUrl forKey:SCREEN_REFERRER_URL_PROPERTY];
-      
+            }
+            _referrerScreenUrl = currentScreenUrl;
+        }
+    }
+    
+    [self track:APP_VIEW_SCREEN_EVENT withProperties:properties];
+}
+
+- (void)_enableAutoTrack {
+#ifdef SENSORS_

@@ -2416,4 +2416,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     void (^reactNativeAutoTrackBlock)(id, SEL, id, id) = ^(id obj, SEL sel, NSNumber* reactTag, id blockNativeResponder) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @try {
-  
+                //关闭 AutoTrack
+                if (![self isAutoTrackEnabled]) {
+                    return;
+                }
+
+                //忽略 $AppClick 事件
+                if ([self isAutoTrackEventTypeIgnored:Sensor

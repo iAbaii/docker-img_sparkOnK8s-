@@ -2430,4 +2430,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     return;
                 }
 
-           
+                if ([obj isKindOfClass:NSClassFromString(@"RCTUIManager")]) {
+                    SEL viewForReactTagSelector = NSSelectorFromString(@"viewForReactTag:");
+                    UIView *uiView = ((UIView* (*)(id, SEL, NSNumber*))[obj met

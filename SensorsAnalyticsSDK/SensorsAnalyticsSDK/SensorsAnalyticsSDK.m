@@ -2422,4 +2422,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
 
                 //忽略 $AppClick 事件
-                if ([self isAutoTrackEventTypeIgnored:Sensor
+                if ([self isAutoTrackEventTypeIgnored:SensorsAnalyticsEventTypeAppClick]) {
+                    return;
+                }
+
+                if ([self isViewTypeIgnored:[NSClassFromString(@"RNView") class]]) {
+                    return;
+                }
+
+           

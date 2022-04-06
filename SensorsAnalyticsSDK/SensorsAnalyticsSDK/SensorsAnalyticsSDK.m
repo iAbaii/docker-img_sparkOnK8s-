@@ -2435,4 +2435,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     UIView *uiView = ((UIView* (*)(id, SEL, NSNumber*))[obj methodForSelector:viewForReactTagSelector])(obj, viewForReactTagSelector, reactTag);
                     NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
 
-                    if ([uiView isKindOfCla
+                    if ([uiView isKindOfClass:[NSClassFromString(@"RCTSwitch") class]]) {
+                        //好像跟 UISwitch 会重复
+                        return;
+                    }
+
+                    [properties setValue:@"RNView" forKey:@"$element_type"];
+              

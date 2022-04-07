@@ -2441,4 +2441,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
 
                     [properties setValue:@"RNView" forKey:@"$element_type"];
-              
+                    [properties setValue:[uiView.accessibilityLabel stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] forKey:@"$element_content"];
+
+                    UIViewController *viewCo

@@ -2443,4 +2443,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     [properties setValue:@"RNView" forKey:@"$element_type"];
                     [properties setValue:[uiView.accessibilityLabel stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] forKey:@"$element_content"];
 
-                    UIViewController *viewCo
+                    UIViewController *viewController = nil;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                    if ([uiView respondsToSelector:NSSelectorFromString(@"reactViewController")]

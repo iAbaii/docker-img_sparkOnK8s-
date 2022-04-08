@@ -2451,4 +2451,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
 #pragma clang diagnostic pop
                     if (viewController) {
-                      
+                        //获取 Controller 名称($screen_name)
+                        NSString *screenName = NSStringFromClass([viewController class]);
+                        [properties setValue:screenName forKey:@"$screen_name"];
+
+     

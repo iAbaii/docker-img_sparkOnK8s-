@@ -2457,4 +2457,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
                         NSString *controllerTitle = viewController.navigationItem.title;
                         if (controllerTitle != nil) {
-                            [properties setValue:viewController.
+                            [properties setValue:viewController.navigationItem.title forKey:@"$title"];
+                        }
+                    }
+
+                    [self track:@"$AppClick" withProperties:properties];
+                }
+            } @catch (NSException *excep

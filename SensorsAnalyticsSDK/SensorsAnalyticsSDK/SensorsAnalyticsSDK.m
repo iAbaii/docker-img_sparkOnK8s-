@@ -2455,4 +2455,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         NSString *screenName = NSStringFromClass([viewController class]);
                         [properties setValue:screenName forKey:@"$screen_name"];
 
-     
+                        NSString *controllerTitle = viewController.navigationItem.title;
+                        if (controllerTitle != nil) {
+                            [properties setValue:viewController.

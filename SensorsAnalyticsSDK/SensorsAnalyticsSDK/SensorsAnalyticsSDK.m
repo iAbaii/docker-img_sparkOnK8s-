@@ -2446,4 +2446,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     UIViewController *viewController = nil;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    if ([uiView respondsToSelector:NSSelectorFromString(@"reactViewController")]
+                    if ([uiView respondsToSelector:NSSelectorFromString(@"reactViewController")]) {
+                        viewController = [uiView performSelector:NSSelectorFromString(@"reactViewController")];
+                    }
+#pragma clang diagnostic pop
+                    if (viewController) {
+                      

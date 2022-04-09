@@ -2463,4 +2463,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
                     [self track:@"$AppClick" withProperties:properties];
                 }
-            } @catch (NSException *excep
+            } @catch (NSException *exception) {
+                SAError(@"%@ error: %@", self, exception);
+            }
+        });
+
+    };
+#endif
+
+    void (^unswizzleUITableViewAppClickBlock)(id, SEL, id) = ^(id obj, SEL sel, NSNumber* a) {
+        UIViewController 

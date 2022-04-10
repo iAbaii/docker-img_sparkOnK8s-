@@ -2472,4 +2472,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
 
     void (^unswizzleUITableViewAppClickBlock)(id, SEL, id) = ^(id obj, SEL sel, NSNumber* a) {
-        UIViewController 
+        UIViewController *controller = (UIViewController *)obj;
+        if (!controller) {
+            return;
+        }
+
+        Class klass = [controller class];
+        if (!klass) {
+            return;
+        }
+
+        NSString *sc

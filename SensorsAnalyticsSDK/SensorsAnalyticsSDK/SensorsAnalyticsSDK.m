@@ -2482,4 +2482,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return;
         }
 
-        NSString *sc
+        NSString *screenName = NSStringFromClass(klass);
+
+        //UITableView
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UITABLEVIEW
+        if ([controller respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:

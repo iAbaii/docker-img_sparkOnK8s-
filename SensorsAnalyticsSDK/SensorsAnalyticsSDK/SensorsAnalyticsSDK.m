@@ -2491,3 +2491,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
 #endif
 
+        //UICollectionView
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLECTIONVIEW
+        if ([controller respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
+            [SASwizzler u

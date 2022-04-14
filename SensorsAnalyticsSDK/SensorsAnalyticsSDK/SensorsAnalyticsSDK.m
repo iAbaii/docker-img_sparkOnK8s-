@@ -2494,4 +2494,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         //UICollectionView
 #ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLECTIONVIEW
         if ([controller respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
-            [SASwizzler u
+            [SASwizzler unswizzleSelector:@selector(collectionView:didSelectItemAtIndexPath:) onClass:klass named:[NSString stringWithFormat:@"%@_%@", screenName, @"UICollectionView_AutoTrack"]];
+        }
+#endif
+    };
+
+    void (^gestureRecognizerAppClickBlock)(id, SEL, id) = ^(i

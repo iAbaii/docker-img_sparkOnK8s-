@@ -2499,4 +2499,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
     };
 
-    void (^gestureRecognizerAppClickBlock)(id, SEL, id) = ^(i
+    void (^gestureRecognizerAppClickBlock)(id, SEL, id) = ^(id target, SEL command, id arg) {
+        @try {
+            if ([arg isKindOfClass:[UITapGestureRecognizer class]] ||
+                [arg isKindOfClass:[UILongPressGestureRecognizer class]]) {
+         

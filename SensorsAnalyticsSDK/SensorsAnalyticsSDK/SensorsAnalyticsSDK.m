@@ -2503,4 +2503,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         @try {
             if ([arg isKindOfClass:[UITapGestureRecognizer class]] ||
                 [arg isKindOfClass:[UILongPressGestureRecognizer class]]) {
-         
+                [arg addTarget:self action:@selector(trackGestureRecognizerAppClick:)];
+            }
+        } @catch (NSException *exception) {
+            SAError(@"%@ error: %@", self, exception);
+        }
+    };
+
+   

@@ -2510,4 +2510,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
     };
 
-   
+    // 监听所有 UIViewController 显示事件
+    if (_autoTrack) {
+        //$AppViewScreen
+        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppViewScreen ||
+            _autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
+//     

@@ -2518,4 +2518,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 //            [SASwizzler swizzleBoolSelector:@selector(viewWillAppear:)
 //                                onClass:[UIViewController class]
 //                              withBlock:block
-//                                  named:@"track_view
+//                                  named:@"track_view_screen"];
+            [UIViewController sa_swizzleMethod:@selector(viewWillAppear:) withMethod:@selector(sa_autotrack_viewWillAppear:) error:NULL];
+        }
+
+        //$AppClick
+        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppCli

@@ -2523,4 +2523,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
 
         //$AppClick
-        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppCli
+        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppClick) {
+            //UITableView、UICollectionView
+#if (!defined SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UITABLEVIEW) || (!defined SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLECTIONVIEW)
+            [SASwizzler swizzleB

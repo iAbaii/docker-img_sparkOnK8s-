@@ -2534,4 +2534,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
             //UILabel
 #ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UILABEL
-            [SASwizzler swizzleSelector:@
+            [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:[UILabel class] withBlock:gestureRecognizerAppClickBlock named:@"track_UILabel_addGestureRecognizer"];
+#endif
+
+            //UIImageView
+#ifndef SENSORS_ANALYTICS_D

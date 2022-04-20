@@ -2529,4 +2529,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [SASwizzler swizzleBoolSelector:@selector(viewWillDisappear:)
                                     onClass:[UIViewController class]
                                   withBlock:unswizzleUITableViewAppClickBlock
-                        
+                                      named:@"track_UITableView_UICollectionView_AppClick_viewWillDisappear"];
+#endif
+
+            //UILabel
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UILABEL
+            [SASwizzler swizzleSelector:@

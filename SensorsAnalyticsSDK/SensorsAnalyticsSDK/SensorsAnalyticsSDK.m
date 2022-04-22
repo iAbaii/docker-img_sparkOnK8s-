@@ -2538,4 +2538,5 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
 
             //UIImageView
-#ifndef SENSORS_ANALYTICS_D
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGEVIEW
+            [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:[UIImageView class] withBlock:gestureRecognizerAppClickBlock named:@"track_UIImageView_addGes

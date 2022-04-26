@@ -2545,4 +2545,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             //UIAlertController & UIActionSheet
 #ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIALERTCONTROLLER
             //iOS9
-            [SASwizzler swizzleSelector:@selector
+            [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:NSClassFromString(@"_UIAlertControllerView") withBlock:gestureRecognizerAppClickBlock named:@"track__UIAlertControllerView_addGestureRecognizer"];
+
+            //iOS10
+            [SASwiz

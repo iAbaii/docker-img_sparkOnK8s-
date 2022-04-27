@@ -2554,4 +2554,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             //React Natove
 #ifdef SENSORS_ANALYTICS_REACT_NATIVE
             if (NSClassFromString(@"RCTUIManager")) {
-                [SASwizzler swizzle
+                [SASwizzler swizzleSelector:NSSelectorFromString(@"setJSResponder:blockNativeResponder:") onClass:NSClassFromString(@"RCTUIManager") withBlock:reactNativeAutoTrackBlock named:@"track_React_Native_AppClick"];
+            }
+#endif
+            NSErr

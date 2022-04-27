@@ -2548,4 +2548,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:NSClassFromString(@"_UIAlertControllerView") withBlock:gestureRecognizerAppClickBlock named:@"track__UIAlertControllerView_addGestureRecognizer"];
 
             //iOS10
-            [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:NSClassFromString(@"_UIAlertControllerInterfaceActionGroupView") withBlock:gestureRecognizerAppClickBlock named:@"track__UIAlertControllerIn
+            [SASwizzler swizzleSelector:@selector(addGestureRecognizer:) onClass:NSClassFromString(@"_UIAlertControllerInterfaceActionGroupView") withBlock:gestureRecognizerAppClickBlock named:@"track__UIAlertControllerInterfaceActionGroupView_addGestureRecognizer"];
+#endif
+
+            //React Natove
+#ifdef SENSORS_ANALYTICS_REACT_NATIVE
+            if (NSClassFromString(@"RCTUIManager")) {
+                [SASwizzler swizzle

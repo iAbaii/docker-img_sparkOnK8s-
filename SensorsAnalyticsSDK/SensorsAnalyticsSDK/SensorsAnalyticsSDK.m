@@ -2557,4 +2557,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [SASwizzler swizzleSelector:NSSelectorFromString(@"setJSResponder:blockNativeResponder:") onClass:NSClassFromString(@"RCTUIManager") withBlock:reactNativeAutoTrackBlock named:@"track_React_Native_AppClick"];
             }
 #endif
-            NSErr
+            NSError *error = NULL;
+            // Actions & Events
+            [UIApplication sa_swizzleMethod:@selector(sendAction:to:from:forEvent:)
+                                 withMethod:@selector(sa_sendAction:to:from:forEvent:)
+          

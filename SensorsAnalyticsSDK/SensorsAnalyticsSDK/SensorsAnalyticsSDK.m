@@ -2561,4 +2561,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             // Actions & Events
             [UIApplication sa_swizzleMethod:@selector(sendAction:to:from:forEvent:)
                                  withMethod:@selector(sa_sendAction:to:from:forEvent:)
-          
+                                      error:&error];
+            if (error) {
+                SAError(@"Failed to swizzle sendAction:to:forEvent: on UIAppplication. Details: %@", error);
+                error = NULL;
+            

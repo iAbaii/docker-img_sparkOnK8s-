@@ -2565,4 +2565,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (error) {
                 SAError(@"Failed to swizzle sendAction:to:forEvent: on UIAppplication. Details: %@", error);
                 error = NULL;
-            
+            }
+        }
+    }
+}
+
+- (void)trackGestureRecognizerAppClick:(id)target {
+    @try {
+        if (target == nil) {
+            return;
+        }
+        UIGestureRecognizer *gesture = target;
+        

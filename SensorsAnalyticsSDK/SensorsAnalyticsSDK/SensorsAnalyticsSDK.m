@@ -2576,4 +2576,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             return;
         }
         UIGestureRecognizer *gesture = target;
-        
+        if (gesture == nil) {
+            return;
+        }
+
+        if (gesture.state != UIGestureRecognizerStateEnded) {
+            return;
+        }
+
+        UIView *view = gesture.view;
+        if (view == nil) {
+      

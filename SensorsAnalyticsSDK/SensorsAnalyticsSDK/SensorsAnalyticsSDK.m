@@ -2586,4 +2586,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         UIView *view = gesture.view;
         if (view == nil) {
-      
+            return;
+        }
+        //关闭 AutoTrack
+        if (![self isAutoTrackEnabled]) {
+            return;
+        }
+
+        //忽略 $AppClick 事件
+        if ([self isAutoTrackEventTypeIgnored:S

@@ -2600,4 +2600,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         if ([view isKindOfClass:[UILabel class]]) {//UILabel
             if ([self isViewTypeIgnored:[UILabel class]]) {
-             
+                return;
+            }
+        } else if ([view isKindOfClass:[UIImageView class]]) {//UIImageView
+            if ([self isViewTypeIgnored:[UIImageView class]]) {
+                return;
+            }
+        } else if ([view isKindOfCl

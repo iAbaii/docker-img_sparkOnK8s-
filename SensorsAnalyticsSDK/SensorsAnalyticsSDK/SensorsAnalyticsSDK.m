@@ -2606,4 +2606,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if ([self isViewTypeIgnored:[UIImageView class]]) {
                 return;
             }
-        } else if ([view isKindOfCl
+        } else if ([view isKindOfClass:NSClassFromString(@"_UIAlertControllerView")] ||
+                   [view isKindOfClass:NSClassFromString(@"_UIAlertControllerInterfaceActionGroupView")]) {//UIAlertController
+  

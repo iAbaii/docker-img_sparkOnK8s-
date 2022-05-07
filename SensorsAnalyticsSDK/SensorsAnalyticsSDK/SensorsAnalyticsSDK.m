@@ -2608,4 +2608,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
         } else if ([view isKindOfClass:NSClassFromString(@"_UIAlertControllerView")] ||
                    [view isKindOfClass:NSClassFromString(@"_UIAlertControllerInterfaceActionGroupView")]) {//UIAlertController
-  
+            if ([self isViewTypeIgnored:NSClassFromString(@"UIAlertController")]) {
+                return;
+            }
+        }
+
+        if (view.sensorsAnalyticsIgnoreView) {
+          

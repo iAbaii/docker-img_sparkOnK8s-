@@ -2626,4 +2626,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
 
             //获取 Controller 名称($screen_name)
-            NSString *s
+            NSString *screenName = NSStringFromClass([viewController class]);
+            [properties setValue:screenName forKey:@"$screen_name"];
+
+            NSString *controllerTitle = viewController.navigationItem.title;
+            

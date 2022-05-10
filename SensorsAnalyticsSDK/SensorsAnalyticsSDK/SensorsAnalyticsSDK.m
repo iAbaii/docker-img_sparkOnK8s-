@@ -2649,4 +2649,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         if ([view isKindOfClass:[UILabel class]]) {
             [properties setValue:@"UILabel" forKey:@"$element_type"];
-            UILabel *label = (UILab
+            UILabel *label = (UILabel*)view;
+            [properties setValue:label.text forKey:@"$element_content"];
+        } else if ([view isKindOfClass:[UIImageView class]]) {
+            [properties setValue:@"UIImageView" forKey:@"$element_

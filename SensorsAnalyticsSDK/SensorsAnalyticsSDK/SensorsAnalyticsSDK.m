@@ -2638,4 +2638,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSString *elementContent = [self getUIViewControllerTitle:viewController];
             if (elementContent != nil && [elementContent length] > 0) {
                 elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
-     
+                [properties setValue:elementContent forKey:@"$title"];
+            }
+        }
+
+        //ViewID
+        if (view.sensorsAnalyticsViewID != nil) {
+            [properties setValue:view

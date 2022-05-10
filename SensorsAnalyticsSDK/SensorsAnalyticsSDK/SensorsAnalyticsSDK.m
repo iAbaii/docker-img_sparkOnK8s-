@@ -2644,4 +2644,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
         //ViewID
         if (view.sensorsAnalyticsViewID != nil) {
-            [properties setValue:view
+            [properties setValue:view.sensorsAnalyticsViewID forKey:@"$element_id"];
+        }
+
+        if ([view isKindOfClass:[UILabel class]]) {
+            [properties setValue:@"UILabel" forKey:@"$element_type"];
+            UILabel *label = (UILab

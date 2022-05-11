@@ -2666,4 +2666,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #endif
         } else if ([NSStringFromClass([view class]) isEqualToString:@"_UIAlertControllerView"]) {//iOS9
             BOOL isOK = NO;
-         
+            Ivar ivar = class_getInstanceVariable([view class], "_actionViews");
+            NSMutableArray *actionviews =  object_getIvar(view, ivar);
+            for (UIView *actionview in actionviews) {
+                CGPoint point = 

@@ -2657,4 +2657,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             UIImageView *imageView = (UIImageView *)view;
             if (imageView) {
                 if (imageView.image) {
-    
+                    NSString *imageName = imageView.image.sensorsAnalyticsImageName;
+                    if (imageName != nil) {
+                        [properties setValue:[NSString stringWithFormat:@"$%@", imageName

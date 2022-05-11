@@ -2659,4 +2659,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 if (imageView.image) {
                     NSString *imageName = imageView.image.sensorsAnalyticsImageName;
                     if (imageName != nil) {
-                        [properties setValue:[NSString stringWithFormat:@"$%@", imageName
+                        [properties setValue:[NSString stringWithFormat:@"$%@", imageName] forKey:@"$element_content"];
+                    }
+                }
+            }
+#endif
+        } else if ([NSStringFromClass([view class]) isEqualToString:@"_UIAlertControllerView"]) {//iOS9
+            BOOL isOK = NO;
+         

@@ -2652,4 +2652,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             UILabel *label = (UILabel*)view;
             [properties setValue:label.text forKey:@"$element_content"];
         } else if ([view isKindOfClass:[UIImageView class]]) {
-            [properties setValue:@"UIImageView" forKey:@"$element_
+            [properties setValue:@"UIImageView" forKey:@"$element_type"];
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGENAME
+            UIImageView *imageView = (UIImageView *)view;
+            if (imageView) {
+                if (imageView.image) {
+    

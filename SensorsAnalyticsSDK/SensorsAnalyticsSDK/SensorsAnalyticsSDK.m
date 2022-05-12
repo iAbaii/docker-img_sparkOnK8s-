@@ -2671,4 +2671,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             for (UIView *actionview in actionviews) {
                 CGPoint point = [gesture locationInView:actionview];
                 if ([NSStringFromClass([actionview class]) isEqualToString:@"_UIAlertControllerActionView"] &&
-                    point.x > 0 && point.x < CGRectGetWidth(actionview.bounds) 
+                    point.x > 0 && point.x < CGRectGetWidth(actionview.bounds) &&
+                    point.y > 0 && point.y < CGRectGetHeight(actionview.bounds) &&
+                    gesture.state == UIGestureRecognizerStateEnded) {
+                    UILabel *titleLabel = [actionview p

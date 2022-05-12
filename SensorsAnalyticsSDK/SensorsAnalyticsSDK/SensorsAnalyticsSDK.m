@@ -2669,4 +2669,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             Ivar ivar = class_getInstanceVariable([view class], "_actionViews");
             NSMutableArray *actionviews =  object_getIvar(view, ivar);
             for (UIView *actionview in actionviews) {
-                CGPoint point = 
+                CGPoint point = [gesture locationInView:actionview];
+                if ([NSStringFromClass([actionview class]) isEqualToString:@"_UIAlertControllerActionView"] &&
+                    point.x > 0 && point.x < CGRectGetWidth(actionview.bounds) 

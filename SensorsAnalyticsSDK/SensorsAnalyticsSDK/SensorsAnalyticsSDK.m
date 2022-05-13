@@ -2674,4 +2674,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     point.x > 0 && point.x < CGRectGetWidth(actionview.bounds) &&
                     point.y > 0 && point.y < CGRectGetHeight(actionview.bounds) &&
                     gesture.state == UIGestureRecognizerStateEnded) {
-                    UILabel *titleLabel = [actionview p
+                    UILabel *titleLabel = [actionview performSelector:@selector(titleLabel)];
+                    if (titleLabel) {
+                        isOK = YES;
+                        [properties setValue:@"UIAlertController" forKey:@"$element_type"];
+          

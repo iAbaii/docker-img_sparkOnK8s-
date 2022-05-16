@@ -2678,4 +2678,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     if (titleLabel) {
                         isOK = YES;
                         [properties setValue:@"UIAlertController" forKey:@"$element_type"];
-          
+                        [properties setValue:titleLabel.text forKey:@"$element_content"];
+                    }
+                }
+            }
+            if (!isOK) {
+                return;
+            }
+      

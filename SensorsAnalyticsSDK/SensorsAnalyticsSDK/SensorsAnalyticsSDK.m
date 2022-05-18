@@ -2685,4 +2685,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (!isOK) {
                 return;
             }
-      
+        } else if ([NSStringFromClass([view class]) isEqualToString:@"_UIAlertControllerInterfaceActionGroupView"]) {//iOS10
+            BOOL isOK = NO;
+            NSMutableArray *targets = [gesture valueForKey

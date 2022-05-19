@@ -2690,4 +2690,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSMutableArray *targets = [gesture valueForKey:@"_targets"];
             id targetContainer = targets[0];
             id targetOfGesture = [targetContainer valueForKey:@"_target"];
-            if ([targetOfGesture isKindOfClass:[NSClassFromString(@"UIInterfaceActionSelectionTrackingController")
+            if ([targetOfGesture isKindOfClass:[NSClassFromString(@"UIInterfaceActionSelectionTrackingController") class]]) {
+                Ivar ivar = class_getInstanceVariable([targetOfGesture class], "_representationViews");
+                NSMutableArray *representationViews =  object_getIvar(targetOfGesture, ivar);
+                for (

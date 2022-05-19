@@ -2687,4 +2687,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
         } else if ([NSStringFromClass([view class]) isEqualToString:@"_UIAlertControllerInterfaceActionGroupView"]) {//iOS10
             BOOL isOK = NO;
-            NSMutableArray *targets = [gesture valueForKey
+            NSMutableArray *targets = [gesture valueForKey:@"_targets"];
+            id targetContainer = targets[0];
+            id targetOfGesture = [targetContainer valueForKey:@"_target"];
+            if ([targetOfGesture isKindOfClass:[NSClassFromString(@"UIInterfaceActionSelectionTrackingController")

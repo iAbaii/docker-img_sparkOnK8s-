@@ -2693,4 +2693,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if ([targetOfGesture isKindOfClass:[NSClassFromString(@"UIInterfaceActionSelectionTrackingController") class]]) {
                 Ivar ivar = class_getInstanceVariable([targetOfGesture class], "_representationViews");
                 NSMutableArray *representationViews =  object_getIvar(targetOfGesture, ivar);
-                for (
+                for (UIView *representationView in representationViews) {
+                    CGPoint point = [gesture locationInView:representationView];
+                    if ([NSStringFromClass([representationView cl

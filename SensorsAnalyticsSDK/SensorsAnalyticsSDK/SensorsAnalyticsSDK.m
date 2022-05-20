@@ -2700,4 +2700,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         point.y > 0 && point.y < CGRectGetHeight(representationView.bounds) &&
                         gesture.state == UIGestureRecognizerStateEnded) {
                         isOK = YES;
-                        if ([representationView respon
+                        if ([representationView respondsToSelector:NSSelectorFromString(@"action")]) {
+                            #pragma clang diagnostic push
+                            #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                        

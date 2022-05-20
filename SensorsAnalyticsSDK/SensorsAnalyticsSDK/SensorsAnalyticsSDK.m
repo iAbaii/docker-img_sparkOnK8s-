@@ -2695,4 +2695,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSMutableArray *representationViews =  object_getIvar(targetOfGesture, ivar);
                 for (UIView *representationView in representationViews) {
                     CGPoint point = [gesture locationInView:representationView];
-                    if ([NSStringFromClass([representationView cl
+                    if ([NSStringFromClass([representationView class]) isEqualToString:@"_UIInterfaceActionCustomViewRepresentationView"] &&
+                        point.x > 0 && point.x < CGRectGetWidth(representationView.bounds) &&
+                        point.y > 0 && point.y < CGRectGetHei

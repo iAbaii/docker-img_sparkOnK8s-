@@ -2703,4 +2703,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         if ([representationView respondsToSelector:NSSelectorFromString(@"action")]) {
                             #pragma clang diagnostic push
                             #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                        
+                            NSObject *action = [representationView performSelector:NSSelectorFromString(@"action")];
+                            if (action) {
+                                if ([action respondsToSelector:NSSelectorFr

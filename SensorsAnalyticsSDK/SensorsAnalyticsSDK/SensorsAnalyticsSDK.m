@@ -2697,4 +2697,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     CGPoint point = [gesture locationInView:representationView];
                     if ([NSStringFromClass([representationView class]) isEqualToString:@"_UIInterfaceActionCustomViewRepresentationView"] &&
                         point.x > 0 && point.x < CGRectGetWidth(representationView.bounds) &&
-                        point.y > 0 && point.y < CGRectGetHei
+                        point.y > 0 && point.y < CGRectGetHeight(representationView.bounds) &&
+                        gesture.state == UIGestureRecognizerStateEnded) {
+                        isOK = YES;
+                        if ([representationView respon

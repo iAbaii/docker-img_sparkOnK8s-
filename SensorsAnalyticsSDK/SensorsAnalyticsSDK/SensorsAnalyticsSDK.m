@@ -2708,4 +2708,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                 if ([action respondsToSelector:NSSelectorFromString(@"title")]) {
                                     NSString *title = [action performSelector:NSSelectorFromString(@"title")];
                                     if (title) {
-                     
+                                        isOK = YES;
+                                        [properties setValue:@"UIAlertController" forKey:@"$element_type"];
+                                        [properties setValue:title forKey:@"$element_content"];
+         

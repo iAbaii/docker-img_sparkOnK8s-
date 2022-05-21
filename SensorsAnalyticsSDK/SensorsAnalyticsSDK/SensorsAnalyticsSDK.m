@@ -2711,4 +2711,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                         isOK = YES;
                                         [properties setValue:@"UIAlertController" forKey:@"$element_type"];
                                         [properties setValue:title forKey:@"$element_content"];
-         
+                                    }
+                                }
+                            }
+                            #pragma clang diagnostic pop
+                        }
+                    }
+                }
+          

@@ -2718,4 +2718,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                         }
                     }
                 }
-          
+            }
+            if (!isOK) {
+                return;
+            }
+        } else {
+            return;
+        }
+
+        //View Properties
+        NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+        i

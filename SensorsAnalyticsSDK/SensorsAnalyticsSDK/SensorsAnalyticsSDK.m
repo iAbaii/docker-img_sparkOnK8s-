@@ -2739,4 +2739,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)trackViewScreen:(NSString *)url withProperties:(NSDictionary *)properties {
-    NSMutableDictionary *trackProperties =
+    NSMutableDictionary *trackProperties = [[NSMutableDictionary alloc] init];
+    if (properties) {
+        [trackProperties addEntriesFromDictionary:properties];
+    }
+    @synchronized(_lastScreenTrackProperties) {
+        _lastScreenTrackProperties = properties;
+    }
+

@@ -2750,4 +2750,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [trackProperties setValue:url forKey:SCREEN_URL_PROPERTY];
     @synchronized(_referrerScreenUrl) {
         if (_referrerScreenUrl) {
-            [trackProperties setValue:_referrerScreenUrl f
+            [trackProperties setValue:_referrerScreenUrl forKey:SCREEN_REFERRER_URL_PROPERTY];
+        }
+        _referrerScreenUrl = url;
+    }
+    [self track:APP_VIEW_SCREEN_EVENT withProperties:trackProperties];
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)notification

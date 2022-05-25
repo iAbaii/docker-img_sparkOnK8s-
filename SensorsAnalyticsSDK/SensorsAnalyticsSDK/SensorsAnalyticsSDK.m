@@ -2733,4 +2733,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         }
 
         [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
-    } @catch (NSExce
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+- (void)trackViewScreen:(NSString *)url withProperties:(NSDictionary *)properties {
+    NSMutableDictionary *trackProperties =

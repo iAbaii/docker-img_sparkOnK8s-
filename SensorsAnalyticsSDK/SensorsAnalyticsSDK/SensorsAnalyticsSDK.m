@@ -2747,3 +2747,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         _lastScreenTrackProperties = properties;
     }
 
+    [trackProperties setValue:url forKey:SCREEN_URL_PROPERTY];
+    @synchronized(_referrerScreenUrl) {
+        if (_referrerScreenUrl) {
+            [trackProperties setValue:_referrerScreenUrl f

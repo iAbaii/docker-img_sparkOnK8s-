@@ -2757,4 +2757,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [self track:APP_VIEW_SCREEN_EVENT withProperties:trackProperties];
 }
 
-- (void)applicationWillEnterForeground:(NSNotification *)notification
+- (void)applicationWillEnterForeground:(NSNotification *)notification {
+    SADebug(@"%@ application will enter foreground", self);
+    
+    _appRelaunched = YES;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    SADebug(@"%@ application did be

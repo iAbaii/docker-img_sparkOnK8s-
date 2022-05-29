@@ -2773,4 +2773,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     _applicationWillResignActive = NO;
 
     // 是否首次启动
-    BOOL isFirstSta
+    BOOL isFirstStart = NO;
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        isFirstStart = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUs

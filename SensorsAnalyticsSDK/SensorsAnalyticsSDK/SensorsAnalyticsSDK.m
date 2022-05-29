@@ -2764,4 +2764,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    SADebug(@"%@ application did be
+    SADebug(@"%@ application did become active", self);
+    
+    if (_applicationWillResignActive) {
+        _applicationWillResignActive = NO;
+        return;
+    }
+    _applicationWillResignActive = NO;
+
+    // 是否首次启动
+    BOOL isFirstSta

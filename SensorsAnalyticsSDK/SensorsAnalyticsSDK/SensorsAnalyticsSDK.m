@@ -2788,3 +2788,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSMutableDictionary *eventTimer = nil;
         for (key in keys) {
             eventTimer = [[NSMutableDictionary alloc] initWithDictionary:self.trackTimer[key]];
+            if (eventTimer) {
+                [eventTimer setValue:timeStamp forKey:@"eventBegin"];
+                self.trackTimer[key] = eventTimer;
+            }
+        }
+    });
+
+    if (_autoTrack) {
+        // 追踪 AppSta

@@ -2777,4 +2777,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         isFirstStart = YES;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUs
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+    // 遍历trackTimer,修改eventBegin为当前timeStamp
+    dispatch_async(self.serialQueue, ^{
+        NSNumber *timeStamp = @([[self class] getCurrentTime]);
+        NSArray *keys = [self.t

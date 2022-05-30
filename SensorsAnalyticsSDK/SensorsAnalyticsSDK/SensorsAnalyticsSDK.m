@@ -2783,4 +2783,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     // 遍历trackTimer,修改eventBegin为当前timeStamp
     dispatch_async(self.serialQueue, ^{
         NSNumber *timeStamp = @([[self class] getCurrentTime]);
-        NSArray *keys = [self.t
+        NSArray *keys = [self.trackTimer allKeys];
+        NSString *key = nil;
+        NSMutableDictionary *eventTimer = nil;
+        for (key in keys) {
+            eventTimer = [[NSMutableDictionary alloc] initWithDictionary:self.trackTimer[key]];

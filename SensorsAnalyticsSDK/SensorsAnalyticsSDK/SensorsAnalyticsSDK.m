@@ -2804,4 +2804,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                                          }];
         }
         // 启动 AppEnd 事件计时器
-        if (_autoTra
+        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppEnd) {
+            [self trackTimer:APP_END_EVENT withTimeUnit:SensorsAnalyticsTimeUnitSeconds];
+        }
+    }
+    
+#ifndef SENSORS_ANALYTICS_DISABLE_VTRACK
+    if (

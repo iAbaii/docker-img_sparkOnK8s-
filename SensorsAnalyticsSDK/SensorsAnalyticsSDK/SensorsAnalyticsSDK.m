@@ -2799,4 +2799,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // 追踪 AppStart 事件
         if (_autoTrackEventType & SensorsAnalyticsEventTypeAppStart) {
             [self track:APP_START_EVENT withProperties:@{
-                                                         RESUME_FROM_BACKGROUND_PROPERTY : @(
+                                                         RESUME_FROM_BACKGROUND_PROPERTY : @(_appRelaunched),
+                                                         APP_FIRST_START_PROPERTY : @(isFirstStart),
+                                                         }];
+        }
+        // 启动 AppEnd 事件计时器
+        if (_autoTra

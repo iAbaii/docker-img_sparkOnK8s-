@@ -2810,4 +2810,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     }
     
 #ifndef SENSORS_ANALYTICS_DISABLE_VTRACK
-    if (
+    if (self.checkForEventBindingsOnActive) {
+        [self checkForConfigure];
+    }
+#endif
+    
+    [self startFlushTimer];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    S

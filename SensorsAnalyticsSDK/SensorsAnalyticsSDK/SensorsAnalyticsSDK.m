@@ -2819,4 +2819,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification {
+    SADebug(@"%@ application will resign active", self);
+    _applicationWillResignActive = YES;
+    [self stopFlushTimer];
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification {
     S

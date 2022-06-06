@@ -2830,4 +2830,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     // 遍历trackTimer
     // eventAccumulatedDuration = eventAccumulatedDuration + timeStamp - eventBegin
-    dispatch_async(sel
+    dispatch_async(self.serialQueue, ^{
+        NSNumber *timeStamp = @([[self class] getCurrentTime]);
+        NSArray *keys = [self.trackTimer allKeys];
+        NSString *key = nil;
+        NSMutableDictionary *eventTimer = nil;
+        for (key in

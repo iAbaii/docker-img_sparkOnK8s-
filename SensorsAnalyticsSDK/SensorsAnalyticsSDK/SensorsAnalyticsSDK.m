@@ -2825,4 +2825,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification {
-    S
+    SADebug(@"%@ application did enter background", self);
+    _applicationWillResignActive = NO;
+    
+    // 遍历trackTimer
+    // eventAccumulatedDuration = eventAccumulatedDuration + timeStamp - eventBegin
+    dispatch_async(sel

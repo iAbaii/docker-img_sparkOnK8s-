@@ -2835,4 +2835,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         NSArray *keys = [self.trackTimer allKeys];
         NSString *key = nil;
         NSMutableDictionary *eventTimer = nil;
-        for (key in
+        for (key in keys) {
+            if (key != nil) {
+                if ([key isEqualToString:@"$AppEnd"]) {
+                    continue;
+                }
+            }
+            eventTimer = [[NSMutableDictionary alloc] initWithDict

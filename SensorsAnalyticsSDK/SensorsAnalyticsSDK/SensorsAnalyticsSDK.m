@@ -2844,4 +2844,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             eventTimer = [[NSMutableDictionary alloc] initWithDictionary:self.trackTimer[key]];
             if (eventTimer) {
                 NSNumber *eventBegin = [eventTimer valueForKey:@"eventBegin"];
-                NSNumber *eventAccumulatedDuration = [e
+                NSNumber *eventAccumulatedDuration = [eventTimer objectForKey:@"eventAccumulatedDuration"];
+                long eventDuration;
+                if (eventAccumulatedDuration) {
+                    eventDuration = [timeStamp longValue] - [eventBegin longValue] 

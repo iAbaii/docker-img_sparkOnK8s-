@@ -2841,4 +2841,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     continue;
                 }
             }
-            eventTimer = [[NSMutableDictionary alloc] initWithDict
+            eventTimer = [[NSMutableDictionary alloc] initWithDictionary:self.trackTimer[key]];
+            if (eventTimer) {
+                NSNumber *eventBegin = [eventTimer valueForKey:@"eventBegin"];
+                NSNumber *eventAccumulatedDuration = [e

@@ -2856,4 +2856,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [eventTimer setObject:timeStamp forKey:@"eventBegin"];
                 self.trackTimer[key] = eventTimer;
             }
-    
+        }
+
+    });
+
+    if (_autoTrack) {
+        // 追踪 AppEnd 事件
+        if (_autoTrackEventType & SensorsAnalyticsEventTypeAppEnd) {
+            if (_clearReferrerWhenAppEnd) {
+                _referrerScreen

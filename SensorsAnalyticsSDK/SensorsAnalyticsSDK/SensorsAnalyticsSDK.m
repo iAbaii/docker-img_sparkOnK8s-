@@ -2864,4 +2864,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // 追踪 AppEnd 事件
         if (_autoTrackEventType & SensorsAnalyticsEventTypeAppEnd) {
             if (_clearReferrerWhenAppEnd) {
-                _referrerScreen
+                _referrerScreenUrl = nil;
+            }
+            [self track:APP_END_EVENT];
+        }
+    }
+    
+    if (self.flushBeforeEnterBackground) {
+        dispatch_async(self.serialQueue, ^{
+            [self _flush:YES];
+        });
+    }
+  

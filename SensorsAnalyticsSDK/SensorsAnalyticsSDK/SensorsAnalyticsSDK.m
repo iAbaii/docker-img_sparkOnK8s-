@@ -2893,4 +2893,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
 #warning checkForEventBindingsOnActive
-    if (!self.checkForEventBindi
+    if (!self.checkForEventBindingsOnActive) {
+        return;
+    }
+    
+    void (^block)(NSData*, NSURLResponse*, NSError*) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            SAError(@"%@ configure check http error: %@", self

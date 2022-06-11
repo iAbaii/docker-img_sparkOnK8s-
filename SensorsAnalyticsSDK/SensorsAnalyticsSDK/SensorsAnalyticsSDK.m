@@ -2875,4 +2875,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             [self _flush:YES];
         });
     }
-  
+    
+    if ([self.abtestDesignerConnection isKindOfClass:[SADesignerConnection class]]
+        && ((SADesignerConnection *)self.abtestDesignerConnection).connected) {
+        ((SADesignerConnect

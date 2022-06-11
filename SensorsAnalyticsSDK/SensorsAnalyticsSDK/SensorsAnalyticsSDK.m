@@ -2878,4 +2878,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     if ([self.abtestDesignerConnection isKindOfClass:[SADesignerConnection class]]
         && ((SADesignerConnection *)self.abtestDesignerConnection).connected) {
-        ((SADesignerConnect
+        ((SADesignerConnection *)self.abtestDesignerConnection).sessionEnded = YES;
+        [((SADesignerConnection *)self.abtestDesignerConnection) close];
+    }
+}
+
+#pragma mark - SensorsData VTrack Analytics
+
+#warning 获取配置
+- (void)checkForConfigure {
+  

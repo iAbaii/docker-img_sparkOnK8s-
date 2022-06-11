@@ -2887,4 +2887,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 #warning 获取配置
 - (void)checkForConfigure {
-  
+    SADebug(@"%@ starting configure check", self);
+    
+    if (self.configureURL == nil || self.configureURL.length < 1) {
+        return;
+    }
+#warning checkForEventBindingsOnActive
+    if (!self.checkForEventBindi

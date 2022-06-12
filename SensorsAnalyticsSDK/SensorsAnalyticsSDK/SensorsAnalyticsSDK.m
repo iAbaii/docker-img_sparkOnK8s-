@@ -2899,4 +2899,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     void (^block)(NSData*, NSURLResponse*, NSError*) = ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
-            SAError(@"%@ configure check http error: %@", self
+            SAError(@"%@ configure check http error: %@", self, error);
+            return;
+        }
+        
+        NSError *parseError;
+        NSDictionary *object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+        if (parseEr

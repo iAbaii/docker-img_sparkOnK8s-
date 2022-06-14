@@ -2905,4 +2905,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         NSError *parseError;
         NSDictionary *object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-        if (parseEr
+        if (parseError) {
+            SAError(@"%@ configure check json error: %@, data: %@", self, parseError, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            return;
+        }
+     

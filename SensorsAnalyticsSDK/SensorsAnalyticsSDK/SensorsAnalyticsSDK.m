@@ -2913,4 +2913,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         // 可视化埋点配置
         NSDictionary *rawEventBindings = object[@"event_bindings"];
         if (rawEventBindings && [rawEventBindings isKindOfClass:[NSDictionary class]]) {
-            NSArray *eventBindings = rawEventBind
+            NSArray *eventBindings = rawEventBindings[@"events"];
+            if (eventBindings && [eventBindings isKindOfClass:[NSArray class]]) {
+                // Finished bindings are those which should no longer be run.
+                [self.eventBind

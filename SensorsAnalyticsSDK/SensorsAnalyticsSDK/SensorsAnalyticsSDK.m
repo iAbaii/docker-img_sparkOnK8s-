@@ -2909,4 +2909,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             SAError(@"%@ configure check json error: %@, data: %@", self, parseError, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             return;
         }
-     
+        
+        // 可视化埋点配置
+        NSDictionary *rawEventBindings = object[@"event_bindings"];
+        if (rawEventBindings && [rawEventBindings isKindOfClass:[NSDictionary class]]) {
+            NSArray *eventBindings = rawEventBind

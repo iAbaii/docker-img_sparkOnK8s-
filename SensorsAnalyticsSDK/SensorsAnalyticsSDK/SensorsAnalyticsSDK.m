@@ -2916,4 +2916,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             NSArray *eventBindings = rawEventBindings[@"events"];
             if (eventBindings && [eventBindings isKindOfClass:[NSArray class]]) {
                 // Finished bindings are those which should no longer be run.
-                [self.eventBind
+                [self.eventBindings makeObjectsPerformSelector:NSSelectorFromString(@"stop")];
+                
+                NSMutableSet *parsedEventBindings = [NSMutableSet set];
+                for (id obj in eventBindings) {
+                    SAEv

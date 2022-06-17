@@ -2928,3 +2928,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 }
                 
                 SADebug(@"%@ found %lu tracking events: %@", self, (unsigned long)[parsedEventBindings count], parsedEventBindings);
+                
+                self.eventBindings = parsedEventBindings;
+                [self archiveEventBindings];
+            }
+        }
+        
+        // 可视化埋点服务地址
+        if (_vtrackServerURL == nil) {
+     

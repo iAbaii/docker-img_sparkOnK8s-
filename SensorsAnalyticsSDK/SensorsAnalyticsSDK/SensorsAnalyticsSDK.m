@@ -2923,4 +2923,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     SAEventBinding *binding = [SAEventBinding bindingWithJSONObject:obj];
                     if (binding) {
                         [binding execute];
-                        [parsedEventBindings addObject:bin
+                        [parsedEventBindings addObject:binding];
+                    }
+                }
+                
+                SADebug(@"%@ found %lu tracking events: %@", self, (unsigned long)[parsedEventBindings count], parsedEventBindings);

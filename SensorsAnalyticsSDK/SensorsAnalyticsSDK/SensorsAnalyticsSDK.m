@@ -2920,4 +2920,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 
                 NSMutableSet *parsedEventBindings = [NSMutableSet set];
                 for (id obj in eventBindings) {
-                    SAEv
+                    SAEventBinding *binding = [SAEventBinding bindingWithJSONObject:obj];
+                    if (binding) {
+                        [binding execute];
+                        [parsedEventBindings addObject:bin

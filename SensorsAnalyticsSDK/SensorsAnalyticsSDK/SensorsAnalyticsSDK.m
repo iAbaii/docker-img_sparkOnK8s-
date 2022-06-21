@@ -2936,4 +2936,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         
         // 可视化埋点服务地址
         if (_vtrackServerURL == nil) {
-     
+            NSString *vtrackServerUrl = object[@"vtrack_server_url"];
+            
+            // XXX: 为了兼容历史版本，有三种方式设置可视化埋点管理界面服务地址，优先级从高到低：
+            //  1. 从 SDK 构造函数传入
+            //  2. 从 SDK 配置分发的结果中获取（1.6+）
+            /

@@ -2941,4 +2941,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             // XXX: 为了兼容历史版本，有三种方式设置可视化埋点管理界面服务地址，优先级从高到低：
             //  1. 从 SDK 构造函数传入
             //  2. 从 SDK 配置分发的结果中获取（1.6+）
-            /
+            //  3. 从 SDK 配置分发的 Url 中自动生成（兼容旧版本）
+            
+            if (vtrackServerUrl && [vtrackServerUrl length] > 0) {
+                _vtrackServerURL = vtrackServerUrl;
+            } else {
+                // 根据参数 <code>configu

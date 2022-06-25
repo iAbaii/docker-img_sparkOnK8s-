@@ -2949,4 +2949,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 // 根据参数 <code>configureURL</code> 自动生成 <code>vtrackServerURL</code>
                 NSURL *url = [NSURL URLWithString:_configureURL];
                 
-                // 将 URI Path (/api/vtrack/config/iOS.conf) 替换成 VTrack WebSocket 的 '/api
+                // 将 URI Path (/api/vtrack/config/iOS.conf) 替换成 VTrack WebSocket 的 '/api/ws'
+                UInt64 pathComponentSize = [url pathComponents].count;
+                for (UInt64 i = 2; i < pathComponentSize; ++i) {
+                    url = [url URLByDeletingLastPathComponent];
+          

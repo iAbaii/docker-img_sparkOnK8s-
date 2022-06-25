@@ -2953,4 +2953,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 UInt64 pathComponentSize = [url pathComponents].count;
                 for (UInt64 i = 2; i < pathComponentSize; ++i) {
                     url = [url URLByDeletingLastPathComponent];
-          
+                }
+                url = [url URLByAppendingPathComponent:@"ws"];
+                
+                // 将 URL Scheme 替换成 'ws:'
+                NSURLComponents *components = [NSURLComponents componentsWithUR

@@ -2957,4 +2957,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 url = [url URLByAppendingPathComponent:@"ws"];
                 
                 // 将 URL Scheme 替换成 'ws:'
-                NSURLComponents *components = [NSURLComponents componentsWithUR
+                NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+                components.scheme = @"ws";
+                
+                _vtrackServerURL = [components.URL absoluteString];
+            }
+        }
+        
+        SADebug(@"%

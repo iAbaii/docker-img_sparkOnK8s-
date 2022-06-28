@@ -2969,4 +2969,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     NSURL *URL = [NSURL URLWithString:self.configureURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    [request setH
+    [request setHTTPMethod:@"GET"];
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:block];
+   

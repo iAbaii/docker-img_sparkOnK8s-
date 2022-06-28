@@ -2964,4 +2964,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             }
         }
         
-        SADebug(@"%
+        SADebug(@"%@ initialized the VTrack with server url: %@", self, _vtrackServerURL);
+    };
+    
+    NSURL *URL = [NSURL URLWithString:self.configureURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    [request setH

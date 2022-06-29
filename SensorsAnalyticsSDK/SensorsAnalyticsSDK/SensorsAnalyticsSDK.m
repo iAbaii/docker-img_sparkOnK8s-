@@ -2979,4 +2979,14 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 #else
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData* data, NSError *error) {
-         return b
+         return block(data, response, error);
+     }];
+#endif
+}
+
+- (void)connectToVTrackDesigner {
+    if (self.vtrackServerURL == nil || self.vtrackServerURL.length < 1) {
+        return;
+    }
+    
+    

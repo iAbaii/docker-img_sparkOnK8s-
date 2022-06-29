@@ -2991,4 +2991,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     
     if ([self.abtestDesignerConnection isKindOfClass:[SADesignerConnection class]]
             && ((SADesignerConnection *)self.abtestDesignerConnection).connected) {
-        SADebug(@"VTrack connection alrea
+        SADebug(@"VTrack connection already exists");
+    } else {
+        static UInt64 oldInterval;
+
+        __weak SensorsAnalyticsSDK *weakSelf = self;
+        
+        void (^connectCallback)(void) = ^{
+            __strong SensorsA

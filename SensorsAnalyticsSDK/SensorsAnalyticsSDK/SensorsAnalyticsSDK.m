@@ -2989,4 +2989,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         return;
     }
     
-    
+    if ([self.abtestDesignerConnection isKindOfClass:[SADesignerConnection class]]
+            && ((SADesignerConnection *)self.abtestDesignerConnection).connected) {
+        SADebug(@"VTrack connection alrea

@@ -2998,4 +2998,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         __weak SensorsAnalyticsSDK *weakSelf = self;
         
         void (^connectCallback)(void) = ^{
-            __strong SensorsA
+            __strong SensorsAnalyticsSDK *strongSelf = weakSelf;
+            oldInterval = strongSelf.flushInterval;
+            strongSelf.flushInterval = 1000;
+            [UIApplication sharedApplication].idleTimerDisabled = YES;
+     

@@ -3011,4 +3011,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 [connection setSessionObject:bindingCollection forKey:@"event_bindings"];
                 
                 void (^block)(id, SEL, NSString*, id) = ^(id obj, SEL sel, NSString *type, NSDictionary *e) {
-                    if (![type isEqualToString:@"t
+                    if (![type isEqualToString:@"track"]) {
+                        return;
+                    }
+                    
+                    NSMutableDictionary *event = [[NSMutableDictionary alloc] initWithDictionary:e];
+                    NSMutab

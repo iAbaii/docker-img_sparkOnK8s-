@@ -3008,4 +3008,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 SADesignerConnection *connection = strongSelf.abtestDesignerConnection;
                 
                 SAEventBindingCollection *bindingCollection = [[SAEventBindingCollection alloc] initWithEvents:eventBindings];
-                [connection setSessionObject:bindingCollection forKe
+                [connection setSessionObject:bindingCollection forKey:@"event_bindings"];
+                
+                void (^block)(id, SEL, NSString*, id) = ^(id obj, SEL sel, NSString *type, NSDictionary *e) {
+                    if (![type isEqualToString:@"t

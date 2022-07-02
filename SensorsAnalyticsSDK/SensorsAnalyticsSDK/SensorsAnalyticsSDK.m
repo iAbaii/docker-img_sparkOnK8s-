@@ -3002,4 +3002,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             oldInterval = strongSelf.flushInterval;
             strongSelf.flushInterval = 1000;
             [UIApplication sharedApplication].idleTimerDisabled = YES;
-     
+            if (strongSelf) {
+                NSMutableSet *eventBindings = [strongSelf.eventBindings mutableCopy];
+                
+                SADesignerConnection *connection = strongSelf.abtestDesignerConnection;

@@ -3006,3 +3006,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 NSMutableSet *eventBindings = [strongSelf.eventBindings mutableCopy];
                 
                 SADesignerConnection *connection = strongSelf.abtestDesignerConnection;
+                
+                SAEventBindingCollection *bindingCollection = [[SAEventBindingCollection alloc] initWithEvents:eventBindings];
+                [connection setSessionObject:bindingCollection forKe

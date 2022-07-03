@@ -3016,4 +3016,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                     
                     NSMutableDictionary *event = [[NSMutableDictionary alloc] initWithDictionary:e];
-                    NSMutab
+                    NSMutableDictionary *properties = [[NSMutableDictionary alloc] initWithDictionary:[event objectForKey:@"properties"]];
+                    
+                    NSString *from_vtrack = [properties objectForKey:@"$from_vtrack"]

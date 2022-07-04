@@ -3024,4 +3024,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     }
                     
                     // 来自可视化埋点的事件
-                    BOO
+                    BOOL binding_depolyed = [[properties objectForKey:@"$binding_depolyed"] boolValue];
+                    NSInteger binding_trigger_id = [[properties objectForKey:@"$binding_trigger_id"] integerValue];
+   

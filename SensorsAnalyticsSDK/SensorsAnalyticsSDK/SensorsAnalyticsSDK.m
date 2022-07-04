@@ -3018,4 +3018,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     NSMutableDictionary *event = [[NSMutableDictionary alloc] initWithDictionary:e];
                     NSMutableDictionary *properties = [[NSMutableDictionary alloc] initWithDictionary:[event objectForKey:@"properties"]];
                     
-                    NSString *from_vtrack = [properties objectForKey:@"$from_vtrack"]
+                    NSString *from_vtrack = [properties objectForKey:@"$from_vtrack"];
+                    if (from_vtrack == nil || [from_vtrack length] < 1) {
+                        return;
+                    }
+                    
+                    // 来自可视化埋点的事件
+                    BOO

@@ -3032,4 +3032,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     [event setObject:properties forKey:@"properties"];
                     
                     NSDictionary *payload = [[NSDictionary alloc] initWithObjectsAndKeys:
-                            
+                                             binding_depolyed ? @YES : @NO, @"depolyed",
+                                             @(binding_trigger_id), @"trigger_id",
+                                             binding_path, @"path",

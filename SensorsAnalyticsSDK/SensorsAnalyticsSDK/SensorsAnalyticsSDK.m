@@ -3035,3 +3035,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                              binding_depolyed ? @YES : @NO, @"depolyed",
                                              @(binding_trigger_id), @"trigger_id",
                                              binding_path, @"path",
+                                             event, @"event", nil];
+                    
+                    SADesignerTrackMessage *message = [SADesignerTrackMessage messageWithPayload:payload];
+             

@@ -3029,4 +3029,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     NSString *binding_path = [properties objectForKey:@"$binding_path"];
                     
                     [properties removeObjectsForKeys:@[@"$binding_depolyed", @"$binding_trigger_id", @"$binding_path"]];
-            
+                    [event setObject:properties forKey:@"properties"];
+                    
+                    NSDictionary *payload = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            

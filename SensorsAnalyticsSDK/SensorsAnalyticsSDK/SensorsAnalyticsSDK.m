@@ -3038,4 +3038,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                                              event, @"event", nil];
                     
                     SADesignerTrackMessage *message = [SADesignerTrackMessage messageWithPayload:payload];
-             
+                    [connection sendMessage:message];
+                };
+                
+                [SASwizzler swizzleSelector:@selector(enqueueWithType:andEvent:)
+                                    onClass:[SensorsAnalyticsSDK class]
+      

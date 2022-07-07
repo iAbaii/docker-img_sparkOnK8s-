@@ -3043,4 +3043,10 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 
                 [SASwizzler swizzleSelector:@selector(enqueueWithType:andEvent:)
                                     onClass:[SensorsAnalyticsSDK class]
-      
+                                  withBlock:block
+                                      named:@"track_properties"];
+            }
+        };
+        
+        void (^disconnectCallback)(void) = ^{
+ 

@@ -3059,4 +3059,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                     [bindingCollection cleanup];
                 }
                 
-                [strongSelf executeEventBindings:strongSelf.ev
+                [strongSelf executeEventBindings:strongSelf.eventBindings];
+                
+                [SASwizzler unswizzleSelector:@selector(enqueueWithType:andEvent:)
+                                      onClass:[SensorsAnalyticsSDK class]
+                 

@@ -3055,4 +3055,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             if (strongSelf) {
                 SADesignerConnection *connection = strongSelf.abtestDesignerConnection;
                 id bindingCollection = [connection sessionObjectForKey:@"event_bindings"];
-                if (bindingCollection && [bindingCollect
+                if (bindingCollection && [bindingCollection conformsToProtocol:@protocol(SADesignerSessionCollection)]) {
+                    [bindingCollection cleanup];
+                }
+                
+                [strongSelf executeEventBindings:strongSelf.ev

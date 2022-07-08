@@ -3049,4 +3049,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         };
         
         void (^disconnectCallback)(void) = ^{
- 
+            __strong SensorsAnalyticsSDK *strongSelf = weakSelf;
+            strongSelf.flushInterval = oldInterval;
+            [UIApplication sharedApplication].idleTimerDisabled = NO;
+            if (strongSelf) {

@@ -3053,3 +3053,6 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
             strongSelf.flushInterval = oldInterval;
             [UIApplication sharedApplication].idleTimerDisabled = NO;
             if (strongSelf) {
+                SADesignerConnection *connection = strongSelf.abtestDesignerConnection;
+                id bindingCollection = [connection sessionObjectForKey:@"event_bindings"];
+                if (bindingCollection && [bindingCollect

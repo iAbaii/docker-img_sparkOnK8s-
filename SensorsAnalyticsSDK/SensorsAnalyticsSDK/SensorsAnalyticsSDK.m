@@ -3071,4 +3071,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         self.abtestDesignerConnection = [[SADesignerConnection alloc] initWithURL:designerURL
                                                                        keepTrying:YES
                                                                   connectCallback:connectCallback
-                            
+                                                               disconnectCallback:disconnectCallback];
+        
+    }
+    
+    if (self.vtrackConnectorTimer) {
+        [self.vtrackConnectorTimer invalidate];
+    }
+    self.vt

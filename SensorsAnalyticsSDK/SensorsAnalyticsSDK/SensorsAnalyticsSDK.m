@@ -3068,4 +3068,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
         };
         
         NSURL *designerURL = [NSURL URLWithString:self.vtrackServerURL];
-        self.abtestDesignerConnection = [[SADesignerConnection 
+        self.abtestDesignerConnection = [[SADesignerConnection alloc] initWithURL:designerURL
+                                                                       keepTrying:YES
+                                                                  connectCallback:connectCallback
+                            

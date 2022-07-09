@@ -3063,4 +3063,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
                 
                 [SASwizzler unswizzleSelector:@selector(enqueueWithType:andEvent:)
                                       onClass:[SensorsAnalyticsSDK class]
-                 
+                                        named:@"track_properties"];
+            }
+        };
+        
+        NSURL *designerURL = [NSURL URLWithString:self.vtrackServerURL];
+        self.abtestDesignerConnection = [[SADesignerConnection 

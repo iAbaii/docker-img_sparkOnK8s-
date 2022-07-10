@@ -3085,4 +3085,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (eventBindings) {
         for (id binding in eventBindings) {
             if ([binding isKindOfClass:[SAEventBinding class]]) {
-        
+                [binding execute];
+            }
+        }
+        SADebug(@"%@ execute event bindings %@", self, eventBindings);
+    }
+}
+
+- (void)set:(NSDictionary *)profileDict {
+    [[self people] set:profileDict];
+}
+
+- (voi

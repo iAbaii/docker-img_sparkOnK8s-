@@ -3078,4 +3078,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     if (self.vtrackConnectorTimer) {
         [self.vtrackConnectorTimer invalidate];
     }
-    self.vt
+    self.vtrackConnectorTimer = nil;
+}
+
+- (void)executeEventBindings:(NSSet*) eventBindings {
+    if (eventBindings) {
+        for (id binding in eventBindings) {
+            if ([binding isKindOfClass:[SAEventBinding class]]) {
+        

@@ -3112,4 +3112,13 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[self people] unset:profile];
 }
 
-- (void)increment:(NSString *)profile by:(NSNumber *)amo
+- (void)increment:(NSString *)profile by:(NSNumber *)amount {
+    [[self people] increment:profile by:amount];
+}
+
+- (void)increment:(NSDictionary *)profileDict {
+    [[self people] increment:profileDict];
+}
+
+- (void)append:(NSString *)profile by:(NSSet *)content {
+    [[self people

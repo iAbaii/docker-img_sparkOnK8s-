@@ -3096,4 +3096,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[self people] set:profileDict];
 }
 
-- (voi
+- (void)setOnce:(NSDictionary *)profileDict {
+    [[self people] setOnce:profileDict];
+}
+
+- (void)set:(NSString *) profile to:(id)content {
+    [[self people] set:profile to:content];
+}
+
+- (void)setOnce:(N

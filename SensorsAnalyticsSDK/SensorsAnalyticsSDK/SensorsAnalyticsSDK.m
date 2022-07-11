@@ -3104,4 +3104,12 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [[self people] set:profile to:content];
 }
 
-- (void)setOnce:(N
+- (void)setOnce:(NSString *) profile to:(id)content {
+    [[self people] setOnce:profile to:content];
+}
+
+- (void)unset:(NSString *) profile {
+    [[self people] unset:profile];
+}
+
+- (void)increment:(NSString *)profile by:(NSNumber *)amo

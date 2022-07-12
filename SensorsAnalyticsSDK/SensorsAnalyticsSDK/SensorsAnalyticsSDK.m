@@ -3134,3 +3134,15 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 
 @implementation SensorsAnalyticsPeople {
     SensorsAnalyticsSDK *_sdk;
+}
+
+- (id)initWithSDK:(SensorsAnalyticsSDK *)sdk {
+    self = [super init];
+    if (self) {
+        _sdk = sdk;
+    }
+    return self;
+}
+
+- (void)set:(NSDictionary *)profileDict {
+    [_sdk track:nil 

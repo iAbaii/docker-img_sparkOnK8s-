@@ -3121,4 +3121,16 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)append:(NSString *)profile by:(NSSet *)content {
-    [[self people
+    [[self people] append:profile by:content];
+}
+
+- (void)deleteUser {
+    [[self people] deleteUser];
+}
+
+@end
+
+#pragma mark - People analytics
+
+@implementation SensorsAnalyticsPeople {
+    SensorsAnalyticsSDK *_sdk;

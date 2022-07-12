@@ -3145,4 +3145,11 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)set:(NSDictionary *)profileDict {
-    [_sdk track:nil 
+    [_sdk track:nil withProperties:profileDict withType:@"profile_set"];
+}
+
+- (void)setOnce:(NSDictionary *)profileDict {
+    [_sdk track:nil withProperties:profileDict withType:@"profile_set_once"];
+}
+
+- (void)set:(NSString *) profile to:(id)content {

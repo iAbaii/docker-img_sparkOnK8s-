@@ -3153,3 +3153,8 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)set:(NSString *) profile to:(id)content {
+    [_sdk track:nil withProperties:@{profile: content} withType:@"profile_set"];
+}
+
+- (void)setOnce:(NSString *) profile to:(id)content {
+    [_sdk track:nil withProperties:@{profile: content} withT

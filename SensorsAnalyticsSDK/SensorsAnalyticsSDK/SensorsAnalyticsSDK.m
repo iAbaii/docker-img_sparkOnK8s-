@@ -3164,4 +3164,9 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
     [_sdk track:nil withProperties:@{profile: @""} withType:@"profile_unset"];
 }
 
-- (void)increment:(NSString *)profile by:(NSNumber *)amount 
+- (void)increment:(NSString *)profile by:(NSNumber *)amount {
+    [_sdk track:nil withProperties:@{profile: amount} withType:@"profile_increment"];
+}
+
+- (void)increment:(NSDictionary *)profileDict {
+    [_sdk track:nil withProperties:profileDict withType:@"profile_incr

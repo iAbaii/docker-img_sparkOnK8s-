@@ -3177,4 +3177,7 @@ static SensorsAnalyticsSDK *sharedInstance = nil;
 }
 
 - (void)deleteUser {
-    [_sdk track:nil withProperties:@
+    [_sdk track:nil withProperties:@{} withType:@"profile_delete"];
+}
+
+@end

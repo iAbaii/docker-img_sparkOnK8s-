@@ -6,4 +6,13 @@
 //  Copyright © 2017年 SensorsData. All rights reserved.
 //
 
-#i
+#import "UIActionSheet+AutoTrack.h"
+#import "SensorsAnalyticsSDK.h"
+#import "SALogger.h"
+#import "SASwizzle.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
+
+@implementation UIActionSheet (AutoTrack)
+
+#ifndef SE

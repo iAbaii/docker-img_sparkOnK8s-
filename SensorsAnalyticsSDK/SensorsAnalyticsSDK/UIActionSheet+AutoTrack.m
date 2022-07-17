@@ -22,4 +22,7 @@
 //    dispatch_once(&onceToken, ^{
 //        @try {
 //            NSError *error = NULL;
-//            [[s
+//            [[self class] sa_swizzleMethod:@selector(setDelegate:)
+//                                withMethod:@selector(sa_sheetViewSetDelegate:)
+//                                     error:&error];
+//            if (error) 

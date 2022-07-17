@@ -15,4 +15,11 @@
 
 @implementation UIActionSheet (AutoTrack)
 
-#ifndef SE
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIACTIONSHEET
+
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        @try {
+//            NSError *error = NULL;
+//            [[s

@@ -25,4 +25,9 @@
 //            [[self class] sa_swizzleMethod:@selector(setDelegate:)
 //                                withMethod:@selector(sa_sheetViewSetDelegate:)
 //                                     error:&error];
-//            if (error) 
+//            if (error) {
+//                SAError(@"Failed to swizzle setDelegate: on UIActionSheet. Details: %@", error);
+//                error = NULL;
+//            }
+//        } @catch (NSException *exception) {
+//            

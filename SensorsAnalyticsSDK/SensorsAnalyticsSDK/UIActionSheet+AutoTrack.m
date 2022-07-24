@@ -36,4 +36,10 @@
 //}
 
 void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInteger buttonIndex) {
-    SEL selector = NSSelectorFromString(@"sa_actionSheetClic
+    SEL selector = NSSelectorFromString(@"sa_actionSheetClickedButtonAtIndex");
+    ((void(*)(id, SEL, id, NSInteger))objc_msgSend)(self, selector, actionSheet, buttonIndex);
+    
+    //插入埋点
+    @try {
+        //关闭 AutoTrack
+        if (![[SensorsAnalyticsSDK sharedInstance] isAutoTrack

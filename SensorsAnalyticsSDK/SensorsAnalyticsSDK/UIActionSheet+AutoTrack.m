@@ -30,4 +30,10 @@
 //                error = NULL;
 //            }
 //        } @catch (NSException *exception) {
-//            
+//            SAError(@"%@ error: %@", self, exception);
+//        }
+//    });
+//}
+
+void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInteger buttonIndex) {
+    SEL selector = NSSelectorFromString(@"sa_actionSheetClic

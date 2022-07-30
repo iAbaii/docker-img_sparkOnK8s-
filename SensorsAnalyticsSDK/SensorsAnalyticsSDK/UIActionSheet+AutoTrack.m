@@ -42,4 +42,11 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
     //插入埋点
     @try {
         //关闭 AutoTrack
-        if (![[SensorsAnalyticsSDK sharedInstance] isAutoTrack
+        if (![[SensorsAnalyticsSDK sharedInstance] isAutoTrackEnabled]) {
+            return;
+        }
+        
+        //忽略 $AppClick 事件
+        if ([[SensorsAnalyticsSDK sharedInstance] isAutoTrackEventTypeIgnored:SensorsAnalyticsEventTypeAppClick]) {
+            return;
+  

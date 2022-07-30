@@ -49,4 +49,12 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         //忽略 $AppClick 事件
         if ([[SensorsAnalyticsSDK sharedInstance] isAutoTrackEventTypeIgnored:SensorsAnalyticsEventTypeAppClick]) {
             return;
-  
+        }
+        
+        if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[UIActionSheet class]]) {
+            return;
+        }
+        
+        if (!actionSheet) {
+            return;
+        }

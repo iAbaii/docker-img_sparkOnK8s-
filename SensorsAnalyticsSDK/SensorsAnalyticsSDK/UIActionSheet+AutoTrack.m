@@ -58,3 +58,14 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         if (!actionSheet) {
             return;
         }
+        
+        UIView *view = (UIView *)actionSheet;
+        if (!view) {
+            return;
+        }
+        
+        if (view.sensorsAnalyticsIgnoreView) {
+            return;
+        }
+        
+        NSMutableDictiona

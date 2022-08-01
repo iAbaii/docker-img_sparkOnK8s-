@@ -68,4 +68,10 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             return;
         }
         
-        NSMutableDictiona
+        NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+        
+        [properties setValue:@"UIActionSheet" forKey:@"$element_type"];
+        
+        //ViewID
+        if (view.sensorsAnalyticsViewID != nil) {
+         

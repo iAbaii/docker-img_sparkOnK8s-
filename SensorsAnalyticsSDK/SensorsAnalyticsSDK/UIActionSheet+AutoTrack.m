@@ -74,4 +74,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         
         //ViewID
         if (view.sensorsAnalyticsViewID != nil) {
-         
+            [properties setValue:view.sensorsAnalyticsViewID forKey:@"$element_id"];
+        }
+        
+        UIViewController *viewController = [view viewController];
+        
+        if (viewController == nil ||

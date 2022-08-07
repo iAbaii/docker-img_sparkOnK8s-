@@ -80,3 +80,8 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         UIViewController *viewController = [view viewController];
         
         if (viewController == nil ||
+            [@"UINavigationController" isEqualToString:NSStringFromClass([viewController class])]) {
+            viewController = [[SensorsAnalyticsSDK sharedInstance] currentViewController];
+        }
+        
+        if (viewContro

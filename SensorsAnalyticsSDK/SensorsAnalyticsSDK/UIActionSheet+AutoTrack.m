@@ -84,4 +84,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             viewController = [[SensorsAnalyticsSDK sharedInstance] currentViewController];
         }
         
-        if (viewContro
+        if (viewController != nil) {
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewControllerIgnored:viewController]) {
+                return;
+            }
+            
+            //获取 Controller 名称($screen_name

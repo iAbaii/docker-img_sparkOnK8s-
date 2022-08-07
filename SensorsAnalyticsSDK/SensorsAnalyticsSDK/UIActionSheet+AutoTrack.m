@@ -93,4 +93,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             NSString *screenName = NSStringFromClass([viewController class]);
             [properties setValue:screenName forKey:@"$screen_name"];
             
-            NSString *controllerTitle = viewCon
+            NSString *controllerTitle = viewController.navigationItem.title;
+            if (controllerTitle != nil) {
+                [properties setValue:viewController.navigationItem.title forKey:@"$title"];
+            } else {
+                @try {
+         

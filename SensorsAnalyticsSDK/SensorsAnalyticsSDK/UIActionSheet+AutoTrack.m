@@ -98,4 +98,7 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                 [properties setValue:viewController.navigationItem.title forKey:@"$title"];
             } else {
                 @try {
-         
+                    UIView *titleView = viewController.navigationItem.titleView;
+                    if (titleView != nil) {
+                        if (titleView.subviews.count > 0) {
+           

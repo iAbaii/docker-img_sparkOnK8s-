@@ -101,4 +101,7 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                     UIView *titleView = viewController.navigationItem.titleView;
                     if (titleView != nil) {
                         if (titleView.subviews.count > 0) {
-           
+                            NSString *elementContent = [[NSString alloc] init];
+                            for (UIView *subView in [titleView subviews]) {
+                                if (subView) {
+                                    i

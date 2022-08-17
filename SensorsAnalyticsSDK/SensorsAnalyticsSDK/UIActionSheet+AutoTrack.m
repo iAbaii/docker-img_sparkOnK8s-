@@ -104,4 +104,7 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                             NSString *elementContent = [[NSString alloc] init];
                             for (UIView *subView in [titleView subviews]) {
                                 if (subView) {
-                                    i
+                                    if (subView.sensorsAnalyticsIgnoreView) {
+                                        continue;
+                                    }
+                                    if ([subView isKindOfClass:[UIButton cla

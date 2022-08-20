@@ -117,4 +117,7 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                                         UILabel *label = (UILabel *)subView;
                                         if (label.text != nil && ![@"" isEqualToString:label.text]) {
                                             elementContent = [elementContent stringByAppendingString:label.text];
-                                     
+                                            elementContent = [elementContent stringByAppendingString:@"-"];
+                                        }
+                                    }
+                                }

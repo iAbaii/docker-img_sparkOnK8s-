@@ -109,4 +109,6 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                                     }
                                     if ([subView isKindOfClass:[UIButton class]]) {
                                         UIButton *button = (UIButton *)subView;
-                                        if ([button currentTitle] != nil && ![@"" isEqualToString:[button currentTitle]])
+                                        if ([button currentTitle] != nil && ![@"" isEqualToString:[button currentTitle]]) {
+                                            elementContent = [elementContent stringByAppendingString:[button currentTitle]];
+                                            elementContent = [elementContent stringByAppendingString:@

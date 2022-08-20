@@ -107,4 +107,6 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                                     if (subView.sensorsAnalyticsIgnoreView) {
                                         continue;
                                     }
-                                    if ([subView isKindOfClass:[UIButton cla
+                                    if ([subView isKindOfClass:[UIButton class]]) {
+                                        UIButton *button = (UIButton *)subView;
+                                        if ([button currentTitle] != nil && ![@"" isEqualToString:[button currentTitle]])

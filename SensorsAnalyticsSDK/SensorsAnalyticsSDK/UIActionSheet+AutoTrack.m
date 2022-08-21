@@ -134,4 +134,8 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             }
         }
         
-        [properties setValue:[actionSheet buttonTitleAtIndex:buttonIndex] forKey:@
+        [properties setValue:[actionSheet buttonTitleAtIndex:buttonIndex] forKey:@"$element_content"];
+//        [properties setValue:[actionSheet title] forKey:@"alertView_title"];
+//        [properties setValue:[actionSheet message] forKey:@"alertView_message"];
+        
+        //V

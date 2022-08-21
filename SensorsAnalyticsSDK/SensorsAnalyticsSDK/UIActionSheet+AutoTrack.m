@@ -138,4 +138,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
 //        [properties setValue:[actionSheet title] forKey:@"alertView_title"];
 //        [properties setValue:[actionSheet message] forKey:@"alertView_message"];
         
-        //V
+        //View Properties
+        NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+        if (propDict != nil) {
+            [properties addEntriesFromDictionary:propDict];
+        }
+        

@@ -128,4 +128,10 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                             }
                         }
                     }
-                } @catch (NSE
+                } @catch (NSException *exception) {
+                    SAError(@"%@: %@", self, exception);
+                }
+            }
+        }
+        
+        [properties setValue:[actionSheet buttonTitleAtIndex:buttonIndex] forKey:@

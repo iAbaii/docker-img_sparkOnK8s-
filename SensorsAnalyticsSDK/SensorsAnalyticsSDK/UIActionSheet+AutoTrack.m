@@ -123,4 +123,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                                 }
                             }
                             if (elementContent != nil && [elementContent length] > 0) {
-                                elementContent = [elementContent substringWithRange:NSMakeRange(0,[eleme
+                                elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
+                                [properties setValue:elementContent forKey:@"$title"];
+                            }
+                        }
+                    }
+                } @catch (NSE

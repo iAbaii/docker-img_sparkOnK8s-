@@ -121,3 +121,6 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
                                         }
                                     }
                                 }
+                            }
+                            if (elementContent != nil && [elementContent length] > 0) {
+                                elementContent = [elementContent substringWithRange:NSMakeRange(0,[eleme

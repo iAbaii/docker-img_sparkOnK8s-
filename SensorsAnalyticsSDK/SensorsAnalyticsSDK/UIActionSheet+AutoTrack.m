@@ -144,3 +144,7 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             [properties addEntriesFromDictionary:propDict];
         }
         
+        @try {
+            if (view.sensorsAnalyticsDelegate) {
+//                if ([view.sensorsAnalyticsDelegate conformsToProtocol:@protocol(SAUIViewAutoTrackDelegate)]) {
+//                    if ([view.se

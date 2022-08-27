@@ -148,4 +148,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
             if (view.sensorsAnalyticsDelegate) {
 //                if ([view.sensorsAnalyticsDelegate conformsToProtocol:@protocol(SAUIViewAutoTrackDelegate)]) {
 //                    if ([view.sensorsAnalyticsDelegate respondsToSelector:@selector(sensorsAnalytics_actionSheet:clickedButtonAtIndex:)]) {
-//                        [properties addEntriesFromDictionary:[view.sensorsAnalyticsDelegate senso
+//                        [properties addEntriesFromDictionary:[view.sensorsAnalyticsDelegate sensorsAnalytics_actionSheet:actionSheet clickedButtonAtIndex:buttonIndex]];
+//                    }
+//                }
+            }
+        } @catch (NSException *exception) {
+            SAError(@"%@ error:

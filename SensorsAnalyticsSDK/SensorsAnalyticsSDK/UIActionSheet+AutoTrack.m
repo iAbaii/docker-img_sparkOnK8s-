@@ -158,4 +158,14 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         
         [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
     } @catch (NSException *exception) {
-        SAError(@"%@ error: %@", self,
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+- (void)sa_sheetViewSetDelegate:(id<UIActionSheetDelegate>)delegate {
+    [self sa_sheetViewSetDelegate:delegate];
+
+    @try {
+        Class class = [delegate class];
+        
+  

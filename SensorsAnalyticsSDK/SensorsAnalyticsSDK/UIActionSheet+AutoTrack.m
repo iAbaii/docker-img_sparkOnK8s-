@@ -153,4 +153,9 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
 //                }
             }
         } @catch (NSException *exception) {
-            SAError(@"%@ error:
+            SAError(@"%@ error: %@", self, exception);
+        }
+        
+        [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self,

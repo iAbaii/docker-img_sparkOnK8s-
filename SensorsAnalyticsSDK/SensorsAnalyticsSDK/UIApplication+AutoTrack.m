@@ -18,3 +18,12 @@
     /*
      默认先执行 AutoTrack
      如果先执行原点击处理逻辑，可能已经发生页面 push 或者 pop，导致获取当前 ViewController 不正确
+     可以通过 UIView 扩展属性 sensorsAnalyticsAutoTrackAfterSendAction，来配置 AutoTrack 是发生在原点击处理函数之前还是之后
+     */
+
+    BOOL ret = YES;
+    BOOL sensorsAnalyticsAutoTrackAfterSendAction = NO;
+
+    @try {
+        if (from) {
+          

@@ -171,4 +171,13 @@ void sa_actionSheetClickedButtonAtIndex(id self, SEL _cmd, id actionSheet, NSInt
         if (class_addMethod(class, NSSelectorFromString(@"sa_actionSheetClickedButtonAtIndex"), (IMP)sa_actionSheetClickedButtonAtIndex, "v@:@@")) {
             Method dis_originMethod = class_getInstanceMethod(class, NSSelectorFromString(@"sa_actionSheetClickedButtonAtIndex"));
             Method dis_swizzledMethod = class_getInstanceMethod(class, @selector(actionSheet:clickedButtonAtIndex:));
-            method_exchangeImplementations(dis_originMe
+            method_exchangeImplementations(dis_originMethod, dis_swizzledMethod);
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+#endif
+
+@end

@@ -26,4 +26,8 @@
 
     @try {
         if (from) {
-          
+            if ([from isKindOfClass:[UIView class]]) {
+                UIView* view = (UIView *)from;
+                if (view) {
+                    if (view.sensorsAnalyticsAutoTrackAfterSendAction) {
+                        sensor

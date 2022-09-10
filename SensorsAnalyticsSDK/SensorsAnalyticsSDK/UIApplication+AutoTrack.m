@@ -37,4 +37,13 @@
         }
     } @catch (NSException *exception) {
         SAError(@"%@ error: %@", self, exception);
-        sensorsAnalyticsAutoT
+        sensorsAnalyticsAutoTrackAfterSendAction = NO;
+    }
+
+    if (sensorsAnalyticsAutoTrackAfterSendAction) {
+        ret = [self sa_sendAction:action to:to from:from forEvent:event];
+    }
+
+    @try {
+        /*
+         caojiangPreVerify:

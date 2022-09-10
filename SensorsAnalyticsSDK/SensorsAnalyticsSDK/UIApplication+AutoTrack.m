@@ -30,4 +30,11 @@
                 UIView* view = (UIView *)from;
                 if (view) {
                     if (view.sensorsAnalyticsAutoTrackAfterSendAction) {
-                        sensor
+                        sensorsAnalyticsAutoTrackAfterSendAction = YES;
+                    }
+                }
+            }
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+        sensorsAnalyticsAutoT

@@ -53,4 +53,11 @@
          */
         if (![@"caojiangPreVerify:forEvent:" isEqualToString:NSStringFromSelector(action)] &&
             ![@"caojiangEventAction:forEvent:" isEqualToString:NSStringFromSelector(action)]) {
-            [self sa_track:action to:to from:
+            [self sa_track:action to:to from:from forEvent:event];
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+
+    if (!sensorsAnalyticsAutoTrackAfterSendAction) {
+  

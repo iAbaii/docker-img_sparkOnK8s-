@@ -51,4 +51,6 @@
          caojiang 是我们 CTO 名字，我们相信这个前缀应该是唯一的
          如果这个前缀还会重复，请您告诉我，我把我们架构师的名字也加上
          */
-    
+        if (![@"caojiangPreVerify:forEvent:" isEqualToString:NSStringFromSelector(action)] &&
+            ![@"caojiangEventAction:forEvent:" isEqualToString:NSStringFromSelector(action)]) {
+            [self sa_track:action to:to from:

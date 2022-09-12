@@ -60,4 +60,11 @@
     }
 
     if (!sensorsAnalyticsAutoTrackAfterSendAction) {
-  
+        ret = [self sa_sendAction:action to:to from:from forEvent:event];
+    }
+
+    return ret;
+}
+
+- (void)sa_track:(SEL)action to:(id)to from:(id)from forEvent:(UIEvent *)event {
+    @try 

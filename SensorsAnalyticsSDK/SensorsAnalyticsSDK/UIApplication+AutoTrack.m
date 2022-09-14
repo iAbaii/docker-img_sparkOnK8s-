@@ -67,4 +67,11 @@
 }
 
 - (void)sa_track:(SEL)action to:(id)to from:(id)from forEvent:(UIEvent *)event {
-    @try 
+    @try {
+        //关闭 AutoTrack
+        if (![[SensorsAnalyticsSDK sharedInstance] isAutoTrackEnabled]) {
+            return;
+        }
+        
+        //忽略 $AppClick 事件
+        if ([[SensorsAnalyticsSDK sharedInstance] isAutoTrack

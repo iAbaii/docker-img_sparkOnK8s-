@@ -74,4 +74,10 @@
         }
         
         //忽略 $AppClick 事件
-        if ([[SensorsAnalyticsSDK sharedInstance] isAutoTrack
+        if ([[SensorsAnalyticsSDK sharedInstance] isAutoTrackEventTypeIgnored:SensorsAnalyticsEventTypeAppClick]) {
+            return;
+        }
+        
+        // ViewType 被忽略
+        if ([from isKindOfClass:[NSClassFromString(@"UITabBarButton") class]]) {
+            if ([[SensorsAnalyticsSDK s

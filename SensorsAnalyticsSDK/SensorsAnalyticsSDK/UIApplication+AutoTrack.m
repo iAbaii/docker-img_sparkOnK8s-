@@ -80,4 +80,8 @@
         
         // ViewType 被忽略
         if ([from isKindOfClass:[NSClassFromString(@"UITabBarButton") class]]) {
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[UITabBar class]]) {
+                return;
+            }
+        } else if ([from isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
             if ([[SensorsAnalyticsSDK s

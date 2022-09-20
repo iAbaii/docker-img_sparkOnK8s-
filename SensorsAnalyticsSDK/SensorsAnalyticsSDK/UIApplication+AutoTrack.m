@@ -84,4 +84,8 @@
                 return;
             }
         } else if ([from isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
-            if ([[SensorsAnalyticsSDK s
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[UIBarButtonItem class]]) {
+                return;
+            }
+        } else if ([to isKindOfClass:[UISearchBar class]]) {
+            if ([[SensorsAnalyticsSDK sharedInstance] i

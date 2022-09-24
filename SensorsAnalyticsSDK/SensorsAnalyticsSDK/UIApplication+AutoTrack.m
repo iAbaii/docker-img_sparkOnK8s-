@@ -88,4 +88,10 @@
                 return;
             }
         } else if ([to isKindOfClass:[UISearchBar class]]) {
-            if ([[SensorsAnalyticsSDK sharedInstance] i
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[UISearchBar class]]) {
+                return;
+            }
+        } else {
+            if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[from class]]) {
+                return;
+ 

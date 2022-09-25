@@ -94,4 +94,12 @@
         } else {
             if ([[SensorsAnalyticsSDK sharedInstance] isViewTypeIgnored:[from class]]) {
                 return;
- 
+            }
+        }
+        
+        /*
+         此处不处理 UITabBar，放到 UITabBar+AutoTrack.h 中处理
+         */
+        if (from != nil) {
+            if ([from isKindOfClass:[UIBarButtonItem class]] ||
+                [from isKind

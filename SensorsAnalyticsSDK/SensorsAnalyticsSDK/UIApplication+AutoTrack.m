@@ -111,4 +111,13 @@
             [from isKindOfClass:[UISwitch class]] ||
             [from isKindOfClass:[UIStepper class]] ||
             [from isKindOfClass:[UISegmentedControl class]]) {//0
-            if (![from isKindOf
+            if (![from isKindOfClass:[UIView class]]) {
+                return;
+            }
+            
+            UIView* view = (UIView *)from;
+            if (!view) {
+                return;
+            }
+            
+       

@@ -107,4 +107,8 @@
             }
         }
         
-        if (([event isKindOfClass:[UIEvent class]] && event.type==UIEventTypeTouche
+        if (([event isKindOfClass:[UIEvent class]] && event.type==UIEventTypeTouches) ||
+            [from isKindOfClass:[UISwitch class]] ||
+            [from isKindOfClass:[UIStepper class]] ||
+            [from isKindOfClass:[UISegmentedControl class]]) {//0
+            if (![from isKindOf

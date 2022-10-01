@@ -102,4 +102,9 @@
          */
         if (from != nil) {
             if ([from isKindOfClass:[UIBarButtonItem class]] ||
-                [from isKind
+                [from isKindOfClass:[NSClassFromString(@"UITabBarButton") class]]) {
+                return;
+            }
+        }
+        
+        if (([event isKindOfClass:[UIEvent class]] && event.type==UIEventTypeTouche

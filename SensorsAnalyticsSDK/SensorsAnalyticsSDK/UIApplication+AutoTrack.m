@@ -120,4 +120,11 @@
                 return;
             }
             
-       
+            if (view.sensorsAnalyticsIgnoreView) {
+                return;
+            }
+            
+            NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+            
+            //ViewID
+            

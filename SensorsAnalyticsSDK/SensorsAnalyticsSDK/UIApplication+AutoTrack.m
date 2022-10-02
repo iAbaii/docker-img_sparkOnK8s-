@@ -127,4 +127,8 @@
             NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
             
             //ViewID
+            if (view.sensorsAnalyticsViewID != nil) {
+                [properties setValue:view.sensorsAnalyticsViewID forKey:@"$element_id"];
+            }
             
+            UIViewController *viewController = 

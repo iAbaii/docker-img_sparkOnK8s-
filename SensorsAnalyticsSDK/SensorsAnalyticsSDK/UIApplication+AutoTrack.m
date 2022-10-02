@@ -131,4 +131,8 @@
                 [properties setValue:view.sensorsAnalyticsViewID forKey:@"$element_id"];
             }
             
-            UIViewController *viewController = 
+            UIViewController *viewController = [view viewController];
+            
+            if (viewController == nil ||
+                [@"UINavigationController" isEqualToString:NSStringFromClass([viewController class])]) {
+                viewController = 

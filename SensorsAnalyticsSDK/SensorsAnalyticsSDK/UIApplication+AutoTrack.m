@@ -135,4 +135,8 @@
             
             if (viewController == nil ||
                 [@"UINavigationController" isEqualToString:NSStringFromClass([viewController class])]) {
-                viewController = 
+                viewController = [[SensorsAnalyticsSDK sharedInstance] currentViewController];
+            }
+            
+            if (viewController != nil) {
+                if ([[SensorsAnalyticsSDK sharedInstance] isViewControllerIgnored:viewControlle

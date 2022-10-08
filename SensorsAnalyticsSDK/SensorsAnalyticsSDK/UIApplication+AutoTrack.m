@@ -139,4 +139,10 @@
             }
             
             if (viewController != nil) {
-                if ([[SensorsAnalyticsSDK sharedInstance] isViewControllerIgnored:viewControlle
+                if ([[SensorsAnalyticsSDK sharedInstance] isViewControllerIgnored:viewController]) {
+                    return;
+                }
+                
+                //获取 Controller 名称($screen_name)
+                NSString *screenName = NSStringFromClass([viewController class]);
+            

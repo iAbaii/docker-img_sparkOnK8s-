@@ -152,4 +152,6 @@
                     [properties setValue:viewController.navigationItem.title forKey:@"$title"];
                 }
                 //再获取 controller.navigationItem.titleView, 并且优先级比较高
-                NSString *elementContent 
+                NSString *elementContent = [[SensorsAnalyticsSDK sharedInstance] getUIViewControllerTitle:viewController];
+                if (elementContent != nil && [elementContent length] > 0) {
+                    elementContent = [elementContent substringWithRan

@@ -154,4 +154,10 @@
                 //再获取 controller.navigationItem.titleView, 并且优先级比较高
                 NSString *elementContent = [[SensorsAnalyticsSDK sharedInstance] getUIViewControllerTitle:viewController];
                 if (elementContent != nil && [elementContent length] > 0) {
-                    elementContent = [elementContent substringWithRan
+                    elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
+                    [properties setValue:elementContent forKey:@"$title"];
+                }
+            }
+            
+            //UISwitch
+            if ([from

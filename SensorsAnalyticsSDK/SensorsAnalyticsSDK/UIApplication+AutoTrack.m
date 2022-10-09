@@ -164,4 +164,9 @@
                 [properties setValue:@"UISwitch" forKey:@"$element_type"];
                 UISwitch *uiSwitch = (UISwitch *)from;
                 if (uiSwitch.on) {
-                    [prope
+                    [properties setValue:@"checked" forKey:@"$element_content"];
+                } else {
+                    [properties setValue:@"unchecked" forKey:@"$element_content"];
+                }
+                //View Properties
+          

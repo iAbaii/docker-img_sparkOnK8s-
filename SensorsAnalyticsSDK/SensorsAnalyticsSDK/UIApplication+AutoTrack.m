@@ -160,4 +160,8 @@
             }
             
             //UISwitch
-            if ([from
+            if ([from isKindOfClass:[UISwitch class]]) {
+                [properties setValue:@"UISwitch" forKey:@"$element_type"];
+                UISwitch *uiSwitch = (UISwitch *)from;
+                if (uiSwitch.on) {
+                    [prope

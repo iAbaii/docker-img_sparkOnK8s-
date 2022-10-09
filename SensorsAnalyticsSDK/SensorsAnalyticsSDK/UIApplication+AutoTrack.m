@@ -173,4 +173,10 @@
                 if (propDict != nil) {
                     [properties addEntriesFromDictionary:propDict];
                 }
-                [[SensorsA
+                [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
+                return;
+            }
+
+            //UIStepper
+            if ([from isKindOfClass:[UIStepper class]]) {
+                [propert

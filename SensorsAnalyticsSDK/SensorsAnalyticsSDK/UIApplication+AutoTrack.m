@@ -169,4 +169,8 @@
                     [properties setValue:@"unchecked" forKey:@"$element_content"];
                 }
                 //View Properties
-          
+                NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+                if (propDict != nil) {
+                    [properties addEntriesFromDictionary:propDict];
+                }
+                [[SensorsA

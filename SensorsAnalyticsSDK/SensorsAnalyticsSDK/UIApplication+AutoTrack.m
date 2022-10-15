@@ -182,4 +182,8 @@
                 [properties setValue:@"UIStepper" forKey:@"$element_type"];
                 UIStepper *stepper = (UIStepper *)from;
                 if (stepper) {
-                    [properties setValue:[NSString stringWithFormat:@"%g",
+                    [properties setValue:[NSString stringWithFormat:@"%g", stepper.value] forKey:@"$element_content"];
+                }
+                //View Properties
+                NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+                

@@ -179,4 +179,7 @@
 
             //UIStepper
             if ([from isKindOfClass:[UIStepper class]]) {
-                [propert
+                [properties setValue:@"UIStepper" forKey:@"$element_type"];
+                UIStepper *stepper = (UIStepper *)from;
+                if (stepper) {
+                    [properties setValue:[NSString stringWithFormat:@"%g",

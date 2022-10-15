@@ -186,4 +186,7 @@
                 }
                 //View Properties
                 NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
-                
+                if (propDict != nil) {
+                    [properties addEntriesFromDictionary:propDict];
+                }
+                [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProp

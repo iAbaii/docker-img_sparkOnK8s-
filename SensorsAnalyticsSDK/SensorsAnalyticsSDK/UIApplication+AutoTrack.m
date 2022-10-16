@@ -204,4 +204,8 @@
             //                    return;
             //                }
             //            }
-          
+            //        }
+            
+            //UISegmentedControl
+            if ([from isKindOfClass:[UISegmentedControl class]]) {
+                UISegmentedControl *segmented =

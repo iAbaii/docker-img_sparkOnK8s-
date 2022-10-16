@@ -200,4 +200,8 @@
             //                [properties setValue:@"UISearchBar" forKey:@"$element_type"];
             //                NSString *searchText = searchBar.text;
             //                if (searchText == nil || [searchText length] == 0) {
-            //     
+            //                    [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
+            //                    return;
+            //                }
+            //            }
+          

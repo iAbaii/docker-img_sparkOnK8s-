@@ -197,4 +197,7 @@
             //        if ([to isKindOfClass:[UISearchBar class]] && [from isKindOfClass:[[NSClassFromString(@"UISearchBarTextField") class] class]]) {
             //            UISearchBar *searchBar = (UISearchBar *)to;
             //            if (searchBar != nil) {
-            //                [properties setValue
+            //                [properties setValue:@"UISearchBar" forKey:@"$element_type"];
+            //                NSString *searchText = searchBar.text;
+            //                if (searchText == nil || [searchText length] == 0) {
+            //     

@@ -208,4 +208,8 @@
             
             //UISegmentedControl
             if ([from isKindOfClass:[UISegmentedControl class]]) {
-                UISegmentedControl *segmented =
+                UISegmentedControl *segmented = (UISegmentedControl *)from;
+                [properties setValue:@"UISegmentedControl" forKey:@"$element_type"];
+                
+                if ([segmented selectedSegmentIndex] == UISegmentedControlNoSegment) {
+                    re

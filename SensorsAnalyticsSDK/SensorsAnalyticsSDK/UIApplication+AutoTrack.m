@@ -212,4 +212,8 @@
                 [properties setValue:@"UISegmentedControl" forKey:@"$element_type"];
                 
                 if ([segmented selectedSegmentIndex] == UISegmentedControlNoSegment) {
-                    re
+                    return;
+                }
+                
+                [properties setValue:[NSString stringWithFormat: @"%ld", [segmented selectedSegmentIndex]] forKey:@"$element_position"];
+  

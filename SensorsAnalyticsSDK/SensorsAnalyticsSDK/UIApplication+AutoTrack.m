@@ -216,4 +216,6 @@
                 }
                 
                 [properties setValue:[NSString stringWithFormat: @"%ld", [segmented selectedSegmentIndex]] forKey:@"$element_position"];
-  
+                [properties setValue:[segmented titleForSegmentAtIndex:[segmented selectedSegmentIndex]] forKey:@"$element_content"];
+                //View Properties
+                NSDictionary* propDict

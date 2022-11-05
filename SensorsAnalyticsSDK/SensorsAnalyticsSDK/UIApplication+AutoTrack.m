@@ -228,4 +228,7 @@
             }
             
             //只统计触摸结束时
-            if ([event isKindOfClass:[UIEvent class]] && [[[event allTouc
+            if ([event isKindOfClass:[UIEvent class]] && [[[event allTouches] anyObject] phase] == UITouchPhaseEnded) {
+                if ([from isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
+                    UIButton *button = (UIButton *)from;
+                    [properties setValue:@"UIBarButtonIte

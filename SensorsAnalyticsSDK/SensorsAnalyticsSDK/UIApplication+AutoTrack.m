@@ -222,4 +222,10 @@
                 if (propDict != nil) {
                     [properties addEntriesFromDictionary:propDict];
                 }
-                [[SensorsAnalyticsSDK sharedIns
+                [[SensorsAnalyticsSDK sharedInstance] track:@"$AppClick" withProperties:properties];
+                return;
+                
+            }
+            
+            //只统计触摸结束时
+            if ([event isKindOfClass:[UIEvent class]] && [[[event allTouc

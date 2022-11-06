@@ -238,4 +238,7 @@
                             [properties setValue:[button currentTitle] forKey:@"$element_content"];
                         } else {
 #ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGENAME
-                         
+                            UIImage *image = button.currentImage;
+                            if (image) {
+                                NSString *imageName = image.sensorsAnalyticsImageName;
+                                if (imageName !=

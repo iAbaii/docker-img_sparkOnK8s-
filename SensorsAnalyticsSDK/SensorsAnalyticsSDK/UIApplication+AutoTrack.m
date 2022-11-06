@@ -231,4 +231,8 @@
             if ([event isKindOfClass:[UIEvent class]] && [[[event allTouches] anyObject] phase] == UITouchPhaseEnded) {
                 if ([from isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
                     UIButton *button = (UIButton *)from;
-                    [properties setValue:@"UIBarButtonIte
+                    [properties setValue:@"UIBarButtonItem" forKey:@"$element_type"];
+                    if (button != nil) {
+                        NSString *currentTitle = [button currentTitle];
+                        if (currentTitle != nil) {
+                           

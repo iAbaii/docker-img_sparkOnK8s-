@@ -241,4 +241,7 @@
                             UIImage *image = button.currentImage;
                             if (image) {
                                 NSString *imageName = image.sensorsAnalyticsImageName;
-                                if (imageName !=
+                                if (imageName != nil) {
+                                    [properties setValue:[NSString stringWithFormat:@"$%@", imageName] forKey:@"$element_content"];
+                                }
+               

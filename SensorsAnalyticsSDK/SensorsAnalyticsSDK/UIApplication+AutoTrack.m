@@ -235,4 +235,7 @@
                     if (button != nil) {
                         NSString *currentTitle = [button currentTitle];
                         if (currentTitle != nil) {
-                           
+                            [properties setValue:[button currentTitle] forKey:@"$element_content"];
+                        } else {
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGENAME
+                         

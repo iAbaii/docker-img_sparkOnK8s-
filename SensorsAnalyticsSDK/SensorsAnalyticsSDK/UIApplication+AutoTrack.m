@@ -249,4 +249,8 @@
                         }
                     }
                 } else if ([from isKindOfClass:[UIButton class]]) {//UIButton
-                    UIButton *button = (UIButton *)fr
+                    UIButton *button = (UIButton *)from;
+                    [properties setValue:@"UIButton" forKey:@"$element_type"];
+                    if (button != nil) {
+                        if ([button currentTitle] != nil) {
+                         

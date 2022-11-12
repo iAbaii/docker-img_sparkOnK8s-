@@ -244,4 +244,9 @@
                                 if (imageName != nil) {
                                     [properties setValue:[NSString stringWithFormat:@"$%@", imageName] forKey:@"$element_content"];
                                 }
-               
+                            }
+#endif
+                        }
+                    }
+                } else if ([from isKindOfClass:[UIButton class]]) {//UIButton
+                    UIButton *button = (UIButton *)fr

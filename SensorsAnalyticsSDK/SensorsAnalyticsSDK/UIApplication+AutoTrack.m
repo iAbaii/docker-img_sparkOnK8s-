@@ -264,4 +264,7 @@
                                 } else {
 #ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGENAME
                                     UIImage *image = button.currentImage;
-                                    if (imag
+                                    if (image) {
+                                        NSString *imageName = image.sensorsAnalyticsImageName;
+                                        if (imageName != nil) {
+                                            [prope

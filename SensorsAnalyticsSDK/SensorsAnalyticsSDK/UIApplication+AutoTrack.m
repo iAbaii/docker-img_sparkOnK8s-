@@ -261,4 +261,7 @@
                                 if (elementContent != nil && [elementContent length] > 0) {
                                     elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
                                     [properties setValue:elementContent forKey:@"$element_content"];
-      
+                                } else {
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGENAME
+                                    UIImage *image = button.currentImage;
+                                    if (imag

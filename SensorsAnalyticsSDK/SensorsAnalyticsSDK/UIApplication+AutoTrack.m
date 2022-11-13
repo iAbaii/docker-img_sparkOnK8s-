@@ -253,4 +253,7 @@
                     [properties setValue:@"UIButton" forKey:@"$element_type"];
                     if (button != nil) {
                         if ([button currentTitle] != nil) {
-                         
+                            [properties setValue:[button currentTitle] forKey:@"$element_content"];
+                        } else {
+                            if (button.subviews.count > 0) {
+                                NSString *elementContent 

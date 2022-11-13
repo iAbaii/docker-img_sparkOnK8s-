@@ -256,4 +256,7 @@
                             [properties setValue:[button currentTitle] forKey:@"$element_content"];
                         } else {
                             if (button.subviews.count > 0) {
-                                NSString *elementContent 
+                                NSString *elementContent = [[NSString alloc] init];
+                                elementContent = [AutoTrackUtils contentFromView:button];
+                                if (elementContent != nil && [elementContent length] > 0) {
+            

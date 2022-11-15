@@ -267,4 +267,8 @@
                                     if (image) {
                                         NSString *imageName = image.sensorsAnalyticsImageName;
                                         if (imageName != nil) {
-                                            [prope
+                                            [properties setValue:[NSString stringWithFormat:@"$%@", imageName] forKey:@"$element_content"];
+                                        }
+                                    }
+#endif
+                    

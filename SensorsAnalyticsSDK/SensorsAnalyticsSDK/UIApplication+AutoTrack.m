@@ -276,4 +276,7 @@
                         }
                     }
                 } else if ([from isKindOfClass:[NSClassFromString(@"UITabBarButton") class]]) {//UITabBarButton
-                   
+                    if ([to isKindOfClass:[UITabBar class]]) {//UITabBar
+                        UITabBar *tabBar = (UITabBar *)to;
+                        if (tabBar != nil) {
+                            UITabBarIt

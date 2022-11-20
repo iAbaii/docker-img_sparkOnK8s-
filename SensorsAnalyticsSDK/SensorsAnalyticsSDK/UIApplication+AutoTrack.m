@@ -281,4 +281,8 @@
                         if (tabBar != nil) {
                             UITabBarItem *item = [tabBar selectedItem];
                             [properties setValue:@"UITabbar" forKey:@"$element_type"];
-                            [properties setValue:item.title for
+                            [properties setValue:item.title forKey:@"$element_content"];
+                        }
+                    }
+                } else if([from isKindOfClass:[UITabBarItem class]]){//For iOS7 TabBar
+                    UITabBarItem *tabBarItem = (UI

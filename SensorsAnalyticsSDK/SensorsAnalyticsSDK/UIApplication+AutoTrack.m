@@ -279,4 +279,6 @@
                     if ([to isKindOfClass:[UITabBar class]]) {//UITabBar
                         UITabBar *tabBar = (UITabBar *)to;
                         if (tabBar != nil) {
-                            UITabBarIt
+                            UITabBarItem *item = [tabBar selectedItem];
+                            [properties setValue:@"UITabbar" forKey:@"$element_type"];
+                            [properties setValue:item.title for

@@ -285,4 +285,7 @@
                         }
                     }
                 } else if([from isKindOfClass:[UITabBarItem class]]){//For iOS7 TabBar
-                    UITabBarItem *tabBarItem = (UI
+                    UITabBarItem *tabBarItem = (UITabBarItem *)from;
+                    if (tabBarItem) {
+                        [properties setValue:@"UITabbar" forKey:@"$element_type"];
+                        [properties setValue:tabBarItem.title forKey:@"

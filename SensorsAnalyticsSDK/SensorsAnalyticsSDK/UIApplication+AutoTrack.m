@@ -292,4 +292,6 @@
                     }
                 } else if ([from isKindOfClass:[UISlider class]]) {//UISlider
                     UISlider *slide = (UISlider *)from;
-           
+                    if (slide != nil) {
+                        [properties setValue:@"UISlider" forKey:@"$element_type"];
+                        [properties setValue:[NSString stringWithFormat:@"%f",slide.value] forKey:@"$ele

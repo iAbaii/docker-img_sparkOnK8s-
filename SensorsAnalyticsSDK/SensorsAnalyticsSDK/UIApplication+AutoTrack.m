@@ -288,4 +288,8 @@
                     UITabBarItem *tabBarItem = (UITabBarItem *)from;
                     if (tabBarItem) {
                         [properties setValue:@"UITabbar" forKey:@"$element_type"];
-                        [properties setValue:tabBarItem.title forKey:@"
+                        [properties setValue:tabBarItem.title forKey:@"$element_content"];
+                    }
+                } else if ([from isKindOfClass:[UISlider class]]) {//UISlider
+                    UISlider *slide = (UISlider *)from;
+           

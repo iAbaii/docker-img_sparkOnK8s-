@@ -294,4 +294,8 @@
                     UISlider *slide = (UISlider *)from;
                     if (slide != nil) {
                         [properties setValue:@"UISlider" forKey:@"$element_type"];
-                        [properties setValue:[NSString stringWithFormat:@"%f",slide.value] forKey:@"$ele
+                        [properties setValue:[NSString stringWithFormat:@"%f",slide.value] forKey:@"$element_content"];
+                    }
+                } else {
+                    if ([from isKindOfClass:[UIControl class]]) {
+                        [properties setValue:@"UIControl" forKey:@"$element_t

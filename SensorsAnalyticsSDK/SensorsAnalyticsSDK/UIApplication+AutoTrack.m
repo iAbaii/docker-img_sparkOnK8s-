@@ -301,4 +301,7 @@
                         [properties setValue:@"UIControl" forKey:@"$element_type"];
                         UIControl *fromView = (UIControl *)from;
                         if (fromView.subviews.count > 0) {
-                            NSString *elementContent = [[NSString al
+                            NSString *elementContent = [[NSString alloc] init];
+                            elementContent = [AutoTrackUtils contentFromView:fromView];
+                            if (elementContent != nil && [elementContent length] > 0) {
+                                ele

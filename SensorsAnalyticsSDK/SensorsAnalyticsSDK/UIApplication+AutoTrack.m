@@ -298,4 +298,7 @@
                     }
                 } else {
                     if ([from isKindOfClass:[UIControl class]]) {
-                        [properties setValue:@"UIControl" forKey:@"$element_t
+                        [properties setValue:@"UIControl" forKey:@"$element_type"];
+                        UIControl *fromView = (UIControl *)from;
+                        if (fromView.subviews.count > 0) {
+                            NSString *elementContent = [[NSString al

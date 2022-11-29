@@ -304,4 +304,6 @@
                             NSString *elementContent = [[NSString alloc] init];
                             elementContent = [AutoTrackUtils contentFromView:fromView];
                             if (elementContent != nil && [elementContent length] > 0) {
-                                ele
+                                elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
+                                [properties setValue:elementContent forKey:@"$element_content"];
+              

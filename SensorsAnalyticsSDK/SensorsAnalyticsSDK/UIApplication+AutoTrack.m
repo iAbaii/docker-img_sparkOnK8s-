@@ -306,4 +306,11 @@
                             if (elementContent != nil && [elementContent length] > 0) {
                                 elementContent = [elementContent substringWithRange:NSMakeRange(0,[elementContent length] - 1)];
                                 [properties setValue:elementContent forKey:@"$element_content"];
-              
+                            }
+                        }
+                    }
+                }
+                
+                //View Properties
+                NSDictionary* propDict = view.sensorsAnalyticsViewProperties;
+                i

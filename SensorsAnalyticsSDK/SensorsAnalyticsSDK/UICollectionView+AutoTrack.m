@@ -7,4 +7,13 @@
 //
 
 #import "UICollectionView+AutoTrack.h"
-#import "SensorsAnalyticsSD
+#import "SensorsAnalyticsSDK.h"
+#import "SASwizzle.h"
+#import "SALogger.h"
+#import "AutoTrackUtils.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
+
+@implementation UICollectionView (AutoTrack)
+
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLEC

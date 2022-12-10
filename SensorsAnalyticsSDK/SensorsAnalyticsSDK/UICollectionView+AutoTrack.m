@@ -16,4 +16,11 @@
 
 @implementation UICollectionView (AutoTrack)
 
-#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLEC
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UICOLLECTIONVIEW
+
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        @try {
+//            NSError *error = NULL;
+//            [[self class] sa_swizzleMethod:@selector(setDeleg

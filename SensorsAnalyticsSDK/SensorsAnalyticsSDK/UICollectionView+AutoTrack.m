@@ -32,4 +32,10 @@
 //            }
 //        } @catch (NSException *exception) {
 //            SAError(@"%@ error: %@", self, exception);
-//  
+//        }
+//    });
+//}
+
+void sa_collectionViewDidSelectItemAtIndexPath(id self, SEL _cmd, id collectionView, NSIndexPath* indexPath) {
+    SEL selector = NSSelectorFromString(@"sa_collectionViewDidSelectItemAtIndexPath");
+   

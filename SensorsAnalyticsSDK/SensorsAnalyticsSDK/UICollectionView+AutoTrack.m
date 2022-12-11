@@ -27,4 +27,9 @@
 //                                withMethod:@selector(sa_collectionViewSetDelegate:)
 //                                     error:&error];
 //            if (error) {
-//                SAError(@"Failed to swizzle s
+//                SAError(@"Failed to swizzle setDelegate: on UICollectionView. Details: %@", error);
+//                error = NULL;
+//            }
+//        } @catch (NSException *exception) {
+//            SAError(@"%@ error: %@", self, exception);
+//  

@@ -38,4 +38,10 @@
 
 void sa_collectionViewDidSelectItemAtIndexPath(id self, SEL _cmd, id collectionView, NSIndexPath* indexPath) {
     SEL selector = NSSelectorFromString(@"sa_collectionViewDidSelectItemAtIndexPath");
-   
+    ((void(*)(id, SEL, id, id))objc_msgSend)(self, selector, collectionView, indexPath);
+    
+    //插入埋点
+    [AutoTrackUtils trackAppClickWithUICollectionView:collectionView didSelectItemAtIndexPath:indexPath];
+}
+
+- (void)

@@ -44,4 +44,10 @@ void sa_collectionViewDidSelectItemAtIndexPath(id self, SEL _cmd, id collectionV
     [AutoTrackUtils trackAppClickWithUICollectionView:collectionView didSelectItemAtIndexPath:indexPath];
 }
 
-- (void)
+- (void)sa_collectionViewSetDelegate:(id<UICollectionViewDelegate>)delegate {
+    [self sa_collectionViewSetDelegate:delegate];
+    
+    @try {
+        Class class = [delegate class];
+        
+        if (class_addMethod(class, N

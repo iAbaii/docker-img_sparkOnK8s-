@@ -50,4 +50,5 @@ void sa_collectionViewDidSelectItemAtIndexPath(id self, SEL _cmd, id collectionV
     @try {
         Class class = [delegate class];
         
-        if (class_addMethod(class, N
+        if (class_addMethod(class, NSSelectorFromString(@"sa_collectionViewDidSelectItemAtIndexPath"), (IMP)sa_collectionViewDidSelectItemAtIndexPath, "v@:@@")) {
+            Method dis_originMethod = class_getInstanceMethod(class, NSSelectorFromStri

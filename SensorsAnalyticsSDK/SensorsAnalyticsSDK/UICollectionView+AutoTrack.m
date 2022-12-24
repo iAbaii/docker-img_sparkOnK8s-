@@ -53,4 +53,13 @@ void sa_collectionViewDidSelectItemAtIndexPath(id self, SEL _cmd, id collectionV
         if (class_addMethod(class, NSSelectorFromString(@"sa_collectionViewDidSelectItemAtIndexPath"), (IMP)sa_collectionViewDidSelectItemAtIndexPath, "v@:@@")) {
             Method dis_originMethod = class_getInstanceMethod(class, NSSelectorFromString(@"sa_collectionViewDidSelectItemAtIndexPath"));
             Method dis_swizzledMethod = class_getInstanceMethod(class, @selector(collectionView:didSelectItemAtIndexPath:));
-            meth
+            method_exchangeImplementations(dis_originMethod, dis_swizzledMethod);
+        }
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+#endif
+
+@end

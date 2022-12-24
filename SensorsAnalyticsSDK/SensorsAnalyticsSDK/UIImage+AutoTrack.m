@@ -7,4 +7,11 @@
 //
 
 #import "UIImage+AutoTrack.h"
-#import "SensorsAn
+#import "SensorsAnalyticsSDK.h"
+#import "SALogger.h"
+#import "SASwizzle.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
+
+@implementation UIImage (AutoTrack)
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UIIMAGE_IMAGEN

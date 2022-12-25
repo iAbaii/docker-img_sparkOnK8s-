@@ -25,4 +25,7 @@
             Method oriMethod = class_getInstanceMethod(selfClass, oriSEL);
             
             SEL cusSEL = @selector(myImageNamed:);
-            Method 
+            Method cusMethod = class_getInstanceMethod(selfClass, cusSEL);
+            
+            BOOL addSucc = class_addMethod(selfClass, oriSEL, method_getImplementation(cusMethod), method_getTypeEncoding(cusMethod));
+            if (addSucc) {

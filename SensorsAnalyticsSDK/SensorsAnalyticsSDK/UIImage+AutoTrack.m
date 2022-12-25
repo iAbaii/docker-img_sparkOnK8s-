@@ -41,4 +41,8 @@
 
 + (UIImage *)myImageNamed:(NSString *)name {
     __block UIImage *image;
-    if ([[N
+    if ([[NSThread currentThread] isMainThread]) {
+        image = [self myImageNamed:name];
+        image.sensorsAnalyticsImageName = name;
+    } else {
+        dispatch_sync(dispatch_get_main_queue

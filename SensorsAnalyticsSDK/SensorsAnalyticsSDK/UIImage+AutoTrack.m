@@ -32,4 +32,13 @@
                 class_replaceMethod(selfClass, cusSEL, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
             }else {
                 method_exchangeImplementations(oriMethod, cusMethod);
-      
+            }
+        } @catch (NSException *exception) {
+            SAError(@"%@ error: %@", self, exception);
+        }
+    });
+}
+
++ (UIImage *)myImageNamed:(NSString *)name {
+    __block UIImage *image;
+    if ([[N

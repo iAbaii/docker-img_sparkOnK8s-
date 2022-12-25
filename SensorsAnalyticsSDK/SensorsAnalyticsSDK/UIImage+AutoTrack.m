@@ -21,4 +21,8 @@
         @try {
             Class selfClass = object_getClass([self class]);
             
-  
+            SEL oriSEL = @selector(imageNamed:);
+            Method oriMethod = class_getInstanceMethod(selfClass, oriSEL);
+            
+            SEL cusSEL = @selector(myImageNamed:);
+            Method 

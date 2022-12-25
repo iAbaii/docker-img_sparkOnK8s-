@@ -29,3 +29,7 @@
             
             BOOL addSucc = class_addMethod(selfClass, oriSEL, method_getImplementation(cusMethod), method_getTypeEncoding(cusMethod));
             if (addSucc) {
+                class_replaceMethod(selfClass, cusSEL, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
+            }else {
+                method_exchangeImplementations(oriMethod, cusMethod);
+      

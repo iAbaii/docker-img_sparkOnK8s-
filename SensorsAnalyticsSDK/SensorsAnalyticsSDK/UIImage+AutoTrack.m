@@ -45,4 +45,14 @@
         image = [self myImageNamed:name];
         image.sensorsAnalyticsImageName = name;
     } else {
-        dispatch_sync(dispatch_get_main_queue
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            image = [self myImageNamed:name];
+            image.sensorsAnalyticsImageName = name;
+        });
+    }
+    return image;
+}
+
+#endif
+
+@end

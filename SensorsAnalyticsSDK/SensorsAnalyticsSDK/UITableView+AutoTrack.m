@@ -13,4 +13,13 @@
 #import "SASwizzle.h"
 #import "AutoTrackUtils.h"
 #import <objc/runtime.h>
-#import <objc/mes
+#import <objc/message.h>
+
+@implementation UITableView (AutoTrack)
+
+#ifndef SENSORS_ANALYTICS_DISABLE_AUTOTRACK_UITABLEVIEW
+
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        @try {

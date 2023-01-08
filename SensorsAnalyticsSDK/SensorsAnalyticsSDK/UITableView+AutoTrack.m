@@ -31,4 +31,10 @@
 //                SAError(@"Failed to swizzle setDelegate: on UITableView. Details: %@", error);
 //                error = NULL;
 //            }
-//
+//        } @catch (NSException *exception) {
+//            SAError(@"%@ error: %@", self, exception);
+//        }
+//    });
+//}
+
+void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde

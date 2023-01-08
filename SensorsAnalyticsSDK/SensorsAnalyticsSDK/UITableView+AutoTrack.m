@@ -26,4 +26,9 @@
 //            NSError *error = NULL;
 //            [[self class] sa_swizzleMethod:@selector(setDelegate:)
 //                                withMethod:@selector(sa_tableViewSetDelegate:)
-//        
+//                                     error:&error];
+//            if (error) {
+//                SAError(@"Failed to swizzle setDelegate: on UITableView. Details: %@", error);
+//                error = NULL;
+//            }
+//

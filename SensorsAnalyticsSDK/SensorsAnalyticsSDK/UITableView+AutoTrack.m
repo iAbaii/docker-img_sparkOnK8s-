@@ -37,4 +37,9 @@
 //    });
 //}
 
-void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
+void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSIndexPath* indexPath) {
+    SEL selector = NSSelectorFromString(@"sa_tableViewDidSelectRowAtIndexPath");
+    ((void(*)(id, SEL, id, id))objc_msgSend)(self, selector, tableView, indexPath);
+    
+    //插入埋点
+    [AutoTrac

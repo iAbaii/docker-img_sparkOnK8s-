@@ -54,4 +54,8 @@ void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
         //        dispatch_once(&onceToken, ^{
         if (class_addMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIndexPath"), (IMP)sa_tableViewDidSelectRowAtIndexPath, "v@:@@")) {
             Method dis_originMethod = class_getInstanceMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIndexPath"));
-            Method dis_swizzledMethod = class_g
+            Method dis_swizzledMethod = class_getInstanceMethod(class, @selector(tableView:didSelectRowAtIndexPath:));
+            method_exchangeImplementations(dis_originMethod, dis_swizzledMethod);
+        }
+        //        });
+    } @catch (NSException *excepti

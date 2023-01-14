@@ -42,4 +42,10 @@ void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
     ((void(*)(id, SEL, id, id))objc_msgSend)(self, selector, tableView, indexPath);
     
     //插入埋点
-    [AutoTrac
+    [AutoTrackUtils trackAppClickWithUITableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)sa_tableViewSetDelegate:(id<UITableViewDelegate>)delegate {
+    [self sa_tableViewSetDelegate:delegate];
+    
+    @try {

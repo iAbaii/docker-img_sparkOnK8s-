@@ -49,3 +49,7 @@ void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
     [self sa_tableViewSetDelegate:delegate];
     
     @try {
+        Class class = [delegate class];
+        //        static dispatch_once_t onceToken;
+        //        dispatch_once(&onceToken, ^{
+        if (class_addMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIn

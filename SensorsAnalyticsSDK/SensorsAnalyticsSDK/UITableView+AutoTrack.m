@@ -52,4 +52,6 @@ void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
         Class class = [delegate class];
         //        static dispatch_once_t onceToken;
         //        dispatch_once(&onceToken, ^{
-        if (class_addMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIn
+        if (class_addMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIndexPath"), (IMP)sa_tableViewDidSelectRowAtIndexPath, "v@:@@")) {
+            Method dis_originMethod = class_getInstanceMethod(class, NSSelectorFromString(@"sa_tableViewDidSelectRowAtIndexPath"));
+            Method dis_swizzledMethod = class_g

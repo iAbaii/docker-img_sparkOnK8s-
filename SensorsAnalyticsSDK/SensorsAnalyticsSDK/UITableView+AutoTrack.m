@@ -58,4 +58,11 @@ void sa_tableViewDidSelectRowAtIndexPath(id self, SEL _cmd, id tableView, NSInde
             method_exchangeImplementations(dis_originMethod, dis_swizzledMethod);
         }
         //        });
-    } @catch (NSException *excepti
+    } @catch (NSException *exception) {
+        SAError(@"%@ error: %@", self, exception);
+    }
+}
+
+#endif
+
+@end

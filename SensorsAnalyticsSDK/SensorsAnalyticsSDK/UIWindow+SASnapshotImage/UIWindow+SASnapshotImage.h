@@ -10,4 +10,6 @@
 
 @interface UIWindow (SASnapshotImage)
 
-- (nullable UIImage *)sna
+- (nullable UIImage *)snapshotImage;
+
+@end

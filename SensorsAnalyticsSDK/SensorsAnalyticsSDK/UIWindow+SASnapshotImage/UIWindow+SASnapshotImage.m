@@ -8,4 +8,9 @@
 
 #import "UIWindow+SASnapshotImage.h"
 
-@implementation U
+@implementation UIWindow (SASnapshotImage)
+
+- (UIImage *)snapshotImage {
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, scale);
+    [self.layer renderInCont

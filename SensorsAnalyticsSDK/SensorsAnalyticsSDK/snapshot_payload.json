@@ -426,3 +426,9 @@
                                  {
                                  "name":"childViewControllers",
                                  "type":"NSArray"
+                                 }
+                                 ]
+                   }
+                   ]
+    }
+}

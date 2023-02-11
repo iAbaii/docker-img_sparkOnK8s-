@@ -535,3 +535,213 @@
 				A3746EA81C318B54008A50A3 /* SAObjectSerializer.h in Headers */,
 				A3746E871C31196C008A50A3 /* SADesignerDeviceInfoMessage.h in Headers */,
 				A3746E7E1C3115EB008A50A3 /* SAAbstractDesignerMessage.h in Headers */,
+				A3746EB01C318B65008A50A3 /* SAObjectSerializerContext.h in Headers */,
+				52F29CA81FD1507200DE203E /* UIWindow+SASnapshotImage.h in Headers */,
+				A3746EBE1C3190E7008A50A3 /* SAEnumDescription.h in Headers */,
+				002DB94F1EB1647F00A9632C /* UIApplication+AutoTrack.h in Headers */,
+				A3746ECB1C32D8B2008A50A3 /* SADesignerSessionCollection.h in Headers */,
+				002BF6711F0A875100824F76 /* UIImage+AutoTrack.h in Headers */,
+				A3997A291C3AC342005A9374 /* SASwizzler.h in Headers */,
+				A3746E821C3115EB008A50A3 /* SADesignerMessage.h in Headers */,
+				00D3B57E1EFB382A0086F1F8 /* UITabBar+AutoTrack.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4D0EB7BD1B47A88C0019FD21 /* HelloSensorsAnalytics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D0EB7DE1B47A88C0019FD21 /* Build configuration list for PBXNativeTarget "HelloSensorsAnalytics" */;
+			buildPhases = (
+				4D0EB7BA1B47A88C0019FD21 /* Sources */,
+				4D0EB7BB1B47A88C0019FD21 /* Frameworks */,
+				4D0EB7BC1B47A88C0019FD21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloSensorsAnalytics;
+			productName = HelloSensorsAnalytics;
+			productReference = 4D0EB7BE1B47A88C0019FD21 /* HelloSensorsAnalytics.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4D5CA7761B43E92D00D7ACB7 /* SensorsAnalyticsSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D5CA78B1B43E92D00D7ACB7 /* Build configuration list for PBXNativeTarget "SensorsAnalyticsSDK" */;
+			buildPhases = (
+				4D5CA7731B43E92D00D7ACB7 /* Sources */,
+				4D5CA7741B43E92D00D7ACB7 /* Frameworks */,
+				4D5CA7751B43E92D00D7ACB7 /* CopyFiles */,
+				4D14F16B1B47D4DD006AD786 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SensorsAnalyticsSDK;
+			productName = SensorsAnalyticsSDK;
+			productReference = 4D5CA7771B43E92D00D7ACB7 /* libSensorsAnalyticsSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D5CA76F1B43E92D00D7ACB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = SensorsData;
+				TargetAttributes = {
+					4D0EB7BD1B47A88C0019FD21 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = RGJ23PSZZ8;
+					};
+					4D5CA7761B43E92D00D7ACB7 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 4D5CA7721B43E92D00D7ACB7 /* Build configuration list for PBXProject "SensorsAnalyticsSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4D5CA76E1B43E92D00D7ACB7;
+			productRefGroup = 4D5CA7781B43E92D00D7ACB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D5CA7761B43E92D00D7ACB7 /* SensorsAnalyticsSDK */,
+				4D0EB7BD1B47A88C0019FD21 /* HelloSensorsAnalytics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D0EB7BC1B47A88C0019FD21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D0EB7CC1B47A88C0019FD21 /* Main.storyboard in Resources */,
+				4D0EB7D11B47A88C0019FD21 /* LaunchScreen.xib in Resources */,
+				4D0EB7CE1B47A88C0019FD21 /* Images.xcassets in Resources */,
+				00DC9CDC1D7E9E3F00C7DF6C /* JSCallOC.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D0EB7BA1B47A88C0019FD21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0038C5D91FCFA32D00C1BBC1 /* SensorsAnalyticsExceptionHandler.h in Sources */,
+				0038C5DA1FCFA32D00C1BBC1 /* SensorsAnalyticsExceptionHandler.m in Sources */,
+				0009198D1F974D1C00E5D3C5 /* UIViewController+AutoTrack.h in Sources */,
+				0009198E1F974D1C00E5D3C5 /* UIViewController+AutoTrack.m in Sources */,
+				00EA99F61EEFBCEA005E524F /* UIActionSheet+AutoTrack.h in Sources */,
+				000919871F973CD100E5D3C5 /* UIImage+AutoTrack.h in Sources */,
+				000919881F973CD100E5D3C5 /* UIImage+AutoTrack.m in Sources */,
+				008D82B21F0E2EFA00052CFF /* NSString+HashCode.h in Sources */,
+				008D82B31F0E2EFA00052CFF /* NSString+HashCode.m in Sources */,
+				0025E0481F09D79A001248F4 /* AutoTrackUtils.h in Sources */,
+				0025E0491F09D79A001248F4 /* AutoTrackUtils.m in Sources */,
+				00D3B57F1EFB38360086F1F8 /* UITabBar+AutoTrack.m in Sources */,
+				00D3B5801EFB38360086F1F8 /* UITabBar+AutoTrack.h in Sources */,
+				00EA99F71EEFBCEA005E524F /* UIActionSheet+AutoTrack.m in Sources */,
+				00EA99EE1EEFAF75005E524F /* UIAlertView+AutoTrack.h in Sources */,
+				00EA99EF1EEFAF75005E524F /* UIAlertView+AutoTrack.m in Sources */,
+				00EA997C1EEF9E0D005E524F /* UICollectionView+AutoTrack.m in Sources */,
+				00EA997D1EEF9E0D005E524F /* UICollectionView+AutoTrack.h in Sources */,
+				00EA97C81EEF7555005E524F /* UITableView+AutoTrack.m in Sources */,
+				00EA97C91EEF7555005E524F /* UITableView+AutoTrack.h in Sources */,
+				002DB9511EB1648800A9632C /* SASwizzle.h in Sources */,
+				002DB9521EB1648800A9632C /* SASwizzle.m in Sources */,
+				002DB9531EB1648800A9632C /* UIApplication+AutoTrack.h in Sources */,
+				002DB9541EB1648800A9632C /* UIApplication+AutoTrack.m in Sources */,
+				A3E3889F1D509B7100F6B9FC /* SAReachability.m in Sources */,
+				A3333BD61C5A12300013353F /* SADesignerDisconnectMessage.m in Sources */,
+				A3BD57C51C58B1700006392F /* SAValueTransformers.m in Sources */,
+				00DC9CDA1D7E9D9D00C7DF6C /* JSCallOCViewController.m in Sources */,
+				A3A85C181C3BB8E100DCA1A4 /* NSInvocation+SAHelpers.m in Sources */,
+				A3A85C191C3BB8E100DCA1A4 /* SADesignerEventBindingMesssage.m in Sources */,
+				A3A85C1C1C3BB8E100DCA1A4 /* SAObjectSelector.m in Sources */,
+				A3A85C1D1C3BB8E100DCA1A4 /* SASwizzler.m in Sources */,
+				A3A85C1E1C3BB8E100DCA1A4 /* SAEventBinding.m in Sources */,
+				A3A85C1F1C3BB8E100DCA1A4 /* SAUIControlBinding.m in Sources */,
+				A3A85C201C3BB8E100DCA1A4 /* SAUITableViewBinding.m in Sources */,
+				A3746EE01C32E7AC008A50A3 /* SAAbstractDesignerMessage.m in Sources */,
+				A3746EDE1C32E796008A50A3 /* SADesignerDeviceInfoMessage.m in Sources */,
+				A3746ED01C32E5BB008A50A3 /* SADesignerSnapshotMessage.m in Sources */,
+				A3746ED21C32E5BB008A50A3 /* SAObjectIdentityProvider.m in Sources */,
+				A3746ED31C32E5BB008A50A3 /* SAApplicationStateSerializer.m in Sources */,
+				A3746ED41C32E5BB008A50A3 /* SAObjectSerializer.m in Sources */,
+				A3746ED51C32E5BB008A50A3 /* SAObjectSerializerConfig.m in Sources */,
+				A3746ED61C32E5BB008A50A3 /* SAObjectSerializerContext.m in Sources */,
+				A3746ED71C32E5BB008A50A3 /* SAClassDescription.m in Sources */,
+				A3746ED81C32E5BB008A50A3 /* SAEnumDescription.m in Sources */,
+				A3746ED91C32E5BB008A50A3 /* SAPropertyDescription.m in Sources */,
+				A3746EDA1C32E5BB008A50A3 /* SATypeDescription.m in Sources */,
+				A3746EDB1C32E5BB008A50A3 /* UIView+SAHelpers.m in Sources */,
+				A3746EDC1C32E5BB008A50A3 /* SADesignerConnection.m in Sources */,
+				002DB9571EB1681900A9632C /* AutoTrackViewController.m in Sources */,
+				A3746EDD1C32E5BB008A50A3 /* SAWebSocket.m in Sources */,
+				4D1EFDD51B4BC6930008D3EA /* MessageQueueBySqlite.m in Sources */,
+				A3EEDCE91C4E084200D1362F /* DemoController.m in Sources */,
+				00DC9CDF1D7E9EC900C7DF6C /* JSCallOCViewController2.m in Sources */,
+				4D1EFDD61B4BC6930008D3EA /* JSONUtil.m in Sources */,
+				4DBA6FA01B4B8DC4004F0ADB /* NSData+SABase64.m in Sources */,
+				4D14F1741B4A5469006AD786 /* SAGzipUtility.m in Sources */,
+				4D14F16E1B47D5E2006AD786 /* SensorsAnalyticsSDK.m in Sources */,
+				4D0EB7C91B47A88C0019FD21 /* ViewController.m in Sources */,
+				4D0EB7C61B47A88C0019FD21 /* AppDelegate.m in Sources */,
+				4D0EB7C31B47A88C0019FD21 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D5CA7731B43E92D00D7ACB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F29CA71FD1507200DE203E /* UIWindow+SASnapshotImage.m in Sources */,
+				005EB7E71F9723F700C14AF1 /* AutoTrackUtils.m in Sources */,
+				A3E388A21D509BA100F6B9FC /* SAReachability.m in Sources */,
+				A3F32BD11C57302700C3B98D /* NSData+SABase64.m in Sources */,
+				4DBA6FA41B4B9B9C004F0ADB /* MessageQueueBySqlite.m in Sources */,
+				A3997A2A1C3AC342005A9374 /* SASwizzler.m in Sources */,
+				00EA97C21EEF7418005E524F /* UITableView+AutoTrack.m in Sources */,
+				00EA990E1EEF9D1A005E524F /* UICollectionView+AutoTrack.m in Sources */,
+				A3746EB11C318B65008A50A3 /* SAObjectSerializerContext.m in Sources */,
+				A3746EA91C318B54008A50A3 /* SAObjectSerializer.m in Sources */,
+				A3F32BD01C57296700C3B98D /* SAValueTransformers.m in Sources */,
+				A3333BD51C5A0EE80013353F /* SADesignerDisconnectMessage.m in Sources */,
+				A3746E9D1C313E15008A50A3 /* SAApplicationStateSerializer.m in Sources */,
+				A3746EBF1C3190E7008A50A3 /* SAEnumDescription.m in Sources */,
+				002BF6721F0A875100824F76 /* UIImage+AutoTrack.m in Sources */,
+				A3997A361C3AC3B8005A9374 /* SAUITableViewBinding.m in Sources */,
+				002DB94E1EB1647F00A9632C /* SASwizzle.m in Sources */,
+				A3746E7F1C3115EB008A50A3 /* SAAbstractDesignerMessage.m in Sources */,
+				A3997A321C3AC3B8005A9374 /* SAEventBinding.m in Sources */,
+				A3746EC11C3190E7008A50A3 /* SAPropertyDescription.m in Sources */,
+				A3A85C171C3BB1B800DCA1A4 /* NSInvocation+SAHelpers.m in Sources */,
+				008D82AF1F0E22ED00052CFF /* NSString+HashCode.m in Sources */,
+				0009198C1F974CE100E5D3C5 /* UIViewController+AutoTrack.m in Sources */,
+				4D2AF15D1B4BAE77007716F8 /* JSONUtil.m in Sources */,
+				A3746EBD1C3190E7008A50A3 /* SAClassDescription.m in Sources */,
+				A3746E881C31196C008A50A3 /* SADesignerDeviceInfoMessage.m in Sources */,
+				A3746EC91C32D789008A50A3 /* SADesignerConnection.m in Sources */,
+				A3746EC51C3190E7008A50A3 /* UIView+SAHelpers.m in Sources */,
+				0038C5D81FCFA2F300C1BBC1 /* SensorsAnalyticsExceptionHandler.m in Sources */,
+				00EA99F31EEFB7DB005E524F /* UIActionSheet+AutoTrack.m in Sources */,
+				A3746EAF1C318B65008A50A3 /* SAObjectSerializerConfig.m in Sources */,
+				00EA99ED1EEFAEC6005E524F /* UIAlertView+AutoTrack.m in Sources */,
+				A3746EC31C3190E7008A50A3 /* SATypeDescription.m in Sources */,
+				00D3B57D1EFB382A0086F1F8 /* UITabBar+AutoTrack.m in Sources */,
+				A3746E991C313C86008A50A3 /* SAObjectIdentityProvider.m in Sources */,
+				4D14F1721B4A51B7006AD786 /* SAGzipUtility.m in Sources */,

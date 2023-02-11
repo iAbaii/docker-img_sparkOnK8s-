@@ -944,3 +944,18 @@
 				4D5CA78A1B43E92D00D7ACB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D5CA78B1B43E92D00D7ACB7 /* Build configuration list for PBXNativeTarget "SensorsAnalyticsSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D5CA78C1B43E92D00D7ACB7 /* Debug */,
+				4D5CA78D1B43E92D00D7ACB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D5CA76F1B43E92D00D7ACB7 /* Project object */;
+}

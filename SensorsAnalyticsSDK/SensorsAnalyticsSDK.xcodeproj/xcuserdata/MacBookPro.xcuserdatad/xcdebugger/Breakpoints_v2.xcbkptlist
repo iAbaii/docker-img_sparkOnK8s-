@@ -22,3 +22,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SensorsAnalyticsSDK/SensorsAnalyticsExceptionHandler.m"
+            timestampString = 
